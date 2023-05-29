@@ -13,55 +13,69 @@
     <img src="ECE_logo.png" alt="Logo du site">
   </header>
 
-  <nav>
-    <ul>
-      <li><a href="index.html">Accueil</a></li>
-      <li><a href="reseau.html">Mon réseau</a></li>
-      <li><a href="profil.html">Vous</a></li>
-      <li><a href="notification.html">Notifications</a></li>
-      <li><a href="messagerie">Messagerie</a></li>
-      <li><a href="emplois.html">Emplois</a></li>
-    </ul>
-  </nav>
+  
+    <nav>
+        <ul>
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="reseau.html">Mon réseau</a></li>
+            <li><a href="profil.html">Vous</a></li>
+            <li><a href="notification.html">Notifications</a></li>
+            <li><a href="messagerie">Messagerie</a></li>
+            <li><a href="emplois.html">Emplois</a></li>
+        </ul>
+    </nav>
+    
+    <div id="general">
 
-  <div id="emplois">
-    <h2>Emplois</h2>
-    <p>Découvrez les offres d'emplois disponibles :</p>
-  
-    <div class="offre-emploi">
-      <h3>Titre de l'emploi 1</h3>
-      <p>Description de l'emploi 1</p>
-      <p>Rémunération : XXXX</p>
-    </div>
-  
-    <div class="offre-emploi">
-      <h3>Titre de l'emploi 2</h3>
-      <p>Description de l'emploi 2</p>
-      <p>Rémunération : XXXX</p>
-    </div>
-  
-    <div class="offre-emploi">
-      <h3>Titre de l'emploi 3</h3>
-      <p>Description de l'emploi 3</p>
-      <p>Rémunération : XXXX</p>
-    </div>
-  
+        <div id="emplois">
+            <h2>Emplois</h2>
+            <p>Découvrez les offres d'emplois disponibles :</p>
+        
+            <div class="offre-emploi">
+            <h3>Titre de l'emploi 1</h3>
+            <p>Description de l'emploi 1</p>
+            <p>Rémunération : XXXX</p>
+            </div>
+        
+            <div class="offre-emploi">
+            <h3>Titre de l'emploi 2</h3>
+            <p>Description de l'emploi 2</p>
+            <p>Rémunération : XXXX</p>
+            </div>
+        
+            <div class="offre-emploi">
+            <h3>Titre de l'emploi 3</h3>
+            <p>Description de l'emploi 3</p>
+            <p>Rémunération : XXXX</p>
+            </div>
+        
+        </div>
+        
+
+            <section>
+            <h3>Contact</h3>
+            <p>Coordonnées pour contacter l'administrateur de l'ECE In :</p>
+            <ul>
+                <li>Email: admin@ecein.com</li>
+                <li>Téléphone: +XX XXX XXXX</li>
+                <li>Adresse: Adresse physique de l'ECE In</li>
+            </ul>
+            <!-- Carte Google Maps ou autre pour afficher la localisation -->
+            </section>
   </div>
-  
 
-    <section>
-      <h3>Contact</h3>
-      <p>Coordonnées pour contacter l'administrateur de l'ECE In :</p>
-      <ul>
-        <li>Email: admin@ecein.com</li>
-        <li>Téléphone: +XX XXX XXXX</li>
-        <li>Adresse: Adresse physique de l'ECE In</li>
-      </ul>
-      <!-- Carte Google Maps ou autre pour afficher la localisation -->
-    </section>
-
-  <footer>
-    <!-- Contenu du pied de page -->
-  </footer>
-</body>
+    <div id="loginDiv" class="loginForm">
+        <h3>Connectez-vous pour accéder à votre profil</h3>
+        <form id="loginForm" method="POST">
+          <input type="text" id="email_login" placeholder="Mail d'utilisateur" required><br>
+          <input type="password" id="password_login" placeholder="Mot de passe" required><br>
+          <button type="submit" id="submitButton">connexion</button>
+        </form>
+      </div>
+    
+      <footer>
+        <!-- Contenu du pied de page -->
+      </footer>
+    </body>
+    <script src="login.js"></script>
 </html>
