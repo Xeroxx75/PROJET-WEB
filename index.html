@@ -3,6 +3,7 @@
 <head>
   <title>Votre site</title>
   <link rel="stylesheet" type="text/css" href="index.css">
+  <meta charset="utf-8">
 </head>
 <body>
   <header>
@@ -15,11 +16,11 @@
   <nav>
     <ul>
       <li><a href="index.html">Accueil</a></li>
-      <li><a href="#">Mon réseau</a></li>
+      <li><a href="reseau.html">Mon réseau</a></li>
       <li><a href="profil.html">Vous</a></li>
-      <li><a href="#">Notifications</a></li>
-      <li><a href="#">Messagerie</a></li>
-      <li><a href="#">Emplois</a></li>
+      <li><a href="notification.html">Notifications</a></li>
+      <li><a href="messagerie">Messagerie</a></li>
+      <li><a href="emplois.html">Emplois</a></li>
     </ul>
   </nav>
 
@@ -55,8 +56,18 @@
     </section>
   </div>
 
+  <div id="loginDiv" class="loginForm">
+    <h3>Connectez-vous pour accéder à votre profil</h3>
+    <form id="loginForm" method="POST">
+      <input type="text" id="email_login" placeholder="Mail d'utilisateur" required><br>
+      <input type="password" id="password_login" placeholder="Mot de passe" required><br>
+      <button type="submit" id="submitButton">connexion</button>
+    </form>
+</div>
+
   <footer>
     <!-- Contenu du pied de page -->
   </footer>
 </body>
+<script src="login.js"></script>
 </html>
