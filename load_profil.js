@@ -6,7 +6,7 @@ function chargement_profil() {
         if (xhr.readyState === 4 && xhr.status === 200) {
             // Réponse du serveur
             var response = JSON.parse(xhr.responseText);
-            
+            console.log(response['abonnements']);
   
   
         }
@@ -18,3 +18,7 @@ function chargement_profil() {
 if (document.getElementById("general").style.display === "none") {
     chargement_profil();
 }
+
+document.getElementById('loginForm').addEventListener('submit', chargement_profil());
+
+
