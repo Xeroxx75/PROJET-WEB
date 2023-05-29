@@ -1,12 +1,82 @@
+/*Wrapper*/
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    /* Permet d'avoir la même police d'ecriture sur toute la page */
+    font-family: 'Roboto', sans-serif;
+}
+
+/* Body */
+
 body {
     height: 98.3vh;
-    background: linear-gradient(#306E78, white); 
+    background: #daeaec; 
     background-repeat: no-repeat;
     margin: 0;
 }
-  
-header {
+
+/* Contenu du général */
+
+#general {
+    margin-bottom: 1em;
+}
+
+#general .wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 100%;
+}
+
+#general h2 {
+    margin: 0;
+    color: #306E78;
+    font-size: 1.5em;
     text-align: center;
+    padding: 0;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    max-width: 100%;
+    width: auto;
+}
+
+#general h3{
+    margin: 0;
+    color: #306E78;
+    font-size: 1em;
+    text-align: center;
+    padding: 0;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    max-width: 100%;
+    width: auto;
+}
+
+#general p {
+    margin: 0;
+    padding: 0;
+    max-width: 100%;
+    width: auto;
+    text-align: center;
+}
+
+#general section {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 100%;
+}
+
+  
+/*Header*/
+
+header {
+    display: flex;
+    text-align: center;
+    align-items: center;
     width: 100%;
     background-color: white;
     display: grid;
@@ -21,25 +91,101 @@ header span {
 
 header h1 {
     margin: 0;
+    color: #306E78;
+    font-size: 2.5em;
+    text-align: center;
+    padding: 0;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    max-width: 100%;
+    width: auto;
 }
 
 header img {
-    max-width: 100%; 
-}
-
-nav{
-    margin: 0;
-    background-color: red;
     width: 100%;
-    height: 2vh;
 }
 
-nav ul{
+@media screen and (max-width: 768px) {
+    header h1 {
+      font-size: 2em;
+    }
+  }
+
+/*Barre de nav du header*/
+
+.navHeader{
+    background-color: #306E78;
+    margin: 0;
+    width: 100%;
+    height: 2.5em;
+}
+
+.navHeader.sticky {
+    position: fixed;
+    top: 0;
+
+}
+
+.navHeader ul{
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
     flex-wrap: wrap;
     list-style-type: none;
     overflow-x: auto;
+    margin: 0;
+
+    /*sert à centrer les éléments de la nav (de haut en bas)*/
+    align-items: center;
+    height: 100%; 
 }
 
+.navHeader ul li a {
+    color: white;
+    text-decoration: none;
+}
 
+.navHeader ul li a:hover {
+    text-decoration: underline;
+}
+
+/*Footer*/
+
+footer {
+    background-color: #306E78;
+    color: white;
+    width: 100%;
+    padding: 20px 0;
+}
+  
+footer .wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+footer p {
+    margin: 0;
+}
+
+footer .navFooter ul {
+    display: flex;
+    justify-content: space-evenly;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+footer .navFooter ul li {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+footer .navFooter ul li a {
+    color: white;
+    text-decoration: none;
+}
+
+footer .navFooter ul li a:hover {
+    text-decoration: underline;
+}
