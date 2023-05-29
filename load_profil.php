@@ -20,9 +20,13 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     // Récupérer les données du formulaire de connexion
     $email = $_SESSION['email'];
 
+
     // Requête pour vérifier les informations d'identification de l'utilisateur
     $sql = "SELECT * FROM profil WHERE mail = '$email'";
     $result = $conn->query($sql);
+    if ($result->fetch_assoc()['est_administrateur'] == 1){
+        $_SESSION['est_admin'] = 1;
+    }
 
     echo json_encode($result->fetch_assoc());
 }

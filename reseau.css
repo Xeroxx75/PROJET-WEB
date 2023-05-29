@@ -41,3 +41,7 @@ nav ul{
     list-style-type: none;
     overflow-x: auto;
 }
+
+#loginDiv.loginForm {
+    display: none;
+}

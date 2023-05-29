@@ -42,6 +42,11 @@ nav ul{
     overflow-x: auto;
 }
 
+#loginDiv.loginForm {
+    display: none;
+}
+
+
 /* Specifique a la page profil */
 
 button {
