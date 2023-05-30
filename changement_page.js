@@ -12,7 +12,6 @@ $('.navHeader ul li a').on('click', function(e) {
   // Récupérez l'attribut href du lien cliqué
   var targetHref = $(this).attr('href');
   $('#general').load(targetHref + '.html');
-  console.log(targetHref + '.html')
 
   // Chargez le contenu de la page cible via une requête AJAX
 });

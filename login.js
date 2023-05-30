@@ -46,6 +46,7 @@ function login() {
       xhr.onreadystatechange = function() {
           if (xhr.readyState === 4 && xhr.status === 200) {
               // Réponse du serveur
+              console.log(xhr.responseText);
               if (xhr.responseText === 'false') {
                 
               }
@@ -62,6 +63,7 @@ function login() {
               document.getElementById('password_login').value = '';
 
           }
+          
       };
       xhr.send('email=' + encodeURIComponent(username) + '&password=' + encodeURIComponent(password));
   });

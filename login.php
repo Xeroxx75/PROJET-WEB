@@ -24,15 +24,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Requête pour vérifier les informations d'identification de l'utilisateur
     $sql = "SELECT * FROM profil WHERE mail = '$email' AND password = '$password'";
     $result = $conn->query($sql);
-    if ($result->fetch_assoc()['est_administrateur'] == 1) {
-        $_SESSION['email'] = $email;
-        $_SESSION['est_admin'] = 1;
-        echo "admin";
-    }
-    else if ($result->num_rows == 1) {
+    if ($result->num_rows == 1) {
         // Authentification réussie, définir la variable de session et rediriger vers la page de profil
         $_SESSION['email'] = $email;
-        echo "true";
+        if ($result->fetch_assoc()['est_administrateur'] == 1) {
+            $_SESSION['est_admin'] = 1;
+            echo "admin";
+        }
+        
     } else {
         echo "false";
     }

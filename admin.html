@@ -2,7 +2,7 @@
 <html>
 <head>
   <title>Votre site</title>
-  <link rel="stylesheet" type="text/css" href="index.css">
+  <link rel="stylesheet" type="text/css" href="admin.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
   <meta charset="utf-8">
@@ -15,16 +15,18 @@
     <img src="ECE_logo.png" alt="Logo du site">
   </header>
 
-  <nav>
+
+  <nav class="navHeader">
     <ul>
-      <li><a href="#">#</a></li>
-      <li><a href="#">#</a></li>
-      <li><a href="#">#</a></li>
-      <li><a href="#">#</a></li>
-      <li><a href="#">#</a></li>
-      <li><a href="#">#</a></li>
+      <li class="active"><a href="#">1</a></li>
+      <li><a href="#">2</a></li>
+      <li><a href="#">3</a></li>
+      <li><a href="#">4</a></li>
+      <li><a href="#">5</a></li>
+      <li><a href="#">6</a></li>
     </ul>
   </nav>
+
 
   <div id="general">
 
@@ -32,6 +34,19 @@
 
   <footer>
     <!-- Contenu du pied de page -->
+    <div class="wrapper">
+      <p>Ceci est le contenu du pied de page.</p>
+      <p>© ECE In 2023</p>
+      <p>Site réalisé par les étudiants de l'ECE Paris.</p>
+
+      <nav class="navFooter">
+        <ul>
+          <li><a href="#">Accueil</a></li>
+          <li><a href="#">À propos</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
   </footer>
 </body>
 </html>
