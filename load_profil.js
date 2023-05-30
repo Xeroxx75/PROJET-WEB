@@ -5,8 +5,8 @@ function chargement_profil() {
     xhr.onreadystatechange = function() {
         if (xhr.readyState === 4 && xhr.status === 200) {
             // Réponse du serveur
-            var response = xhr.responseText;
-            console.log(response);
+            var response = JSON.parse(xhr.responseText);
+            console.log(response['nom']);
         }
     };
     xhr.send();

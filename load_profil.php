@@ -24,13 +24,11 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     // Requête pour vérifier les informations d'identification de l'utilisateur
     $sql = "SELECT * FROM profil WHERE mail = '$email'";
     $result = $conn->query($sql);
-    if ($result->fetch_assoc()['est_administrateur'] == 1){
-        $_SESSION['est_admin'] = 1;
-    }
-
-    echo json_encode($result->fetch_assoc());
+    echo json_encode($result->fetch_assoc()) ;
 
 }
+
+
 
 $conn->close();
 ?>
