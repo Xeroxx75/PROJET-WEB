@@ -1,0 +1,98 @@
+-- Table profil
+CREATE TABLE profil (
+  mail VARCHAR(100) PRIMARY KEY,
+  formations TEXT,
+  projets TEXT,
+  chemin_xml VARCHAR(255),
+  photo_profil VARCHAR(255),
+  image_fond VARCHAR(255),
+  nom VARCHAR(255),
+  prenom VARCHAR(255),
+  abonnes TEXT,
+  abonnements TEXT,
+  description TEXT,
+  lieu_travail VARCHAR(255),
+  parcours_scolaire TEXT,
+  est_administrateur BOOLEAN,
+  est_auteur BOOLEAN,
+  password VARCHAR(30)
+);
+
+-- Table evenement
+CREATE TABLE evenement (
+  id_evenement INT PRIMARY KEY,
+  nom_evenement VARCHAR(255),
+  date_evenement DATE,
+  description TEXT,
+  image VARCHAR(255),
+  auteur_mail VARCHAR(100),
+  FOREIGN KEY (auteur_mail) REFERENCES profil(mail)
+);
+
+-- Table messagerie
+CREATE TABLE messagerie (
+  id_messagerie INT PRIMARY KEY,
+  participant1_mail VARCHAR(100),
+  participant2_mail VARCHAR(100),
+  participant3_mail VARCHAR(100),
+  participant4_mail VARCHAR(100),
+  FOREIGN KEY (participant1_mail) REFERENCES profil(mail),
+  FOREIGN KEY (participant2_mail) REFERENCES profil(mail),
+  FOREIGN KEY (participant3_mail) REFERENCES profil(mail),
+  FOREIGN KEY (participant4_mail) REFERENCES profil(mail)
+);
+
+-- Table message
+CREATE TABLE message (
+  id_message INT PRIMARY KEY,
+  envoyeur_mail VARCHAR(100),
+  FOREIGN KEY (envoyeur_mail) REFERENCES profil(mail),
+  texte TEXT,
+  image VARCHAR(255),
+  id_messagerie INT,
+  FOREIGN KEY (id_messagerie) REFERENCES messagerie(id_messagerie)
+);
+
+-- Table emplois
+CREATE TABLE emplois (
+  id_emplois INT PRIMARY KEY,
+  titre VARCHAR(255),
+  date_publication DATE,
+  date_embauche DATE,
+  duree VARCHAR(255),
+  contrat VARCHAR(255), 
+  description TEXT,
+  remuneration DECIMAL(10, 2),
+  auteur_offre_mail VARCHAR(100),
+  FOREIGN KEY (auteur_offre_mail) REFERENCES profil(mail),
+  lieu VARCHAR(255)
+);
+
+-- Table post
+CREATE TABLE post (
+  id_post INT PRIMARY KEY,
+  auteur_mail VARCHAR(100),
+  FOREIGN KEY (auteur_mail) REFERENCES profil(mail),
+  texte TEXT,
+  photos_videos TEXT,
+  est_public BOOLEAN
+);
+
+-- Table commentaire
+CREATE TABLE commentaire (
+  auteur_mail VARCHAR(100),
+  FOREIGN KEY (auteur_mail) REFERENCES profil(mail),
+  texte TEXT,
+  id_post INT,
+  PRIMARY KEY (id_post, auteur_mail),
+  FOREIGN KEY (id_post) REFERENCES post(id_post)
+);
+
+-- Table aimer
+CREATE TABLE aimer (
+  auteur_mail VARCHAR(100),
+  FOREIGN KEY (auteur_mail) REFERENCES profil(mail),
+  id_post INT,
+  PRIMARY KEY (id_post, auteur_mail),
+  FOREIGN KEY (id_post) REFERENCES post(id_post)
+);
