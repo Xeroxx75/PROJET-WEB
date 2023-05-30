@@ -2,72 +2,140 @@
 <html>
 <head>
   <title>Votre site</title>
-  <link rel="stylesheet" type="text/css" href="index.css">
   <meta charset="utf-8">
+  <link rel="stylesheet" type="text/css" href="index.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!-- Sert à ce que la barre de nav nous suivent durant la visite du site -->
+  <script>
+    window.addEventListener('scroll', function() {
+      var nav = document.querySelector('.navHeader');
+      var header = document.querySelector('header');
+      var headerHeight = header.offsetHeight;
+      var scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+  
+      if (scrollPosition > headerHeight) {
+        nav.classList.add('sticky');
+        header.style.marginBottom = nav.offsetHeight + 'px'; // Ajoute une marge basse pour éviter que le contenu du header soit caché par la barre de navigation fixe
+      } else {
+        nav.classList.remove('sticky');
+        header.style.marginBottom = '0'; // Réinitialise la marge basse du header lorsque la barre de navigation n'est pas fixe
+      }
+    });
+  </script>
+
 </head>
 <body>
-  <header>
-    <span></span>
-    <h1>Titre du site</h1>
-    <span></span>
-    <img src="ECE_logo.png" alt="Logo du site">
-  </header>
+  <div class="wrapper">
+    <header>
+      <span></span>
+      <h1>ECEIn</h1>
+      <span></span>
+      <img src="ECE_logo.png" alt="Logo du site">
+    </header>
 
-  <nav>
-    <ul>
-      <li><a href="index.html">Accueil</a></li>
-      <li><a href="reseau.html">Mon réseau</a></li>
-      <li><a href="profil.html">Vous</a></li>
-      <li><a href="notification.html">Notifications</a></li>
-      <li><a href="messagerie">Messagerie</a></li>
-      <li><a href="emplois.html">Emplois</a></li>
-    </ul>
-  </nav>
+    <nav class="navHeader">
+      <ul>
+        <li class="active"><a href="acceuil">Accueil</a></li>
+        <li><a href="reseau">Mon réseau</a></li>
+        <li><a href="profil">Vous</a></li>
+        <li><a href="notification">Notifications</a></li>
+        <li><a href="messagerie">Messagerie</a></li>
+        <li><a href="emplois">Emplois</a></li>
+      </ul>
+    </nav>
 
-  <div id="general">
-    <h2>ECE In</h2>
-    <p>Introduction à ECE In.</p>
-
-    <div id="carousel_evenement">
-        <!-- Contenu du carrousel d'images -->
-    </div>
-
-    <div id="evenement_reseau">
-        <!-- Evenement du reseau -->
-    </div>
-
-    <div id="partage">
-        <!-- Evenement du reseau -->
-    </div>
-
-    <div id="cv_emploie">
-        <!-- Evenement du reseau -->
-    </div>
-
-    <section>
+    <div id="general">
+      <h2>ECE In</h2>
+      <p>Introduction à ECE In.</p>
+  
+      <div id="carousel_evenement">
+          <!-- Contenu du carrousel d'images -->
+      </div>
+  
+      <div id="evenement_reseau">
+          <!-- Evenement du reseau -->
+      </div>
+  
+      <div id="partage">
+          <!-- Evenement du reseau -->
+      </div>
+  
+      <div id="cv_emploie">
+          <!-- Evenement du reseau -->
+      </div>
+  
+      <section>
       <h3>Contact</h3>
       <p>Coordonnées pour contacter l'administrateur de l'ECE In :</p>
       <ul>
-        <li>Email: admin@ecein.com</li>
-        <li>Téléphone: +XX XXX XXXX</li>
-        <li>Adresse: Adresse physique de l'ECE In</li>
+          <li>Email: admin@ecein.com</li>
+          <li>Téléphone: +XX XXX XXXX</li>
+          <li>Adresse: Adresse physique de l'ECE In</li>
       </ul>
       <!-- Carte Google Maps ou autre pour afficher la localisation -->
-    </section>
-  </div>
+      </section>
+  
+  
+      <section>
+      <!-- Pour tester le deroulement de la page -->
+      <h2>Titre de la section</h2>
+      <p>Contenu de la section.</p>
+      <h3>Titre de la sous-section</h3>
+      <p>lorem ipsum</p>
+      <p>lorem ipsum</p>
+      <p>lorem ipsum</p>
+      <p>lorem ipsum</p>
+      <p>lorem ipsum</p>
+      <p>lorem ipsum</p>
+      <p>lorem ipsum</p>
+      <p>lorem ipsum</p>
+      <p>lorem ipsum</p>
+      <p>lorem ipsum</p>
+      <p>lorem ipsum</p>
+      <p>lorem ipsum</p>
+      <p>lorem ipsum</p>
+      <p>lorem ipsum</p>
+      <p>lorem ipsum</p>
+      <p>lorem ipsum</p>
+      <p>lorem ipsum</p>
+      <p>lorem ipsum</p>
+      <p>lorem ipsum</p>
+      <p>lorem ipsum</p>
+      <p>lorem ipsum</p>
+      <p>lorem ipsum</p>
+      <p>lorem ipsum</p>
+      <p>lorem ipsum</p>
+  
+      </section>
+    </div>
 
-  <div id="loginDiv" class="loginForm">
-    <h3>Connectez-vous pour accéder à votre profil</h3>
-    <form id="loginForm" method="POST">
-      <input type="text" id="email_login" placeholder="Mail d'utilisateur" required><br>
-      <input type="password" id="password_login" placeholder="Mot de passe" required><br>
-      <button type="submit" id="submitButton">connexion</button>
-    </form>
-  </div>
+    <div id="loginDiv" class="loginForm">
+      <h3>Connectez-vous pour accéder à votre profil</h3>
+      <form id="loginForm" method="POST">
+        <input type="text" id="email_login" placeholder="Mail d'utilisateur" required><br>
+        <input type="password" id="password_login" placeholder="Mot de passe" required><br>
+        <button type="submit" id="submitButton">connexion</button>
+      </form>
+    </div>
+    
+    <footer>
+      <!-- Contenu du pied de page -->
+      <div class="wrapper">
+        <p>Ceci est le contenu du pied de page.</p>
+        <p>© ECE In 2023</p>
+        <p>Site réalisé par les étudiants de l'ECE Paris.</p>
 
-  <footer>
-    <!-- Contenu du pied de page -->
-  </footer>
+        <nav class="navFooter">
+          <ul>
+            <li><a href="#">Accueil</a></li>
+            <li><a href="#">À propos</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </nav>
+      </div>
+    </footer>
+  </div>
 </body>
 <script src="login.js"></script>
+<script src="changement_page.js"></script>
 </html>

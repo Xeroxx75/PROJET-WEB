@@ -15,6 +15,7 @@ xhr.onreadystatechange = function() {
           window.location.replace("admin.html");
         }
         else {
+          console.log("ok");
           document.getElementById("general").style.display = "block";
           document.getElementById("loginDiv").style.display = "none";
         }
