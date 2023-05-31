@@ -5,6 +5,17 @@
   <meta charset="utf-8">
   <link rel="stylesheet" type="text/css" href="index.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  
+  <script>
+  $(document).ready(function() {
+    // Définir la page "Accueil" comme active par défaut
+    $('.navHeader ul li:first-child').addClass('active');
+  
+    // Charger le contenu de la page "Accueil"
+    $('#general').load('accueil.html');
+  });
+  </script>
+
   <!-- Sert à ce que la barre de nav nous suivent durant la visite du site -->
   <script>
     window.addEventListener('scroll', function() {
@@ -22,32 +33,21 @@
       }
     });
   </script>
-  <script>
-    $(document).ready(function() {
-      // Définir la page "Accueil" comme active par défaut
-      $('.navHeader ul li:first-child').addClass('active');
 
-      // Charger le contenu de la page "Accueil"
-      $('#general').load('acceuil.html');
-    });
-  </script>
+
 </head>
 <body>
   <div class="wrapper">
     <header>
-      <div id="logoutDiv" class="logoutDiv">
-        <button id="logoutButton">Déconnexion</button>
-      </div>
       <span></span>
-      <h1 data-value="ECEIn">ECEIn</h1>
+      <h1>ECEIn</h1>
       <span></span>
       <img src="ECE_logo.png" alt="Logo du site">
     </header>
-    
 
     <nav class="navHeader">
       <ul>
-        <li><a href="acceuil">Accueil</a></li>
+        <li><a href="accueil">Accueil</a></li>
         <li><a href="reseau">Mon réseau</a></li>
         <li><a href="profil">Vous</a></li>
         <li><a href="notification">Notifications</a></li>
@@ -57,18 +57,19 @@
     </nav>
 
     <div id="general">
-    </div>
 
-    <div id="loginDiv" class="loginForm">
-      <h3>Connectez-vous pour accéder à votre profil</h3>
-      <form id="loginForm" method="POST">
-        <input type="text" id="email_login" placeholder="Mail d'utilisateur" required><br>
-        <input type="password" id="password_login" placeholder="Mot de passe" required><br>
-        <button type="submit" id="submitButton">connexion</button>
-      </form>
+
+
+      <div id="loginDiv" class="loginForm">
+        <h3>Connectez-vous pour accéder à votre profil</h3>
+        <form id="loginForm" method="POST">
+          <input type="text" id="email_login" placeholder="Mail d'utilisateur" required><br>
+          <input type="password" id="password_login" placeholder="Mot de passe" required><br>
+          <button type="submit" id="submitButton">connexion</button>
+        </form>
+      </div>
     </div>
-    
-    <footer>
+    <footer id="footer">
       <!-- Contenu du pied de page -->
       <div class="wrapper">
         <p>Ceci est le contenu du pied de page.</p>
@@ -84,9 +85,7 @@
         </nav>
       </div>
     </footer>
-  </div>
 </body>
 <script src="login.js"></script>
 <script src="changement_page.js"></script>
-<script src="animation_titre.js"></script>
 </html>
