@@ -6,11 +6,13 @@ function chargement_profil() {
         if (xhr.readyState === 4 && xhr.status === 200) {
             // Réponse du serveur
             var response = JSON.parse(xhr.responseText);
-            //console.log(response['formations']);
+            var global = response[0]; // Contient toutes les informations du profil sauf nb abonnes et nb abonnements
+            var nb_abonnenement = response[1]['nombre_abonnements'];
+            var nb_abonne = response[2]['nombre_abonnes'];
 
             // Sélectionner la div par son ID
             // Lien des images
-            var imageLinks = [response['image_fond'], response['photo_profil']];
+            var imageLinks = ['image_fond/'+global['image_fond'], 'photo_profil/'+global['photo_profil']];
             var id = ["fond", "pp"];
 
             // Sélectionner le conteneur parent
@@ -32,18 +34,25 @@ function chargement_profil() {
             //paragraphe biographie
             var parentElement = document.getElementById("info_profil");
             var newparaph = document.createElement("p");
-            newparaph.textContent = response['prenom'] +" " + response['nom'] +"  "+ " Abonnes : " +response['abonnes'] +" "+"Abonnements : " +response['abonnements'] +" "+response['description']+" "+ response['lieu_travail'];
+            for (var key in global) {
+                if (global[key] === '/') {
+                    global[key] = 'non renseigné';
+                }
+              }
+              
+
+
+            newparaph.textContent = global['prenom'] +" " + global['nom'] +"  "+ " Abonnes : " + nb_abonne +" "+"Abonnements : " + nb_abonnenement + " " +global['description']+" "+ global['lieu_travail'];
             newparaph.setAttribute("id", "bio");
             parentElement.appendChild(newparaph);
 
-
             //var formation = response['formations'] ? response['formations'].match(/\b\w+\b/g) : null;
-            var formation = response['formations'].split("|").map(function(item){
+            var formation = global['formations'].split("|").map(function(item){
                 return item.trim();
             })
-            console.log(formation);
             const tableau_formation = [];
-            if (formation === null) {
+            if ((formation === null) || (formation === "Pas renseigné")){
+                console.log("formation null");
                 formation = [];
                 document.getElementById("formations").style.border="none";
             }
@@ -66,7 +75,6 @@ function chargement_profil() {
 
                 var container = document.getElementById("lien_img"); // Conteneur pour les images
                 container.innerHTML = ""; // Réinitialiser le contenu
-                console.log(tableau_formation);
                 for (var i = 0; i < tableau_formation.length; i++) {
                     var lien = tableau_formation[i][0];
                     var imgElement = document.createElement("img"); // Créer une nouvelle balise <img>
@@ -79,7 +87,7 @@ function chargement_profil() {
                     container.innerHTML += "<br>"; // Ajouter une balise <br> pour un saut de ligne
                 }
             }
-            var projet = response['projets'] ? response['projets'].match(/\b\w+\b/g) : null;
+            var projet = global['projets'] ? global['projets'].match(/\b\w+\b/g) : null;
             const tableau_projet = [];
             if (projet === null) {
                 projet = [];
