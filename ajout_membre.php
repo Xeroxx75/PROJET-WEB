@@ -41,9 +41,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     if (($photo_de_profil['error'] === UPLOAD_ERR_OK) || ($image_fond['error'] === UPLOAD_ERR_OK)) {
+        // Définir les dimensions maximales souhaitées
+        $maxWidth = 400;
+        $maxHeight = 400;
         $tempFilePath = $photo_de_profil['tmp_name'];
         $fileName_photo_profil = $mail . '_photo_profil' . '.png';
         $uploadDir = 'photo_profil/';
+
     
         if (move_uploaded_file($tempFilePath, $uploadDir . $fileName_photo_profil)) {
             echo 'La photo de profil a été sauvegardée avec succès.';

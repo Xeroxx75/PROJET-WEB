@@ -1,14 +1,21 @@
-.membres{
+
+.titre {
+    text-align: center;
+    background-color: green;
+}
+
+.membres {
     background-color: red;
     display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-}
-
-.membre{
+    flex-wrap: wrap;
+  }
+  
+  .membre {
     background-color: blue;
-}
-
+    width: calc(33.33% - 10px); /* Réglez la largeur en fonction du nombre de div que vous voulez afficher par ligne */
+    margin: 5px;
+  }
+  
 .photo_profil {
     max-width: 10%;
 }
