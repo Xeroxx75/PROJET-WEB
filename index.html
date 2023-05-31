@@ -22,7 +22,15 @@
       }
     });
   </script>
+  <script>
+    $(document).ready(function() {
+      // Définir la page "Accueil" comme active par défaut
+      $('.navHeader ul li:first-child').addClass('active');
 
+      // Charger le contenu de la page "Accueil"
+      $('#general').load('acceuil.html');
+    });
+  </script>
 </head>
 <body>
   <div class="wrapper">
