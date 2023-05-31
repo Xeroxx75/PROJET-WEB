@@ -24,7 +24,23 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     // Requête pour vérifier les informations d'identification de l'utilisateur
     $sql = "SELECT * FROM profil WHERE mail = '$email'";
     $result = $conn->query($sql);
-    echo json_encode($result->fetch_assoc()) ;
+    $i = 0;
+    $row = $result->fetch_assoc();
+    $tab[$i] = $row;
+    $sql = "SELECT COUNT(*) AS nombre_abonnements FROM amis WHERE abonne = '$email';";
+    $result = $conn->query($sql);
+    // Ajouter le résultat de la requête dans le tableau
+    $row = $result->fetch_assoc();
+    $i++;
+    $tab[$i]['nombre_abonnements'] = $row['nombre_abonnements'];
+    $sql = "SELECT COUNT(*) AS nombre_abonnes FROM amis WHERE abonnement = '$email';";
+    $result = $conn->query($sql);
+    $row = $result->fetch_assoc();
+    $i++;
+    $tab[$i]['nombre_abonnes'] = $row['nombre_abonnes'];
+    
+    
+    echo json_encode($tab);
 
 }
 
