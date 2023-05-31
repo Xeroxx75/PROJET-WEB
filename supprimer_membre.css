@@ -1,0 +1,14 @@
+.membres{
+    background-color: red;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.membre{
+    background-color: blue;
+}
+
+.photo_profil {
+    max-width: 10%;
+}

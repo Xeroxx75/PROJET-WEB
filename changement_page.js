@@ -15,3 +15,4 @@ $('.navHeader ul li a').on('click', function(e) {
 
   // Chargez le contenu de la page cible via une requête AJAX
 });
+
