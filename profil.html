@@ -1,21 +1,44 @@
 <!DOCTYPE html>
 <html>
   <link rel="stylesheet" type="text/css" href="profil.css">
-  <h2>Formations</h2>
-  <div id="formations">
-      <!-- Ajoutez ici vos formations -->
+  <div id="gen">
+    <div id="partie_gauche">
+      <ul>
+        <li><a href = "#titre_form" id="lien_form">Formation</a></li>
+        <li><a href="#titre_projets" id="lien_projets">Projets</a></li>
+        <li><a href="#titre_CV" id="lien_CV">CV</a></li>
+      </ul>
+    </div>
+
+    <div id="partie_centrale">
+      <div id="info_profil">
+      </div>
+
+      <div id="info_taff">
+        <h2 id="titre_form">Formations</h2>
+        <div id="formations">
+          <div id="lien_img"> </div>
+          <div id="info_form"> </div>
+            <!-- Ajoutez ici vos formations -->
+        </div>
+
+        <h2 id="titre_projets">Projets</h2>
+        <div id="projets">
+          <!-- Ajoutez ici vos projets -->
+        </div>
+
+        <h2 id="titre_CV">CV</h2>
+        <div id="cv">
+          <button onclick="genererCV()">Générer mon CV</button>
+        <!-- Ajoutez un bouton qui déclenchera la génération du CV -->
+
+        <!-- Insérez ici l'emplacement où le CV généré sera affiché -->
+        </div>
+      </div>
+    </div>
+
+    <div id="partie_droite">  
+    </div>
   </div>
-
-  <h2>Projets</h2>
-  <div id="projets">
-    <!-- Ajoutez ici vos projets -->
-  </div>
-
-  <h2>CV</h2>
-  <button onclick="genererCV()">Générer mon CV</button>
-  <!-- Ajoutez un bouton qui déclenchera la génération du CV -->
-
-  <!-- Insérez ici l'emplacement où le CV généré sera affiché -->
-  <div id="cv"></div>
   <script type="text/javascript" src="load_profil.js"></script>
 </html>
