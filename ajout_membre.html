@@ -1,34 +1,5 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Votre site</title>
-  <link rel="stylesheet" type="text/css" href="admin.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
-  <meta charset="utf-8">
-</head>
-<body>
-  <header>
-    <span></span>
-    <h1>Page Admin</h1>
-    <span></span>
-    <img src="ECE_logo.png" alt="Logo du site">
-  </header>
-
-
-  <nav class="navHeader">
-    <ul>
-      <li class="active"><a href="ajout_membre">Ajouter un membre</a></li>
-      <li><a href="supprimer_membre">Supprimer un membre</a></li>
-      <li><a href="#">3</a></li>
-      <li><a href="#">4</a></li>
-      <li><a href="#">5</a></li>
-      <li><a href="#">6</a></li>
-    </ul>
-  </nav>
-
-
-  <div id="general">
     <h1>Ajouter un membre</h1>
     <form id="ajout_membre" method="post" enctype="multipart/form-data">
       <input type="email" name="mail" id="mail" placeholder="Mail d'utilisateur" required><br>
@@ -50,24 +21,4 @@
     </form>
     <div id="resultat"></div>
     <script src="ajout_membre.js"></script>
-  </div>
-
-  <footer>
-    <!-- Contenu du pied de page -->
-    <div class="wrapper">
-      <p>Ceci est le contenu du pied de page.</p>
-      <p>© ECE In 2023</p>
-      <p>Site réalisé par les étudiants de l'ECE Paris.</p>
-
-      <nav class="navFooter">
-        <ul>
-          <li><a href="#">Accueil</a></li>
-          <li><a href="#">À propos</a></li>
-          <li><a href="#">Contact</a></li>
-        </ul>
-      </nav>
-    </div>
-  </footer>
-</body>
-<script src="changement_page.js"></script>
 </html>
