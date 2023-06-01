@@ -41,7 +41,6 @@ function chargement_profil() {
               }
               
 
-
             newparaph.textContent = global['prenom'] +" " + global['nom'] +"  "+ " Abonnes : " + nb_abonne +" "+"Abonnements : " + nb_abonnenement + " " +global['description']+" "+ global['lieu_travail'];
             newparaph.setAttribute("id", "bio");
             parentElement.appendChild(newparaph);
@@ -51,7 +50,7 @@ function chargement_profil() {
                 return item.trim();
             })
             const tableau_formation = [];
-            if ((formation === null) || (formation === "Pas renseigné")){
+            if (formation[0] === "non renseigné"){
                 console.log("formation null");
                 formation = [];
                 document.getElementById("formations").style.border="none";
@@ -87,9 +86,11 @@ function chargement_profil() {
                     container.innerHTML += "<br>"; // Ajouter une balise <br> pour un saut de ligne
                 }
             }
-            var projet = global['projets'] ? global['projets'].match(/\b\w+\b/g) : null;
+            var projet = global['projets'].split("|").map(function(item){
+                return item.trim();
+            })
             const tableau_projet = [];
-            if (projet === null) {
+            if (projet[0] === 'non renseigné') {
                 projet = [];
             }
             var texteElement_projet = document.getElementById('titre_projets');
