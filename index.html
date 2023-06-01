@@ -22,15 +22,7 @@
       }
     });
   </script>
-  <script>
-    $(document).ready(function() {
-      // Définir la page "Accueil" comme active par défaut
-      $('.navHeader ul li:first-child').addClass('active');
 
-      // Charger le contenu de la page "Accueil"
-      $('#general').load('accueil.html');
-    });
-  </script>
 </head>
 <body>
   <div class="wrapper">
@@ -53,6 +45,7 @@
         <li><a href="notification">Notifications</a></li>
         <li><a href="messagerie">Messagerie</a></li>
         <li><a href="emplois">Emplois</a></li>
+        <li><a href="membre" id="ghost">Accueil</a></li> <!-- Lien caché pour récupérer le nom de la page active -->
       </ul>
     </nav>
 
