@@ -1,7 +1,10 @@
 <?php
 // Récupérez les valeurs mises à jour depuis la requête POST ou GET
 
-if($_POST['supprimer']==false){
+
+
+
+if($_POST['supprimer']==0){
     $updatedId = $_POST['id'];
     $updatedTitre = $_POST['titre'];
     $updatedDatePublication = $_POST['date_publication'];
@@ -33,7 +36,8 @@ if ($conn->connect_error) {
 //Si $_POST n'est pas vide, on met à jour les données, sinon on supprime l'offre d'emploi
 //AFFICHER LA TAILLE DE $_POST
 
-if($_POST['supprimer']==false)
+if($_POST['supprimer']==0){
+    $updatedDescription = str_replace("'", "''", $updatedDescription);
     $sql = "UPDATE emplois SET 
                 titre = '$updatedTitre',
                 date_publication = '$updatedDatePublication',
@@ -44,6 +48,7 @@ if($_POST['supprimer']==false)
                 remuneration = $updatedRemuneration,
                 lieu = '$updatedLieu'
             WHERE id_emplois = $updatedId";
+}
 else{
     $sql = "DELETE FROM emplois WHERE id_emplois = $updatedId";
 }

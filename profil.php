@@ -21,8 +21,6 @@ $profils = array();
 if ($resultat->num_rows > 0) {
     while ($row = $resultat->fetch_assoc()) {
         $profils[] = $row;
-        
-        
     }
 }
 
@@ -35,6 +33,7 @@ $jsonProfils = json_encode($profils);
 
 // Envoi des données au fichier JavaScript
 echo $jsonProfils;
+
 
 
 
