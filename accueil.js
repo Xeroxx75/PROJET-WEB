@@ -63,23 +63,26 @@ function loadEvent() {
   }
   
   function showSlide(n) {
-      var slides = document.getElementsByClassName("slide");
-      if (n > slides.length) {
-        slideIndex = 1;
-      }
-      else if (n < 1) {
-        slideIndex = slides.length;
-      }
-      else {
-        slideIndex = n;
-      }
+    var slides = document.getElementsByClassName("slide");
+    if (slides.length === 0) {
+      return; // Aucune diapositive trouvée, arrêter l'exécution de la fonction
+    }
     
-      for (var i = 0; i < slides.length; i++) {
-        slides[i].style.display = "none";
-      }
-    
-      slides[slideIndex - 1].style.display = "block";
+    if (n > slides.length) {
+      slideIndex = 1;
+    } else if (n < 1) {
+      slideIndex = slides.length;
+    } else {
+      slideIndex = n;
+    }
+  
+    for (var i = 0; i < slides.length; i++) {
+      slides[i].style.display = "none";
+    }
+  
+    slides[slideIndex - 1].style.display = "block";
   }
+  
   
   // Chargement de la carte Google Maps
   function initMap() {
@@ -103,15 +106,4 @@ function loadEvent() {
     });
   }
   
-  // Chargement de l'API Google Maps JavaScript
-  function loadMapScript() {
-    var script = document.createElement('script');
-    script.src = 'https://maps.googleapis.com/maps/api/js?key=VOTRE_CLE_API&callback=initMap';
-    script.defer = true;
-    script.async = true;
-    document.body.appendChild(script);
-  }
-  
-  // Appel de la fonction pour charger l'API Google Maps
-  loadMapScript();
   
