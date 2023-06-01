@@ -3,7 +3,7 @@ $(document).ready(function() {
   $('.navHeader ul li:first-child').addClass('active');
 
   // Charger le contenu de la page "Accueil"
-  $('#general').load('acceuil.html');
+  $('#general').load('accueil.html');
 
   // ...
 
@@ -19,8 +19,6 @@ $(document).ready(function() {
     // Récupérez l'attribut href du lien cliqué
     var targetHref = $(this).attr('href');
     $('#general').load(targetHref + '.html');
-    console.log(targetHref + '.html')
-
     // Chargez le contenu de la page cible via une requête AJAX
   });
 });
