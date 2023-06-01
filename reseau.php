@@ -33,15 +33,22 @@ if (isset($_SESSION['email'])) {
     }
 
     // Récupérez les informations des abonnements depuis la table "profil"
-    $donneesAbonnements = array();
 
-    foreach ($abonnementsEmails as $abonnementEmail) {
-        $resultatAbonnement = $connexion->query("SELECT photo_profil, nom, prenom, description FROM profil WHERE mail = '$abonnementEmail'");
-        $rowAbonnement = $resultatAbonnement->fetch_assoc();
-        $donneesAbonnements[] = $rowAbonnement;
-    }
+$donneesAbonnements = array();
 
-    $response['abonnements'] = $donneesAbonnements;
+foreach ($abonnementsEmails as $abonnementEmail) {
+    $resultatAbonnement = $connexion->query("SELECT photo_profil, nom, prenom, description FROM profil WHERE mail = '$abonnementEmail'");
+    $rowAbonnement = $resultatAbonnement->fetch_assoc();
+    
+    // Ajouter l'e-mail de l'abonnement à l'array $rowAbonnement
+    $rowAbonnement['email'] = $abonnementEmail;
+
+    $donneesAbonnements[] = $rowAbonnement;
+}
+
+$response['abonnements'] = $donneesAbonnements;
+
+
 
     // Conversion des données en format JSON
     $donnees_json = json_encode($response);
