@@ -19,11 +19,11 @@ function chargerDonnees() {
 
                     // Parcourir les abonnements et générer le contenu HTML
                     for (var i = 0; i < abonnements.length; i++) {
-                        var abonnement = abonnements[i];
-                        var nom = abonnement.nom;
-                        var prenom = abonnement.prenom;
-                        var photoProfil = abonnement.photo_profil;
-                        var description = abonnement.description;
+                        (function(abonnement) {
+                            var nom = abonnement.nom;
+                            var prenom = abonnement.prenom;
+                            var photoProfil = abonnement.photo_profil;
+                            var description = abonnement.description;
 
                         // Créer les éléments HTML pour afficher l'abonnement
                         var profilDiv = document.createElement('div');
@@ -32,21 +32,31 @@ function chargerDonnees() {
                         var h3 = document.createElement('h3');
                         h3.textContent = prenom + ' ' + nom;
 
+                        var a = document.createElement('a');
+                        a.href = '#';
+                        a.addEventListener('click', function() {
+                          loadMembres(abonnement.email);
+                        });
+
                         var img = document.createElement('img');
-                        img.src = 'photo_profil/'+photoProfil;
+                        img.src = 'photo_profil/' + photoProfil;
 
                         var p = document.createElement('p');
                         p.textContent = description;
 
+                        // Ajouter l'image à l'élément <a>
+                        a.appendChild(img);
+
                         // Ajouter les éléments au conteneur
                         profilDiv.appendChild(h3);
-                        profilDiv.appendChild(img);
+                        profilDiv.appendChild(a); // Ajouter le lien hypertexte au lieu de l'image directement
                         profilDiv.appendChild(p);
 
                         // Ajouter le conteneur à la section d'abonnements
                         var abonnementsSection = document.getElementById('abonnements');
                         abonnementsSection.appendChild(profilDiv);
-                    }
+                    })(abonnements[i]);
+                }
                 } 
                 else {
                     console.error("Les abonnements sont indisponibles dans la réponse.");
@@ -62,5 +72,9 @@ function chargerDonnees() {
   xhr.send();
 }
 
+function loadMembres(email) {
+    // Faites quelque chose avec l'e-mail de l'abonnement
+    console.log(email);
+}
 
-chargerDonnees(); // Appel de la fonction directement
+chargerDonnees();
