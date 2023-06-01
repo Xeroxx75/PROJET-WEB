@@ -24,19 +24,20 @@ if (isset($_SESSION['email'])) {
     // Utilisez l'e-mail dans votre code, par exemple :
     $response = array('email' => $email);
 
-    // Récupérez les abonnements de l'utilisateur
-    $resultat = $connexion->query("SELECT abonnements FROM profil WHERE mail = '$email'");
-    $row = $resultat->fetch_assoc();
-    $abonnements = $row['abonnements'];
+    // Récupérez les abonnements de l'utilisateur depuis la table "amis"
+    $resultat = $connexion->query("SELECT abonnement FROM amis WHERE abonne = '$email'");
+    $abonnementsEmails = array();
 
-    // Récupérez les informations des abonnements
+    while ($row = $resultat->fetch_assoc()) {
+        $abonnementsEmails[] = $row['abonnement'];
+    }
+
+    // Récupérez les informations des abonnements depuis la table "profil"
     $donneesAbonnements = array();
-    $abonnementsEmails = explode("|", $abonnements); //sert a recuoerer les abonnements de l'utilisateur (divisés par des |)
 
     foreach ($abonnementsEmails as $abonnementEmail) {
         $resultatAbonnement = $connexion->query("SELECT photo_profil, nom, prenom, description FROM profil WHERE mail = '$abonnementEmail'");
         $rowAbonnement = $resultatAbonnement->fetch_assoc();
-        var_dump($rowAbonnement); // Afficher les valeurs retournées par la requête
         $donneesAbonnements[] = $rowAbonnement;
     }
 
