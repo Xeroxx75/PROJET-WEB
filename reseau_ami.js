@@ -31,13 +31,11 @@ function chargerAmis() {
                 var a = document.createElement('a');
                 a.href = '#';
                 a.addEventListener('click', function() {
-                    console.log(ami.mail);
                     getProfilData2(ami.mail); // Appel de getProfileInformation
                     // Supprimer la classe active de tous les éléments <a> de la liste
                     var navLinks = document.querySelectorAll('.navHeader ul li a');
                     for (var i = 0; i < navLinks.length; i++) {
                         navLinks[i].classList.remove('active');
-                        console.log(navLinks[i]);
                     }
 
                     // Ajouter la classe active à l'élément <a> avec l'ID "ghost"
@@ -90,8 +88,6 @@ function chargerAmis() {
         xhr.onreadystatechange = function() {
             if (xhr.readyState === 4 && xhr.status === 200) {
                 var data = JSON.parse(xhr.responseText);
-                // Traitez les données récupérées ici
-                console.log(data);
                 // Stocker les données dans le stockage local
                 localStorage.setItem('profilData', JSON.stringify(data));
             } else if (xhr.readyState === 4 && xhr.status !== 200) {
