@@ -10,7 +10,7 @@ $updatedContrat = $_POST['contrat'];
 $updatedDescription = $_POST['description'];
 $updatedRemuneration = $_POST['remuneration'];
 $mail = $_POST['mail'];
-
+$profis_postulants = '';
 // Effectuez la connexion à votre base de données
 $servername = "localhost";
 $username = "root";
@@ -24,9 +24,10 @@ if ($conn->connect_error) {
     die("La connexion à la base de données a échoué : " . $conn->connect_error);
 }
 
+$updatedDescription = str_replace("'", "''", $updatedDescription);
 // Préparez et exécutez la requête SQL UPDATE pour mettre à jour les données
-$sql = "INSERT INTO emplois (titre, date_publication, date_embauche, duree, contrat, description, remuneration, lieu, auteur_offre_mail) 
-        VALUES ('$updatedTitre', '$updatedDatePublication', '$updatedDateEmbauche', '$updatedDuree', '$updatedContrat', '$updatedDescription', $updatedRemuneration, '$updatedLieu', '$mail')";
+$sql = "INSERT INTO emplois (titre, date_publication, date_embauche, duree, contrat, description, remuneration, lieu, auteur_offre_mail, profils_postulants) 
+        VALUES ('$updatedTitre', '$updatedDatePublication', '$updatedDateEmbauche', '$updatedDuree', '$updatedContrat', '$updatedDescription', $updatedRemuneration, '$updatedLieu', '$mail','$profis_postulants')";
 
 
 if ($conn->query($sql) === TRUE) {

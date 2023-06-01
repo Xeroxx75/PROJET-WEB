@@ -1,20 +1,75 @@
 // Récupérer l'élément conteneur des emplois à gauche dans le HTML
 var emploisContainer = document.getElementById('offre-emploi');
+// Récupérer l'élément conteneur des emplois à droite dans le HTML
+var emploisContainer2 = document.getElementById('offre-emploi2');
 
-//RECUPERATION ET AFFICHAGE DES EMPLOIS
+
+
+ //RECUPERATION DU MAIL DE L'UTILISATEUR CONNECTE 
 $.ajax({
-  url: 'emplois.php',
+  url: 'session.php',
   type: 'GET',
-  success: function(responseEmplois) {
-    // Appeler la fonction pour traiter les données
-    afficherEmplois(responseEmplois);
+  success: function(responseSession) {
+    // Appeler la fonction pour traiter les données de session
+    traiterSession(responseSession);
   },
   error: function(error) {
     console.log(error);
   }
 });
 
+var emailUtilisateur = '';
+function traiterSession(responseSession) {
+  emailUtilisateur = responseSession.trim();
+}
+
+/////////////////////////////////////////
+
+//VERIFIE SI L'UTILISATEUR CONNECTE EST AUTEUR ET AFFICHE LES EMPLOIS 
+$.ajax({
+  url: 'profil.php',
+  type: 'GET',
+  success: function(responseProfil) {
+    // Appeler la fonction pour traiter les données de profil
+    traiterProfil(responseProfil);
+
+    //RECUPERATION ET AFFICHAGE DES EMPLOIS
+    $.ajax({
+      url: 'emplois.php',
+      type: 'GET',
+      success: function(responseEmplois) {
+        // Appeler la fonction pour traiter les données
+        afficherEmplois(responseEmplois);
+      
+      },
+      error: function(error) {
+        console.log(error);
+      }
+    });
+  },
+  error: function(error) {
+    console.log(error);
+  }
+});
+
+var estAuteur;
+function traiterProfil(responseProfil) {
+  var profil = JSON.parse(responseProfil);
+
+  for (var i = 0; i < profil.length; i++) {
+              
+    if (profil[i].mail === emailUtilisateur) {
+
+      estAuteur = profil[i].est_auteur;
+      
+    }
+  }
+  
+}
+
+
 function afficherEmplois(responseEmplois) {
+  
   var emploisObj = JSON.parse(responseEmplois)
   if (emploisObj.length > 0) {
     var fragment = document.createDocumentFragment();
@@ -47,13 +102,46 @@ function afficherEmplois(responseEmplois) {
       var postulerButton = document.createElement('button');
       postulerButton.textContent = 'Postuler';
 
-      postulerButton.addEventListener('click', function(event) {
-        event.stopPropagation();
-        // Logique pour postuler à l'offre d'emploi
-      });
+      
+      if(estAuteur == 0){
+        
+        postulerButton.addEventListener('click', function(event) {
+          
+          if(!emploi.profils_postulants.includes(emailUtilisateur)){
+            
+            event.stopPropagation(); // Empêcher d'agrandir l'offre d'emploi  en postulant
+            emploi.profils_postulants += '\n' + emailUtilisateur;
+            
+            var data = {
+              id: emploi.id_emplois,
+              mail: emailUtilisateur
+            };
+            $.ajax({
+              url: 'ajoutPostulant.php',
+              type: 'POST',
+              data: data,
+              success: function(response) {
+                console.log(response);
+                //Concatener le mail de l'utilisateur connecté dans la liste des postulants
+                //VIDER LE CONTENEUR emploisContainer2
+                updatePage();
+              },
+              error: function(error) {
+                console.log(error);
+              }
+            });
+
+            alert('Vous avez postulé à cet emploi !');
+          }else{
+            alert('Vous avez déjà postulé à cet emploi !');
+          }
+            
+        });
+        offreDetailsDiv.appendChild(postulerButton);
+      }
 
       var idEmploi = document.createElement('h3');
-      idEmploi.textContent = `ID : ${emploi.id_emploi}`;
+      idEmploi.textContent = `ID : ${emploi.id_emplois}`;
 
       var dateEmbauche = document.createElement('p');
       dateEmbauche.textContent = `Date d'embauche : ${emploi.date_embauche}`;
@@ -76,7 +164,6 @@ function afficherEmplois(responseEmplois) {
       offreDetailsDiv.appendChild(duree);
       offreDetailsDiv.appendChild(contrat);
       offreDetailsDiv.appendChild(remuneration);
-      offreDetailsDiv.appendChild(postulerButton);
 
       (function(emploiDiv, offreDetailsDiv) {
         var isDetailsVisible = false;
@@ -109,57 +196,7 @@ function afficherEmplois(responseEmplois) {
 };
 /////////////////////////////////////////
 
- //RECUPERATION DU MAIL DE L'UTILISATEUR CONNECTE 
-$.ajax({
-  url: 'session.php',
-  type: 'GET',
-  success: function(responseSession) {
-    // Appeler la fonction pour traiter les données de session
-    traiterSession(responseSession);
-  },
-  error: function(error) {
-    console.log(error);
-  }
-});
 
-var emailUtilisateur = '';
-function traiterSession(responseSession) {
-  emailUtilisateur = responseSession.trim();
-}
-
-/////////////////////////////////////////
-
-//VERIFIE SI L'UTILISATEUR CONNECTE EST AUTEUR
-$.ajax({
-  url: 'profil.php',
-  type: 'GET',
-  success: function(responseProfil) {
-    // Appeler la fonction pour traiter les données de profil
-    traiterProfil(responseProfil);
-  },
-  error: function(error) {
-    console.log(error);
-  }
-});
-
-var estAuteur=1;
-function traiterProfil(responseProfil) {
-  var profil = JSON.parse(responseProfil);
-
-  for (var i = 0; i < profil.length; i++) {
-              
-    if (profil[i].mail === emailUtilisateur) {
-
-      estAuteur = profil[i].est_auteur;
-      
-      
-    }
-  }
-}
-/////////////////////////////////////////////
-
-// Récupérer l'élément conteneur des emplois à droite dans le HTML
-var emploisContainer2 = document.getElementById('offre-emploi2');
 
 $.ajax({
   url: 'emplois.php',
@@ -187,11 +224,11 @@ function afficherMesEmplois(responseMesEmplois) {
   var emploiDiv2 = document.createElement('div');
   emploiDiv2.classList.add('offre-emploi2');
 
-
+  
   if (emploisObj2.length > 0) {
     emploisObj2.forEach(function(emploi) {
 
-      if (estAuteur) {
+      if (estAuteur==1) {
         if (emploi.auteur_offre_mail === emailUtilisateur) {
           boolOffre = 1;
           // On a trouvé une des offres de l'auteur
@@ -249,10 +286,14 @@ function afficherMesEmplois(responseMesEmplois) {
           var deleteButton = document.createElement('button');
           deleteButton.textContent = 'Supprimer';
           
+          
           deleteButton.addEventListener('click', function() {
+            //stopper la propagation de l'événement
+            var supprimerEmploi = 1;
+            event.stopPropagation();
             var updatedEmploi = {
               id: emploi.id_emplois,
-              supprimer: true,
+              supprimer: supprimerEmploi,
               titre: titreInput.value,
               date_publication: datePublicationInput.valu,
               lieu: lieuInput.value,
@@ -271,7 +312,9 @@ function afficherMesEmplois(responseMesEmplois) {
               data: updatedEmploi,
               success: function(responseTEST) {
                 // Les données ont été mises à jour avec succès
+                //console.log("SUPPRIMER"+updatedEmploi.supprimer);
                 console.log('Réponse du serveur :', responseTEST);
+                updatePage();
               },
               error: function(error) {
                 // Erreur lors de la mise à jour des données
@@ -288,7 +331,7 @@ function afficherMesEmplois(responseMesEmplois) {
           var saveButton = document.createElement('button');
           saveButton.textContent = 'Enregistrer';
           saveButton.addEventListener('click', function() {
-            
+            event.stopPropagation();
               var updatedId = emploi.id_emplois;
               var updatedTitre = titreInput.value;
               var updatedDatePublication = datePublicationInput.value;
@@ -298,6 +341,7 @@ function afficherMesEmplois(responseMesEmplois) {
               var updatedContrat = contratInput.value;
               var updatedDescription = descriptionInput.value;
               var updatedRemuneration = remunerationInput.value;
+              var supprimerEmploi = 0;
             
 
                 var updatedEmploi = {
@@ -310,7 +354,7 @@ function afficherMesEmplois(responseMesEmplois) {
                   contrat: updatedContrat,
                   description: updatedDescription,
                   remuneration: updatedRemuneration,
-                  supprimer: false
+                  supprimer: supprimerEmploi,
                 }; 
               
                 
@@ -320,10 +364,12 @@ function afficherMesEmplois(responseMesEmplois) {
                 type: 'POST',
                 data: updatedEmploi,
                 success: function(responseTEST) {
-                 S // Les données ont été mises à jour avec succès
+                  // Les données ont été mises à jour avec succès
+                  //console.log("NON SUPPRIMER"+updatedEmploi.supprimer);
                   console.log('Réponse du serveur :', responseTEST);
+                  updatePage();
                 },
-                error: function(error) {S
+                error: function(error) {
                   // Erreur lors de la mise à jour des données
                   console.log(error);
                 }
@@ -356,10 +402,13 @@ function afficherMesEmplois(responseMesEmplois) {
           }); 
         }
          
-      } /*else {
+      } else {
         // parcourir emploi.profils_postulants pour trouver emailUtilisateur
         // Si l'utilisateur a postulé à cet emploi, afficher l'offre
-        if (emploi.profils_postulants.includes(emailUtilisateur)) {
+        console.log(emploi.titre);
+        console.log(emploi.profils_postulants);
+        if (emploi.profils_postulants && emploi.profils_postulants.includes(emailUtilisateur)) {
+          
           var emploiDiv = document.createElement('div');
           emploiDiv.classList.add('offre-emploi');
 
@@ -369,22 +418,39 @@ function afficherMesEmplois(responseMesEmplois) {
           var datePublication = document.createElement('p');
           datePublication.textContent = `Date de publication : ${emploi.date_publication}`;
 
-          // ... Ajoutez les autres informations spécifiques à l'offre d'emploi
+          var auteurOffreMail = document.createElement('p');
+          auteurOffreMail.textContent = `Auteur de l'offre (email) : ${emploi.auteur_offre_mail}`;
 
-          emploiDiv.appendChild(emploiTitre);
-          emploiDiv.appendChild(datePublication);
+          var lieu = document.createElement('p');
+          lieu.textContent = `Lieu : ${emploi.lieu}`;
 
-          // ... Ajoutez d'autres éléments pour afficher les informations de l'offre
+          emploiDiv2.appendChild(emploiTitre);
+          emploiDiv2.appendChild(datePublication);
+          emploiDiv2.appendChild(auteurOffreMail);
+          emploiDiv2.appendChild(lieu);
 
-          emploisContainer.appendChild(emploiDiv);
+          var isDetailsVisible = false;
+
+          mesOffresButton.addEventListener('click', function() {
+            if (isDetailsVisible) {
+              emploiDiv2.style.display = 'none';
+              isDetailsVisible = false;
+            } else {
+              emploiDiv2.style.display = 'block';
+              emploisContainer2.appendChild(emploiDiv2);
+              isDetailsVisible = true;
+            }
+          });
+          
         }
-      }*/
+      }
       
     });
   }
   
     
-    if (estAuteur) {
+    if (estAuteur==1) {
+      console.log("/////////");
       // BOUTON POUR AJOUTER UNE OFFRE
       var ajouterOffreButton = document.createElement('button');
       ajouterOffreButton.textContent = "Ajouter une offre d'emploi";
@@ -468,6 +534,9 @@ function afficherMesEmplois(responseMesEmplois) {
             success: function(responseTEST) {
               // Les données ont été mises à jour avec succès
               console.log('Réponse du serveur :', responseTEST);
+              updatePage();
+              
+
             },
             error: function(error) {
               // Erreur lors de la mise à jour des données
@@ -505,4 +574,47 @@ function afficherMesEmplois(responseMesEmplois) {
     }
   
   
+}
+
+//fonction pour mettre a jour la page sans la raffraichir
+function updatePage() {
+  emploisContainer.innerHTML = '';
+  $.ajax({
+    url: 'profil.php',
+    type: 'GET',
+    success: function(responseProfil) {
+      // Appeler la fonction pour traiter les données de profil
+      traiterProfil(responseProfil);
+  
+      //RECUPERATION ET AFFICHAGE DES EMPLOIS
+      $.ajax({
+        url: 'emplois.php',
+        type: 'GET',
+        success: function(responseEmplois) {
+          // Appeler la fonction pour traiter les données
+          afficherEmplois(responseEmplois);
+        
+        },
+        error: function(error) {
+          console.log(error);
+        }
+      });
+    },
+    error: function(error) {
+      console.log(error);
+    }
+  });
+
+  emploisContainer2.innerHTML = '';
+  $.ajax({
+    url: 'emplois.php',
+    type: 'GET',
+    success: function(responseMesEmplois) {
+      // Appeler la fonction pour traiter les données
+      afficherMesEmplois(responseMesEmplois);
+    },
+    error: function(error) {
+      console.log(error);
+    }
+  });
 }
