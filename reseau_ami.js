@@ -31,6 +31,7 @@ function chargerAmis() {
                 var a = document.createElement('a');
                 a.href = '#';
                 a.addEventListener('click', function() {
+
                     getProfilData2(ami.mail); // Appel de getProfileInformation
                     // Supprimer la classe active de tous les éléments <a> de la liste
                     var navLinks = document.querySelectorAll('.navHeader ul li a');
@@ -84,11 +85,13 @@ function chargerAmis() {
     // getProfilData2 car getProfilData est déjà utilisé dans membre.js
     function getProfilData2(email) {
         var xhr = new XMLHttpRequest();
-    
+
         xhr.onreadystatechange = function() {
             if (xhr.readyState === 4 && xhr.status === 200) {
                 var data = JSON.parse(xhr.responseText);
-                // Stocker les données dans le stockage local
+
+
+                // Stocker les nouvelles données dans le stockage local
                 localStorage.setItem('profilData', JSON.stringify(data));
             } else if (xhr.readyState === 4 && xhr.status !== 200) {
                 console.error('Erreur lors de la récupération des données du profil:', xhr.status);
@@ -98,5 +101,7 @@ function chargerAmis() {
         xhr.open('GET', 'reseau_info_membre.php?email=' + email);
         xhr.send();
     }
+
+
 
 chargerAmis();
