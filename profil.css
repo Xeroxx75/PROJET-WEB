@@ -50,8 +50,8 @@
 }
 
 #info_profil #pp{
-    margin-top: -4em;
-    margin-left: 2em;
+    margin-top: -6vw;
+    margin-left: 3vw;
   width: 11vw;
   height: 11vw;
   border: 0.2em solid #daeaec;
@@ -60,12 +60,10 @@
 
 #info_profil #bio{
     margin-top: -6vw;
-    margin-left: 16vw;   
+    margin-left: 16vw; 
+    font-size: 1.6vw;  
 }
 
-#info_taff{
-    margin-top: 19vw;
-}
 #titre_form{
     text-align: center;
 }
@@ -84,6 +82,9 @@
     height: 8vw;
     margin-left: -80%;
     margin-top: 3vw;
+}
+#info_taff{
+    margin-top: 18vw;
 }
 
 #info_form{
@@ -114,3 +115,4 @@
 #cv{
     text-align: center;
 }
+
