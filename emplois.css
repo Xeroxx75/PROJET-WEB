@@ -8,44 +8,35 @@
   margin-bottom: 10px;
 }*/
 
-.offre-emploi {
-    margin-bottom: 12px;
-    margin-top: 20px;
-    border: 1px solid black;
-    border-radius: 5px;
-    background-color: white;
-    text-align: center;
+.colonne-gauche {
+    width: 45%;
     float: left;
-    clear: left;
+  }
+  
+  .colonne-droite {
     width: 45%;
-}
-
-.offre-emploi h3 {
-    font-size: 18px;
-    margin-bottom: 5px;
-}
-
-.offre-emploi p {
-    margin-bottom: 5px;
-}
-
-.offre-emploi2 {
+    float: right;
+  }
+  
+  .offre-emploi,
+  .offre-emploi2 {
     margin-bottom: 12px;
     margin-top: 20px;
     border: 1px solid black;
     border-radius: 5px;
     background-color: white;
     text-align: center;
-    float: right;
-    clear: right;
-    width: 45%;
-}
-
-.offre-emploi2 h3 {
+    width: 100%;
+  }
+  
+  .offre-emploi h3,
+  .offre-emploi2 h3 {
     font-size: 18px;
     margin-bottom: 5px;
-}
-
-.offre-emploi2 p {
+  }
+  
+  .offre-emploi p,
+  .offre-emploi2 p {
     margin-bottom: 5px;
-}
+  }
+  
