@@ -3,9 +3,14 @@ $(document).ready(function() {
   $('.navHeader ul li:first-child').addClass('active');
 
   // Charger le contenu de la page "Accueil"
-  $('#general').load('accueil.html');
-
-  // ...
+  var currentPage = window.location.pathname.split('/').pop(); // Obtenir le nom du fichier actuel
+  if (currentPage == 'admin.html') {
+    $('#general').load('ajout_membre.html');
+  }
+  else{
+    $('#general').load('acceuil.html');
+  }
+  
 
   // Gestion du clic sur les liens de la barre de navigation
   $('.navHeader ul li a').on('click', function(e) {
@@ -19,6 +24,7 @@ $(document).ready(function() {
     // Récupérez l'attribut href du lien cliqué
     var targetHref = $(this).attr('href');
     $('#general').load(targetHref + '.html');
+
     // Chargez le contenu de la page cible via une requête AJAX
   });
 });
