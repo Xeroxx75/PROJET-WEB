@@ -152,6 +152,9 @@ header img {
     top: 10px;
 }
 
+#ghost {
+    display:none;
+}
 /*la page active*/
 
 .navHeader ul li.active a {
