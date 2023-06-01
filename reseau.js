@@ -35,7 +35,7 @@ function chargerDonnees() {
                         h3.textContent = prenom + ' ' + nom;
 
                         var img = document.createElement('img');
-                        img.src = 'pp/'+photoProfil;
+                        img.src = 'photo_profil/'+photoProfil;
 
                         var p = document.createElement('p');
                         p.textContent = description;
