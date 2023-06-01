@@ -8,8 +8,6 @@ CREATE TABLE profil (
   image_fond VARCHAR(255),
   nom VARCHAR(255),
   prenom VARCHAR(255),
-  abonnes TEXT,
-  abonnements TEXT,
   description TEXT,
   lieu_travail VARCHAR(255),
   parcours_scolaire TEXT,
@@ -18,13 +16,19 @@ CREATE TABLE profil (
   password VARCHAR(30)
 );
 
+--Table amis
+CREATE TABLE amis ( 
+  abonne VARCHAR(100),
+  abonnement VARCHAR(100)
+);
+
 -- Table evenement
 CREATE TABLE evenement (
   id_evenement INT PRIMARY KEY,
   nom_evenement VARCHAR(255),
   date_evenement DATE,
   description TEXT,
-  image VARCHAR(255),
+  image TEXT,
   auteur_mail VARCHAR(100),
   FOREIGN KEY (auteur_mail) REFERENCES profil(mail)
 );
@@ -55,7 +59,7 @@ CREATE TABLE message (
 
 -- Table emplois
 CREATE TABLE emplois (
-  id_emplois INT PRIMARY KEY,
+  id_emplois INT PRIMARY KEY AUTO_INCREMENT,
   titre VARCHAR(255),
   date_publication DATE,
   date_embauche DATE,
@@ -66,6 +70,7 @@ CREATE TABLE emplois (
   auteur_offre_mail VARCHAR(100),
   FOREIGN KEY (auteur_offre_mail) REFERENCES profil(mail),
   lieu VARCHAR(255)
+  profils_postulants TEXT DEFAULT '',
 );
 
 -- Table post
