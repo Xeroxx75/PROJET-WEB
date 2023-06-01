@@ -21,7 +21,6 @@ function chargerAmis() {
                 var prenom = ami.prenom;
                 var photoProfil = ami.photo_profil;
                 var description = ami.description;
-
                 // Créer les éléments HTML pour afficher l'ami
                 var amiDiv = document.createElement('div');
                 amiDiv.classList.add('ami');
@@ -32,7 +31,20 @@ function chargerAmis() {
                 var a = document.createElement('a');
                 a.href = '#';
                 a.addEventListener('click', function() {
-                loadMembres(ami.mail); // Utiliser ami.mail au lieu de ami.email
+                    console.log(ami.mail);
+                    getProfilData2(ami.mail); // Appel de getProfileInformation
+                    // Supprimer la classe active de tous les éléments <a> de la liste
+                    var navLinks = document.querySelectorAll('.navHeader ul li a');
+                    for (var i = 0; i < navLinks.length; i++) {
+                        navLinks[i].classList.remove('active');
+                        console.log(navLinks[i]);
+                    }
+
+                    // Ajouter la classe active à l'élément <a> avec l'ID "ghost"
+                    var ghostLink = document.getElementById('ghost');
+                    ghostLink.classList.add('active');
+                    var targetHref = $(ghostLink).attr('href');
+                    $('#general').load(targetHref + '.html');
                 });
 
                 var img = document.createElement('img');
@@ -71,9 +83,24 @@ function chargerAmis() {
     xhr.send();
     }
 
-function loadMembres(email) {
-// Faites quelque chose avec l'e-mail de l'ami
-console.log(email);
-}
+    // getProfilData2 car getProfilData est déjà utilisé dans membre.js
+    function getProfilData2(email) {
+        var xhr = new XMLHttpRequest();
+    
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                var data = JSON.parse(xhr.responseText);
+                // Traitez les données récupérées ici
+                console.log(data);
+                // Stocker les données dans le stockage local
+                localStorage.setItem('profilData', JSON.stringify(data));
+            } else if (xhr.readyState === 4 && xhr.status !== 200) {
+                console.error('Erreur lors de la récupération des données du profil:', xhr.status);
+            }
+        };
+    
+        xhr.open('GET', 'reseau_info_membre.php?email=' + email);
+        xhr.send();
+    }
 
 chargerAmis();
