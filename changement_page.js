@@ -8,7 +8,7 @@ $(document).ready(function() {
     $('#general').load('ajout_membre.html');
   }
   else{
-    $('#general').load('acceuil.html');
+    $('#general').load('accueil.html');
   }
   
 
