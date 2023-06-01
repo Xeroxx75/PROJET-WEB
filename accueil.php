@@ -12,6 +12,9 @@ if ($conn->connect_error) {
     die("La connexion a échoué : " . $conn->connect_error);
 }
 
+
+//Carrousel
+
 // Obtenir la date du début de la semaine actuelle (lundi)
 $firstDayOfWeek = date('Y-m-d', strtotime('monday this week'));
 
@@ -44,5 +47,7 @@ $conn->close();
 // Retourner l'événement le plus proche en tant que réponse JSON
 header('Content-Type: application/json');
 echo json_encode($event);
+
+//Fin carrousel
 
 ?>
