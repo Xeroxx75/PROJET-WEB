@@ -36,19 +36,28 @@ $sql = "SELECT e.nom_evenement, e.description, e.auteur_mail, GROUP_CONCAT(e.ima
 
 $result = $conn->query($sql);
 
-// Tableau pour stocker les résultats
 $evenements = array();
 
 if ($result->num_rows > 0) {
-    // Parcourir les lignes de résultat
     while ($row = $result->fetch_assoc()) {
         $imagePath = 'photo_evenement/';
-        $images = explode('|', $row['images']);
-        $eventImages = array();
+        $images = $row['images'];
 
-        // Parcourir toutes les images de l'événement
-        foreach ($images as $image) {
-            $eventImages[] = $imagePath . $image;
+        $eventImages = array(); // Créer un tableau vide par défaut
+
+        if ($images !== null) { // Vérifier si les images ne sont pas null
+            $imageArray = explode('|', $images);
+
+            // Parcourir toutes les images de l'événement
+            foreach ($imageArray as $image) {
+                if (!empty($image)) { // Vérifier si l'image n'est pas vide
+                    $eventImages[] = $imagePath . $image;
+                }
+            }
+        }
+
+        if (count($eventImages) === 0) { // Vérifier si le tableau d'images est vide
+            $eventImages[] = null; // Ajouter une valeur null dans le tableau
         }
 
         $evenement = array(
@@ -61,12 +70,12 @@ if ($result->num_rows > 0) {
     }
 }
 
-// Fermer la connexion à la base de données
 $conn->close();
 
-// Renvoyer les résultats au format JSON
 header('Content-Type: application/json');
 echo json_encode($evenements);
+
+
 
 
 //Fin evenements du reseau

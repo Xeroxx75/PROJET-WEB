@@ -21,7 +21,8 @@ $firstDayOfWeek = date('Y-m-d', strtotime('monday this week'));
 // Obtenir la date de la fin de la semaine actuelle (dimanche)
 $lastDayOfWeek = date('Y-m-d', strtotime('sunday this week'));
 
-$sql = "SELECT nom_evenement, description, image FROM evenement WHERE date_evenement >= '$firstDayOfWeek' AND date_evenement <= '$lastDayOfWeek' ORDER BY date_evenement ASC LIMIT 1";$result = $conn->query($sql);
+$sql = "SELECT nom_evenement, description, image FROM evenement WHERE date_evenement >= '$firstDayOfWeek' AND date_evenement <= '$lastDayOfWeek' ORDER BY date_evenement ASC LIMIT 1";
+$result = $conn->query($sql);
 
 $event = array();
 
@@ -30,16 +31,21 @@ if ($result->num_rows > 0) {
     $event['nom_evenement'] = $row['nom_evenement'];
     $event['description'] = $row['description'];
 
-    // Récupérer les images de la colonne 'image'
-    $images = explode("|", $row['image']);
+    // Vérifier si la colonne 'image' est null
+    if ($row['image'] !== null) {
+        // Récupérer les images de la colonne 'image'
+        $images = explode("|", $row['image']);
 
-    // Chemin du dossier des images
-    $imageFolder = "photo_evenement/";
+        // Chemin du dossier des images
+        $imageFolder = "photo_evenement/";
 
-    // Chemins complets des images
-    $event['images'] = array_map(function($image) use ($imageFolder) {
-        return $imageFolder . $image;
-    }, $images);
+        // Chemins complets des images
+        $event['images'] = array_map(function($image) use ($imageFolder) {
+            return $imageFolder . $image;
+        }, $images);
+    } else {
+        $event['images'] = null; // Aucune image disponible, assigner null
+    }
 }
 
 $conn->close();
@@ -47,6 +53,7 @@ $conn->close();
 // Retourner l'événement le plus proche en tant que réponse JSON
 header('Content-Type: application/json');
 echo json_encode($event);
+
 
 //Fin carrousel
 

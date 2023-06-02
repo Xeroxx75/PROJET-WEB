@@ -17,20 +17,22 @@ function loadUserEvents() {
 
                     for (var i = 0; i < events.length; i++) {
                         var event = events[i];
-
+                        //console.log(event);
                         var eventDiv = document.createElement('div');
 
                         var eventTitleElement = document.createElement('div');
                         eventTitleElement.textContent = event.nom_evenement;
                         eventDiv.appendChild(eventTitleElement);
 
-                        var eventImageElement = document.createElement('img');
-                        eventImageElement.src = event.images[0] || ''; // Définissez une image par défaut ou laissez la source vide
-                        eventImageElement.style.display = eventImageElement.src ? 'block' : 'none'; // Masquez l'élément si aucune image n'est disponible
-                        eventDiv.appendChild(eventImageElement);
+                        // Vérifier si la photo de profil est NULL
+                        if (event.images[0] !== null) {
+                            var eventImageElement = document.createElement('img');
+                            eventImageElement.src = event.images[0];
+                            eventDiv.appendChild(eventImageElement);
+                        }
 
                         var eventDescriptionElement = document.createElement('div');
-                        eventDescriptionElement.innerHTML = '<h3>' + "Description de l'événement :" + '</h3>' + event.description;
+                        eventDescriptionElement.innerHTML = '<h3>' + "Description de l\'événement :" + '</h3>' + event.description;
                         eventDiv.appendChild(eventDescriptionElement);
 
                         eventContainer.appendChild(eventDiv);

@@ -1,13 +1,14 @@
-
 function loadEvent() {
   var xhr = new XMLHttpRequest();
   xhr.onreadystatechange = function() {
     if (xhr.readyState === 4) {
       if (xhr.status === 200) {
         var event = JSON.parse(xhr.responseText);
+        
 
         // Vérifier si un événement a été récupéré
         if (Object.keys(event).length === 0) {
+          //console.log(event);
           // Aucun événement trouvé, afficher le message approprié
           var eventTitleElement = document.getElementById('event-title');
           eventTitleElement.textContent = "Pas d'événement cette semaine";
@@ -18,6 +19,8 @@ function loadEvent() {
           document.getElementById('event-description').style.display = 'none';
         } else {
           // Afficher l'événement récupéré
+          
+          
           var eventTitleElement = document.getElementById('event-title');
           eventTitleElement.textContent = event.nom_evenement;
 
@@ -27,7 +30,7 @@ function loadEvent() {
           var slidesContainer = document.querySelector('.slides');
           slidesContainer.innerHTML = '';
 
-          if (event.images && event.images.length > 0) {
+          if (event.images[0] !== null) {
             event.images.forEach(function(image, index) {
               var imgElement = document.createElement('img');
               imgElement.src = image;
@@ -52,6 +55,7 @@ function loadEvent() {
 }
 
 loadEvent();
+
 
 var slideIndex = 1;
 showSlide(slideIndex);

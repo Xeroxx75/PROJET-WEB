@@ -77,6 +77,20 @@ function afficherEmplois(responseEmplois) {
     emploisObj.forEach(function(emploi) {
       // Créer les éléments HTML pour afficher les données de l'emploi
       var emploiDiv = document.createElement('div');
+
+      /*if(emploi.contrat == 'CDD'){
+        console.log(emploi.titre + ' ' + emploi.contrat + 'CDD');
+        emploiDiv.classList.add('CDD');
+      }else if(emploi.contrat == 'CDI'){
+        console.log(emploi.titre + ' ' + emploi.contrat + 'CDI');
+        emploiDiv.classList.add('CDI');
+      }else if(emploi.contrat == 'Stage'){
+        console.log(emploi.titre + ' ' + emploi.contrat + 'Stage');
+        emploiDiv.classList.add('Stage');
+      }else if(emploi.contrat == 'Alternance'){
+        console.log(emploi.titre + ' ' + emploi.contrat + 'Alternance');
+        emploiDiv.classList.add('Alternance');
+      }*/
       emploiDiv.classList.add('offre-emploi');
 
       var emploiTitre = document.createElement('h3');
@@ -161,7 +175,8 @@ function afficherEmplois(responseEmplois) {
       offreDetailsDiv.appendChild(idEmploi);
       offreDetailsDiv.appendChild(description);
       offreDetailsDiv.appendChild(dateEmbauche);
-      offreDetailsDiv.appendChild(duree);
+      if(emploi.contrat!= 'CDI')
+        offreDetailsDiv.appendChild(duree);
       offreDetailsDiv.appendChild(contrat);
       offreDetailsDiv.appendChild(remuneration);
 
@@ -244,6 +259,7 @@ function afficherMesEmplois(responseMesEmplois) {
           var datePublication = document.createElement('p');
           datePublication.textContent = `Date de publication :`;
           var datePublicationInput = document.createElement('input');
+          datePublication.type = 'date';
           datePublicationInput.value = emploi.date_publication;
           datePublication.appendChild(datePublicationInput);
 
@@ -256,6 +272,7 @@ function afficherMesEmplois(responseMesEmplois) {
           var dateEmbauche = document.createElement('p');
           dateEmbauche.textContent = `Date d'embauche :`;
           var dateEmbaucheInput = document.createElement('input');
+          dateEmbaucheInput.type = 'date';
           dateEmbaucheInput.value = emploi.date_embauche;
           dateEmbauche.appendChild(dateEmbaucheInput);
           
@@ -267,9 +284,29 @@ function afficherMesEmplois(responseMesEmplois) {
 
           var contrat = document.createElement('p');
           contrat.textContent = `Contrat :`;
-          var contratInput = document.createElement('input');
+          var contratInput = document.createElement('select');
+          contratInput.name = "contrat";
+          // Ajoutez les options au menu déroulant
+          var cdiOption = document.createElement('option');
+          cdiOption.text = "CDI";
+          cdiOption.value = "CDI";
+          contratInput.appendChild(cdiOption);
+          var cddOption = document.createElement('option');
+          cddOption.text = "CDD";
+          cddOption.value = "CDD";
+          contratInput.appendChild(cddOption);
+          var stageOption = document.createElement('option');
+          stageOption.text = "Stage";
+          stageOption.value = "Stage";
+          contratInput.appendChild(stageOption);
+          var alternanceOption = document.createElement('option');
+          alternanceOption.text = "Alternance";
+          alternanceOption.value = "Alternance";
+          contratInput.appendChild(alternanceOption);
+          // Sélectionnez l'option pré-enregistrée
           contratInput.value = emploi.contrat;
           contrat.appendChild(contratInput);
+
 
           var description = document.createElement('p');
           description.textContent = `Description :`;
@@ -280,6 +317,7 @@ function afficherMesEmplois(responseMesEmplois) {
           var remuneration = document.createElement('p');
           remuneration.textContent = `Rémunération :`;
           var remunerationInput = document.createElement('input');
+          remunerationInput.type = 'number';
           remunerationInput.value = emploi.remuneration;
           remuneration.appendChild(remunerationInput);
 
@@ -405,8 +443,6 @@ function afficherMesEmplois(responseMesEmplois) {
       } else {
         // parcourir emploi.profils_postulants pour trouver emailUtilisateur
         // Si l'utilisateur a postulé à cet emploi, afficher l'offre
-        console.log(emploi.titre);
-        console.log(emploi.profils_postulants);
         if (emploi.profils_postulants && emploi.profils_postulants.includes(emailUtilisateur)) {
           
           var emploiDiv = document.createElement('div');
@@ -450,7 +486,6 @@ function afficherMesEmplois(responseMesEmplois) {
   
     
     if (estAuteur==1) {
-      console.log("/////////");
       // BOUTON POUR AJOUTER UNE OFFRE
       var ajouterOffreButton = document.createElement('button');
       ajouterOffreButton.textContent = "Ajouter une offre d'emploi";
@@ -468,6 +503,7 @@ function afficherMesEmplois(responseMesEmplois) {
       var datePublication = document.createElement('p');
       datePublication.textContent = `Date de publication :`;
       var datePublicationInput = document.createElement('input');
+      datePublicationInput.type = 'date';
       datePublication.appendChild(datePublicationInput);
 
       var lieu = document.createElement('p');
@@ -478,6 +514,7 @@ function afficherMesEmplois(responseMesEmplois) {
       var dateEmbauche = document.createElement('p');
       dateEmbauche.textContent = `Date d'embauche :`;
       var dateEmbaucheInput = document.createElement('input');
+      dateEmbaucheInput.type = 'date';
       dateEmbauche.appendChild(dateEmbaucheInput);
       
       var duree = document.createElement('p');
@@ -487,7 +524,25 @@ function afficherMesEmplois(responseMesEmplois) {
 
       var contrat = document.createElement('p');
       contrat.textContent = `Contrat :`;
-      var contratInput = document.createElement('input');
+      var contratInput = document.createElement('select');
+      contratInput.name = "contrat";
+      // Ajoutez les options au menu déroulant
+      var cdiOption = document.createElement('option');
+      cdiOption.text = "CDI";
+      cdiOption.value = "CDI";
+      contratInput.appendChild(cdiOption);
+      var cddOption = document.createElement('option');
+      cddOption.text = "CDD";
+      cddOption.value = "CDD";
+      contratInput.appendChild(cddOption);
+      var stageOption = document.createElement('option');
+      stageOption.text = "Stage";
+      stageOption.value = "Stage";
+      contratInput.appendChild(stageOption);
+      var alternanceOption = document.createElement('option');
+      alternanceOption.text = "Alternance";
+      alternanceOption.value = "Alternance";
+      contratInput.appendChild(alternanceOption);
       contrat.appendChild(contratInput);
 
       var description = document.createElement('p');
@@ -498,6 +553,7 @@ function afficherMesEmplois(responseMesEmplois) {
       var remuneration = document.createElement('p');
       remuneration.textContent = `Rémunération :`;
       var remunerationInput = document.createElement('input');
+      remunerationInput.type = 'number';
       remuneration.appendChild(remunerationInput);
 
       // Ajoutez un bouton de sauvegarde pour permettre à l'utilisateur de mettre à jour les données
