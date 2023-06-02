@@ -3,12 +3,16 @@
       MESSAGERIE
   ------------------------------------------*/
 
-.global{
-  display: flex;
-  flex-direction: column;
+
+.divFormMessagerie{
+  display: none;
+  position: absolute;
+  margin-left: 25%;
+  margin-top: 8%;
+  width: 50%;
+  height: 50%;
+  background-color: darkmagenta;
 }
-
-
 
 .messagerie{
   margin-top: 5%;
@@ -19,20 +23,81 @@
   height: 60vh;
 }
 
-
-.friend_list{
-  background-color: red;
+.wrapper_messagerie{
+  display: flex;
+  flex-direction: column;
   width: 100%;
   height: 100%;
+}
+
+.messagerie_list{
+  margin-top: 3%;
+  background-color: red;
+  display: flex;
+  margin-bottom: 3%;
+  flex-direction: column;
+  width: 100%;
+  height: 50%;
+  overflow-y: scroll;
+}
+
+.messagerie_info{
+  background-color: green;
+  width: 100%;
+  height: 22%;
+  margin-bottom: 3%;
+}
+
+.create_messagerie{
+  background-color: brown;
+  width: 100%;
+  height: 22%;
 }
 
 .chat_box{
   background-color: blue;
+  display: flex;
+  flex-direction: column;
   width: 100%;
-  height: 100%;
+  height: 60vh;
+  overflow-y: scroll;
 }
+
+.image_message{
+  width: 20%;
+}
+
+.message_sender{
+  background-color: pink;
+  align-self: flex-end;
+  justify-content: flex-start;
+  text-align: end;
+  width: 40%;
+  margin-top: 1%;
+}
+
+.message_receiver{
+  background-color: gray;
+  justify-content: flex-start;
+  text-align: start;
+  width: 40%;
+  margin-top: 1%;
+}
+
 
 span{
   background-color: yellow;
   width: 100%;
+}
+
+.message{
+  display: grid;
+  grid-template-columns: 25% 50% 25%;
+}
+.message_div{
+  display: flex;
+  background-color: green;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
 }

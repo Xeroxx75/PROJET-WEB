@@ -1,13 +1,47 @@
 <!DOCTYPE html>
 <html>
   <link rel="stylesheet" type="text/css" href="messagerie.css">
+  <div id="divFormMessagerie" class="divFormMessagerie">
+    <form id="create_messagerie_form" class="create_messagerie_form">
+      <input type="text" id="TitreMessagerie" name="TitreMessagerie" placeholder="Nom du chat">
+      <select id="participant1" name="participant1">
+        <option value="">Choisir un participant</option>
+      </select>
+      <select id="participant2" name="participant2">
+        <option value="">Choisir un participant</option>
+      </select>
+      <select id="participant3" name="participant3">
+        <option value="">Choisir un participant</option>
+      </select>
+      <input type="submit" value="Créer">
+    </form>
+  </div>
   <div id="messagerie" class="messagerie">
     <span></span>
-    <div id="friend_list" class="friend_list"></div>
+    <div class="wrapper_messagerie">
+      <div id="messagerie_list" class="messagerie_list"></div>
+      <div id="messagerie_info" class="messagerie_info">Pas de chat selectionné</div>
+      <div id="create_messagerie" class="create_messagerie">
+        <button id="create_messagerie_button" class="create_messagerie_button" onclick="create_messagerie()">Créer un chat</button>
+        <button id="leave_messagerie_button" class="leave_messagerie_button" onclick="leave_messagerie()">Quitter le chat</button>
+        <button id="createCallButton">Créer un appel Teams</button>
+      </div>
+    </div>
     <span></span>
     <div id="chat_box" class="chat_box"></div>
     <span></span>
   </div>
-
+  <div id="message" class="message">
+    <span></span>
+    <div id="message_div" class="message_div">
+      <form id="message_form" class="message_form" enctype="multipart/form-data">
+        <input type="file" id="message_file" name="message_file">
+        <input type="text" id="message_text" name="message_text" placeholder="Message">
+        <input type="submit" value="Envoyer">
+      </form>
+    </div>
+    <span></span>
+  </div> 
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
   <script src="messagerie.js"></script>
 </html>
