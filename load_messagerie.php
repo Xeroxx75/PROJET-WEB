@@ -15,16 +15,15 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
     die("Échec de la connexion à la base de données: " . $conn->connect_error);
 }
+
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
     $mail = $_SESSION['email'];
-    $sql = "SELECT abonnement as liste_amis
-    FROM amis
-    WHERE abonne = '$mail'
-    AND abonnement IN (
-      SELECT abonne
-      FROM amis
-      WHERE abonnement = '$mail'
-    );";
+    $sql = "SELECT * FROM messagerie
+    WHERE participant1_mail = '$mail'
+       OR participant2_mail = '$mail'
+       OR participant3_mail = '$mail'
+       OR participant4_mail = '$mail';
+    ";
     $result = $conn->query($sql);
     if ($result->num_rows != 0)
     {
