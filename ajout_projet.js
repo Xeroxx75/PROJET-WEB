@@ -1,15 +1,14 @@
-function creerFormulaire() {
+function creerFormulaire_projet() {
       // Création d'éléments de formulaire
       var parentElement = document.getElementById("partie_droite");
 
        // Vérifier si le formulaire existe déjà
-       // Vérifier si le formulaire existe déjà
-      var form = document.getElementById("ajout_form");
-      if (form) {
-            parentElement.removeChild(form);
+      var form3 = document.getElementById("ajout_projet");
+      if (form3) {
+            parentElement.removeChild(form3);
             return; // Sortir de la fonction pour fermer le formulaire
       }
-      var form = document.createElement("form");
+      var form3 = document.createElement("form");
       var input4 = document.createElement("input");
       var input1 = document.createElement("input");
       var input2 = document.createElement("input");
@@ -17,9 +16,9 @@ function creerFormulaire() {
       var submitBtn = document.createElement("input");
 
       // Définition des attributs des éléments de formulaire
-      form.method = "POST";
-      form.action = "ajout_forma.php";
-      form.id = "ajout_form";
+      form3.method = "POST";
+      form3.action = "ajout_projet.php";
+      form3.id = "ajout_projet";
 
       input1.type = "date";
       input1.name = "Date_debut";
@@ -33,59 +32,60 @@ function creerFormulaire() {
 
       input3.type = "text";
       input3.name = "Description";
-      input3.placeholder = "Description formation";
-      input3.maxLength=35;
+      input3.placeholder = "Description projet";
+      input3.maxLength=30;
       input3.required = true;
 
-      input4.type="file";
-      input4.name = "logo"
+      input4.type="text";
+      input4.name = "lieu"
+      input4.placeholder ="lieu où a ete fait le projet";
+      input4.maxLength = 30;
       input4.required =true;
 
       submitBtn.type = "submit";
-      submitBtn.value = "Ajouter formation";
+      submitBtn.value = "Ajouter projet";
 
       // Ajout des éléments au formulaire
       //parentElement.appendChild(form);
-      form.appendChild(input4);
-      form.appendChild(input1);
-      form.appendChild(input2);
-      form.appendChild(input3);
-      form.appendChild(submitBtn);
+      form3.appendChild(input4);
+      form3.appendChild(input1);
+      form3.appendChild(input2);
+      form3.appendChild(input3);
+      form3.appendChild(submitBtn);
       
       // Ajout du formulaire à la page
-      parentElement.appendChild(form);
-      form.addEventListener("submit", function(event) {
+      parentElement.appendChild(form3);
+      form3.addEventListener("submit", function(event) {
           event.preventDefault(); // Empêche le rechargement de la page
-          parentElement.removeChild(form);
+          parentElement.removeChild(form3);
 
-          var formData = new FormData(form);
+          var formData = new FormData(form3);
 
           var xhr = new XMLHttpRequest();
-          xhr.open("POST", form.action, true);
+          xhr.open("POST", form3.action, true);
           xhr.onreadystatechange = function() {
             if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
               // Traitement de la réponse
               console.log(xhr.responseText);
-              console.log('ici');
+              console.log("on est la");
               chargement_profil();
             }
           };
           xhr.send(formData);
         });
-
       }
 
-function supprimer_formation(){
-        // Création d'éléments de formulaire
+function supprimer_projet(){
+   // Création d'éléments de formulaire
       var parentElement = document.getElementById("partie_droite");
 
        // Vérifier si le formulaire existe déjà
-      var form2 = document.getElementById("suppr_form");
-      if (form2) {
-            parentElement.removeChild(form2);
+      var form4 = document.getElementById("suppr_projet");
+      if (form4) {
+            parentElement.removeChild(form4);
             return; // Sortir de la fonction pour fermer le formulaire
       }
-      var form2 = document.createElement("form");
+      var form4 = document.createElement("form");
       var input4 = document.createElement("input");
       var input1 = document.createElement("input");
       var input2 = document.createElement("input");
@@ -93,9 +93,9 @@ function supprimer_formation(){
       var submitBtn = document.createElement("input");
 
       // Définition des attributs des éléments de formulaire
-      form2.method = "POST";
-      form2.action = "supprimer_forma.php";
-      form2.id = "suppr_form";
+      form4.method = "POST";
+      form4.action = "supprimer_projet.php";
+      form4.id = "suppr_projet";
 
       input1.type = "date";
       input1.name = "Date_debut";
@@ -109,43 +109,44 @@ function supprimer_formation(){
 
       input3.type = "text";
       input3.name = "Description";
-      input3.placeholder = "Description formation";
-      input3.maxLength = 35;
+      input3.placeholder = "Description projet";
+      input3.maxLength = 30;
       input3.required = true;
 
-      input4.type="file";
-      input4.name = "logo"
+      input4.type="text";
+      input4.name = "lieu"
+      input4.placeholder ="lieu où a ete fait le projet";
+      input4.maxLength = 30;
       input4.required =true;
 
       submitBtn.type = "submit";
-      submitBtn.value = "Supprimer formation";
+      submitBtn.value = "supprimer projet";
 
       // Ajout des éléments au formulaire
       //parentElement.appendChild(form);
-      form2.appendChild(input4);
-      form2.appendChild(input1);
-      form2.appendChild(input2);
-      form2.appendChild(input3);
-      form2.appendChild(submitBtn);
+      form4.appendChild(input4);
+      form4.appendChild(input1);
+      form4.appendChild(input2);
+      form4.appendChild(input3);
+      form4.appendChild(submitBtn);
       
       // Ajout du formulaire à la page
-      parentElement.appendChild(form2);
-      form2.addEventListener("submit", function(event) {
+      parentElement.appendChild(form4);
+      form4.addEventListener("submit", function(event) {
           event.preventDefault(); // Empêche le rechargement de la page
-          parentElement.removeChild(form2);
+          parentElement.removeChild(form4);
 
-          var formData = new FormData(form2);
+          var formData = new FormData(form4);
 
           var xhr = new XMLHttpRequest();
-          xhr.open("POST", form2.action, true);
+          xhr.open("POST", form4.action, true);
           xhr.onreadystatechange = function() {
             if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
               // Traitement de la réponse
               console.log(xhr.responseText);
-              console.log('on supr');
               chargement_profil();
             }
           };
           xhr.send(formData);
         });
-      }
+}

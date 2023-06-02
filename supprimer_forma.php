@@ -16,48 +16,30 @@ if ($connexion->connect_error) {
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if (isset($_FILES['logo'])) {
-        $logo = $_FILES['logo'];
+        $logo = $_FILES['logo']['name'];
     }
 
     $dateDebut = $_POST['Date_debut'];
     $dateFin = $_POST['Date_fin'];
     $description = $_POST['Description'];
     $mail = $_SESSION['email'];
-
-    $nanelogo = $_FILES['logo']['name'];
-    echo $nanelogo;
-
-   
-    if ($logo['error'] === UPLOAD_ERR_OK) {
-        // Définir les dimensions maximales souhaitées
-        $uploadDir = 'logo/';
-        $tempFilePath = $logo['tmp_name'];
-
-    
-        if (move_uploaded_file($tempFilePath, $uploadDir . $nanelogo)) {
-            echo 'La photo de profil a été sauvegardée avec succès.';
-        } else {
-            echo 'Une erreur s\'est produite lors de la sauvegarde de l\'image.';
-        }
-    }
+    echo $mail;
 
      $formation = "SELECT formations FROM `profil` WHERE mail = '$mail'"; 
      $formation =mysqli_query($connexion, $formation);
      if ($formation) {
         $row = mysqli_fetch_assoc($formation);
         $formation = $row['formations'];
-    
-        // Utilisez la variable $formation ici comme vous le souhaitez
+        $formation = str_replace("$logo|$dateDebut|$dateFin|$description|", "", $formation);
+
         echo $formation;
     }
-    if ($formation != "/") {
-        $formation = $formation;
-    }
-    elseif ($formation == "/") {
-        $formation = "";
+
+    if ($formation == "") {
+        $formation = "/";
     }
 
-    $sql = "UPDATE `profil` SET `formations` = CONCAT('$formation', '$nanelogo', '|', '$dateDebut', '|', '$dateFin', '|', '$description','|')";
+    $sql = "UPDATE `profil` SET `formations` = '$formation'";
 
      echo $sql;
 
