@@ -75,7 +75,6 @@ function chargerDonnees() {
                 }
                 } 
                 else {
-                    console.error("Les abonnements sont indisponibles dans la réponse.");
                 }
             } 
             else {

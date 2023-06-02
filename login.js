@@ -15,7 +15,6 @@ xhr.onreadystatechange = function() {
           window.location.replace("admin.html");
         }
         else {
-          console.log("ok");
           document.getElementById("general").style.display = "block";
           document.getElementById("loginDiv").style.display = "none";
         }
@@ -46,7 +45,6 @@ function login() {
       xhr.onreadystatechange = function() {
           if (xhr.readyState === 4 && xhr.status === 200) {
               // Réponse du serveur
-              console.log(xhr.responseText);
               if (xhr.responseText === 'false') {
                 
               }
@@ -68,3 +66,19 @@ function login() {
       xhr.send('email=' + encodeURIComponent(username) + '&password=' + encodeURIComponent(password));
   });
 }
+
+$(document).ready(function() {
+  $("#logoutButton").click(function() {
+    $.ajax({
+      url: "deconnexion.php",
+      type: "POST",
+      success: function(response) {
+        // Traitez ici la réponse de la requête de déconnexion
+        document.getElementById('email_login').value = '';
+        document.getElementById('password_login').value = '';
+        document.getElementById("general").style.display = "none";
+        document.getElementById("loginDiv").style.display = "block";
+      }
+    });
+  });
+});
