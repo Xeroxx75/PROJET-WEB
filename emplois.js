@@ -312,8 +312,6 @@ function afficherMesEmplois(responseMesEmplois) {
               data: updatedEmploi,
               success: function(responseTEST) {
                 // Les données ont été mises à jour avec succès
-                //console.log("SUPPRIMER"+updatedEmploi.supprimer);
-                console.log('Réponse du serveur :', responseTEST);
                 updatePage();
               },
               error: function(error) {
@@ -365,8 +363,6 @@ function afficherMesEmplois(responseMesEmplois) {
                 data: updatedEmploi,
                 success: function(responseTEST) {
                   // Les données ont été mises à jour avec succès
-                  //console.log("NON SUPPRIMER"+updatedEmploi.supprimer);
-                  console.log('Réponse du serveur :', responseTEST);
                   updatePage();
                 },
                 error: function(error) {
@@ -405,8 +401,6 @@ function afficherMesEmplois(responseMesEmplois) {
       } else {
         // parcourir emploi.profils_postulants pour trouver emailUtilisateur
         // Si l'utilisateur a postulé à cet emploi, afficher l'offre
-        console.log(emploi.titre);
-        console.log(emploi.profils_postulants);
         if (emploi.profils_postulants && emploi.profils_postulants.includes(emailUtilisateur)) {
           
           var emploiDiv = document.createElement('div');
@@ -533,7 +527,6 @@ function afficherMesEmplois(responseMesEmplois) {
             data: AjoutEmploi,
             success: function(responseTEST) {
               // Les données ont été mises à jour avec succès
-              console.log('Réponse du serveur :', responseTEST);
               updatePage();
               
 

@@ -167,7 +167,6 @@ $('#message_form').submit(function(event) {
                 processData: false,
                 contentType: false,
                 success: function(response) {
-                    console.log(response);
                 // Traitement réussi
                 },
                 error: function() {
@@ -285,7 +284,6 @@ $('#create_messagerie_form').submit(function(event) {
             contentType: false,
             success: function(response) {
                 load_messagerie();
-                console.log(response);
             // Traitement réussi
             },
             error: function() {

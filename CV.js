@@ -10,5 +10,4 @@ function genererCV(){
 	var nom = mots[1];
 	
 	// Affichez le premier mot dans la console
-	console.log(premierMot);
 }

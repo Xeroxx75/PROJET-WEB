@@ -61,7 +61,6 @@ $('#ajout_membre').submit(function(e) {
             processData: false,
             contentType: false,
             success: function(response) {
-                console.log(response);
                 document.getElementById("resultat").innerHTML = "Membre ajouté avec succès !"
             // Traitement réussi
             },

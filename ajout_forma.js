@@ -55,7 +55,6 @@ function creerFormulaire() {
           xhr.onreadystatechange = function() {
             if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
               // Traitement de la réponse
-              console.log(xhr.responseText);
             }
           };
           xhr.send(formData);

@@ -51,7 +51,6 @@ function chargement_profil() {
             })
             const tableau_formation = [];
             if (formation[0] === "non renseigné"){
-                console.log("formation null");
                 formation = [];
                 document.getElementById("formations").style.border="none";
             }
@@ -119,5 +118,3 @@ if (document.getElementById("general").style.display === "none") {
 }
 
 document.getElementById('loginForm').addEventListener('submit', chargement_profil());
-
-console.log("chargement profil");
