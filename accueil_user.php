@@ -24,7 +24,7 @@ if (isset($_SESSION['email'])) {
 //Evenements du reseau
 
 // Requête SQL pour récupérer les événements avec toutes les images et l'auteur
-$sql = "SELECT e.nom_evenement, e.description, e.auteur_mail, GROUP_CONCAT(e.image SEPARATOR '|') AS images
+$sql = "SELECT  e.id_evenement, e.nom_evenement, e.description, e.auteur_mail, GROUP_CONCAT(e.image SEPARATOR '|') AS images
         FROM evenement e
         WHERE e.auteur_mail = '$email_utilisateur' OR e.auteur_mail IN (
             SELECT a.abonnement
@@ -61,6 +61,7 @@ if ($result->num_rows > 0) {
         }
 
         $evenement = array(
+            'id_evenement' => $row['id_evenement'],
             'nom_evenement' => $row['nom_evenement'],
             'description' => $row['description'],
             'auteur_mail' => $row['auteur_mail'],
