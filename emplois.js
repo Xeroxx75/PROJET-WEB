@@ -257,11 +257,7 @@ function afficherMesEmplois(responseMesEmplois) {
           emploiTitre.appendChild(titreInput);
 
           var datePublication = document.createElement('p');
-          datePublication.textContent = `Date de publication :`;
-          var datePublicationInput = document.createElement('input');
-          datePublication.type = 'date';
-          datePublicationInput.value = emploi.date_publication;
-          datePublication.appendChild(datePublicationInput);
+          datePublication.textContent = `Date de publication : ${emploi.date_publication}`;
 
           var lieu = document.createElement('p');
           lieu.textContent = `Lieu :`;
@@ -333,7 +329,7 @@ function afficherMesEmplois(responseMesEmplois) {
               id: emploi.id_emplois,
               supprimer: supprimerEmploi,
               titre: titreInput.value,
-              date_publication: datePublicationInput.valu,
+              date_publication: emploi.date_publication,
               lieu: lieuInput.value,
               date_embauche: dateEmbaucheInput.value,
               duree: dureeInput.value,
@@ -372,7 +368,7 @@ function afficherMesEmplois(responseMesEmplois) {
             event.stopPropagation();
               var updatedId = emploi.id_emplois;
               var updatedTitre = titreInput.value;
-              var updatedDatePublication = datePublicationInput.value;
+              var updatedDatePublication = emploi.date_publication;
               var updatedLieu = lieuInput.value;
               var updatedDateEmbauche = dateEmbaucheInput.value;
               var updatedDuree = dureeInput.value;
@@ -501,10 +497,16 @@ function afficherMesEmplois(responseMesEmplois) {
       emploiTitre.appendChild(titreInput);
 
       var datePublication = document.createElement('p');
-      datePublication.textContent = `Date de publication :`;
-      var datePublicationInput = document.createElement('input');
-      datePublicationInput.type = 'date';
-      datePublication.appendChild(datePublicationInput);
+      var today = new Date();
+      var year = today.getFullYear();
+      var month = String(today.getMonth() + 1).padStart(2, '0');
+      var day = String(today.getDate()).padStart(2, '0');
+
+      var formattedDate = `${year}-${month}-${day}`;
+      var datePublicationInput=formattedDate;
+      //Afficher la date du jour
+      datePublication.textContent = `Date de Publication : ${datePublicationInput}`;
+      //Recuperer la date du jour
 
       var lieu = document.createElement('p');
       lieu.textContent = `Lieu :`;
@@ -561,7 +563,7 @@ function afficherMesEmplois(responseMesEmplois) {
       Ajouter.textContent = 'Ajouter';
       Ajouter.addEventListener('click', function() {
         var Titre = titreInput.value;
-        var DatePublication = datePublicationInput.value;
+        var DatePublication = datePublicationInput;
         var Lieu = lieuInput.value;
         var DateEmbauche = dateEmbaucheInput.value;
         var Duree = dureeInput.value;
