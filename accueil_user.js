@@ -14,14 +14,15 @@ function loadUserEvents() {
                     // Afficher les événements récupérés
                     var eventContainer = document.getElementById('evenement_reseau');
                     eventContainer.innerHTML = ""; // Vider le conteneur des événements précédents
-
                     for (var i = 0; i < events.length; i++) {
                         var event = events[i];
                         //console.log(event);
                         var eventDiv = document.createElement('div');
+                        eventDiv.className = 'event';
 
                         var eventTitleElement = document.createElement('div');
                         eventTitleElement.textContent = event.nom_evenement;
+                        eventTitleElement.className = 'event-title';
                         eventDiv.appendChild(eventTitleElement);
 
                         // Vérifier si la photo de profil est NULL
