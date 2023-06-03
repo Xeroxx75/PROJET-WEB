@@ -26,7 +26,28 @@
     <div id="evenement_reseau"></div>
     <!--Fin des evenement du reseau-->
 
-    <div id="boutonAjoutEvent"></div>
+    <div id="boutonAjoutEvent">
+        <button id="btn_ajout">Ajouter</button>
+        <form id="eventForm">
+            <label>
+                Titre : 
+                <input type="text" id="title" required>
+            </label>
+            <label>
+                Description :
+                <input type="text" id="description" required>
+            </label>
+            <label>
+                Date :
+                <input type="date" id="date" required>
+            </label>
+            <label>
+                Image : 
+                <input type="file" id="image" multiple>
+            </label>
+            <input type="submit" value="Envoyer">
+        </form>
+    </div>
 
     <div id="boutonAfficherEvent">
         <div id="modifEvent"></div>

@@ -1,5 +1,5 @@
 // Fonction pour afficher ou masquer le formulaire
-function toggleForm() {
+function toggleForm2() {
     var form = document.getElementById("eventForm2");
     var button = document.getElementById("toggleButton2");
     
@@ -137,7 +137,7 @@ function getEvents() {
 // Création du bouton "Ajouter"
 var addButton = document.createElement("button");
 addButton.textContent = "Mes Events";
-addButton.addEventListener("click", toggleForm);
+addButton.addEventListener("click", toggleForm2);
 
 // Insertion du bouton dans le div avec l'ID "boutonAjoutEvent"
 var container = document.getElementById("boutonAfficherEvent");
