@@ -232,15 +232,17 @@ function remplir_participant(){
         processData: false,
         contentType: false,
         success: function(response) {
-            response = JSON.parse(response);
-            for (var i = 0; i < response.length; i++) {
-                var option = document.createElement("option");
-                option.innerHTML = response[i]['liste_amis'];
-                option.value = response[i]['liste_amis'];
-                // Le probleme est ici
-                document.getElementById("participant1").appendChild(option.cloneNode(true));
-                document.getElementById("participant2").appendChild(option.cloneNode(true));
-                document.getElementById("participant3").appendChild(option.cloneNode(true));
+            if (response !== "error"){
+                response = JSON.parse(response);
+                for (var i = 0; i < response.length; i++) {
+                    var option = document.createElement("option");
+                    option.innerHTML = response[i]['liste_amis'];
+                    option.value = response[i]['liste_amis'];
+                    // Le probleme est ici
+                    document.getElementById("participant1").appendChild(option.cloneNode(true));
+                    document.getElementById("participant2").appendChild(option.cloneNode(true));
+                    document.getElementById("participant3").appendChild(option.cloneNode(true));
+                }
             }
         // Traitement réussi
         },
