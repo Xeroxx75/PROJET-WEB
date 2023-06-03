@@ -252,6 +252,10 @@ a:hover {
     /* Ajoutez d'autres propriétés CSS selon vos besoins */
 }
 
+#eventForm{
+    display: none;
+}
+
 .event{
     display: flex;
     flex-direction: column;
@@ -269,42 +273,3 @@ a:hover {
     font-size: 2em;
 }
   
-.commentaire{
-    margin-bottom: 2%;
-    background-color: blue;
-    font-size: 1.5em;
-}
-
-.auteur{
-    margin-bottom: 2%;
-    background-color: green;
-    font-size: 1.5em;
-}
-
-.commentaires-container{
-    margin-bottom: 2%;
-    background-color: purple;
-    font-size: 1.5em;
-    border: #000000 solid 1px;
-}
-
-.buttonCommentaire{
-    margin-bottom: 2%;
-    background-color: yellow;
-    font-size: 1.5em;
-}
-
-.comment-input{
-    margin-bottom: 2%;
-    background-color: pink;
-    font-size: 1.5em;
-}
-
-.buttonEnvoyerCommentaire{
-    margin-bottom: 2%;
-    background-color: orange;
-    font-size: 1.5em;
-}
-
-/*met des contours rouge a tous les elements*/
-*{outline: red 1px solid;}
