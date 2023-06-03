@@ -252,6 +252,10 @@ a:hover {
     /* Ajoutez d'autres propriétés CSS selon vos besoins */
 }
 
+#eventForm{
+    display: none;
+}
+
 .event{
     display: flex;
     flex-direction: column;
@@ -268,7 +272,7 @@ a:hover {
     background-color: red;
     font-size: 2em;
 }
-  
+
 .commentaire{
     margin-bottom: 2%;
     background-color: blue;
@@ -306,5 +310,6 @@ a:hover {
     font-size: 1.5em;
 }
 
-/*met des contours rouge a tous les elements*/
-*{outline: red 1px solid;}
+
+
+  
