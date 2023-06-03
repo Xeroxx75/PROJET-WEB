@@ -377,7 +377,7 @@ function afficherMesEmplois(responseMesEmplois) {
               var updatedRemuneration = remunerationInput.value;
               var supprimerEmploi = 0;
             
-
+              if (updatedTitre && updatedLieu && updatedDateEmbauche && updatedDuree && updatedContrat && updatedDescription && updatedRemuneration) {
                 var updatedEmploi = {
                   titre: updatedTitre,
                   id: updatedId,
@@ -408,6 +408,9 @@ function afficherMesEmplois(responseMesEmplois) {
                   console.log(error);
                 }
               });
+            } else {
+              alert('Veuillez remplir tous les champs');
+            }
             });
 
           emploiDiv2.appendChild(emploiTitre);
@@ -571,7 +574,8 @@ function afficherMesEmplois(responseMesEmplois) {
         var Description = descriptionInput.value;
         var Remuneration = remunerationInput.value;
         
-
+        if (Titre && Lieu && DateEmbauche && Duree && Contrat && Description && Remuneration) {
+          
           var AjoutEmploi = {
             titre: Titre,
             date_publication: DatePublication,
@@ -601,7 +605,12 @@ function afficherMesEmplois(responseMesEmplois) {
               console.log(error);
             }
           });
+        }
+        else{
+          alert("Veuillez remplir tous les champs");
+        }
         });
+      
 
       emploiDiv3.appendChild(emploiTitre);
       emploiDiv3.appendChild(datePublication);
