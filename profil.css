@@ -71,27 +71,30 @@
 #formations{
     text-align: center;
     width: 100%;
-    height: calc(12vw * var(--nb_ligne_formation));
+    height: calc(11vw * var(--nb_ligne_formation));
     border: 0.2em solid #306E78;
     background-color: white;
     border-radius: 30px;
 }
 
+#lien_img{
+    width: 9vw;
+}
+
 #lien_img img{
-    width: 8vw;
-    height: 8vw;
-    margin-left: -80%;
+    width: 7vw;
+    height: 7vw;
     margin-top: 3vw;
 }
 #info_taff{
-    margin-top: 18vw;
+    margin-top: 10vw;
 }
 
 #info_form{
-    margin-top: -20vw;
-    line-height: 9vw;
-    word-spacing: 4vw;
+    margin-top: calc(-10vw*var(--nb_ligne_formation));
+    line-height: 8.5vw;
     font-size: 2vw;
+    margin-left: 6vw;
 }
 
 
@@ -101,12 +104,16 @@
 #projets{
     text-align: center;
     width: 100%;
-    height: calc(18% * var(--nb_ligne_projet));
+    height: calc(4vw * var(--nb_ligne_projet));
     border: 0.2em solid #306E78;
     background-color: white;
     border-radius: 30px;
 }
 
+#info_projets{
+    margin-top: 1vw;
+    font-size: 2vw;
+}
 
 #titre_CV{
     text-align: center;

@@ -5,6 +5,11 @@ function chargement_profil() {
     xhr.onreadystatechange = function() {
         if (xhr.readyState === 4 && xhr.status === 200) {
             // Réponse du serveur
+            document.getElementById('info_profil').innerHTML = '';
+            document.getElementById('lien_img').innerHTML = '';
+            document.getElementById('info_form').innerHTML = '';
+            document.getElementById('info_projets').innerHTML = '';
+
             var response = JSON.parse(xhr.responseText);
             var global = response[0]; // Contient toutes les informations du profil sauf nb abonnes et nb abonnements
             var nb_abonnenement = response[1]['nombre_abonnements'];
@@ -51,30 +56,37 @@ function chargement_profil() {
             })
             const tableau_formation = [];
             if (formation[0] === "non renseigné"){
+                console.log("formation null");
                 formation = [];
                 document.getElementById("formations").style.border="none";
             }
             var texteElement = document.getElementById('titre_form');
             var lienElement = document.getElementById('lien_form');
             // Vérifier si la valeur de nbLigne est égale à 0
+            console.log(formation.length);
+            var r = document.querySelector(':root');
             if (formation.length === 0) {
               // Supprimer le texte en définissant le contenu de l'élément sur une chaîne vide
               texteElement.textContent = '';
               lienElement.textContent='';
+                r.style.setProperty('--nb_ligne_formation', 0);
             }
             if (formation.length !== 0) {
+                texteElement.textContent = 'formations';
+                lienElement.textContent='formation';
+                document.getElementById("formations").style.border="0.2em solid #306E78";
                 const nb_mots_ligne = 4; // Nombre de mots par ligne
                 for (let i = 0; i < formation.length; i += nb_mots_ligne) {
                     tableau_formation.push(formation.slice(i, i + nb_mots_ligne));
                 }
 
-                var r = document.querySelector(':root');
-                r.style.setProperty('--nb_ligne_formation', tableau_formation.length);
+                
+                r.style.setProperty('--nb_ligne_formation', tableau_formation.length-1);
 
                 var container = document.getElementById("lien_img"); // Conteneur pour les images
                 container.innerHTML = ""; // Réinitialiser le contenu
-                for (var i = 0; i < tableau_formation.length; i++) {
-                    var lien = tableau_formation[i][0];
+                for (var i = 0; i < tableau_formation.length-1; i++) {
+                    var lien = "logo/" + tableau_formation[i][0];
                     var imgElement = document.createElement("img"); // Créer une nouvelle balise <img>
                     imgElement.src = lien; // Définir le lien source de l'image
                     container.appendChild(imgElement); // Ajouter l'image au conteneur
@@ -83,8 +95,10 @@ function chargement_profil() {
                     }
                     document.getElementById("info_form").innerHTML += "<br><hr>";
                     container.innerHTML += "<br>"; // Ajouter une balise <br> pour un saut de ligne
+                    console.log('la');
                 }
             }
+            console.log(tableau_formation);
             var projet = global['projets'].split("|").map(function(item){
                 return item.trim();
             })
@@ -95,18 +109,32 @@ function chargement_profil() {
             var texteElement_projet = document.getElementById('titre_projets');
             var lienElement_projet = document.getElementById('lien_projets');
             // Vérifier si la valeur de nbLigne est égale à 0
+            var r = document.querySelector(':root');
             if (projet.length === 0) {
               // Supprimer le texte en définissant le contenu de l'élément sur une chaîne vide
               texteElement_projet.textContent = '';
               lienElement_projet.textContent='';
               document.getElementById("projets").style.border="none";
+              r.style.setProperty('--nb_ligne_projet', 0);
             }
+            console.log(projet.length);
             if (projet.length !== 0) {
-                const nb_mots_ligne_projet = 5; // Nombre de mots par ligne
+                texteElement_projet.textContent = 'Projets';
+                  lienElement_projet.textContent='Projets';
+                  document.getElementById("projets").style.border="0.2em solid #306E78";
+                const nb_mots_ligne_projet = 4; // Nombre de mots par ligne
                 for (let i = 0; i < projet.length; i += nb_mots_ligne_projet) {
                     tableau_projet.push(projet.slice(i, i + nb_mots_ligne_projet));
                 }
-                r.style.setProperty('--nb_ligne_projet', tableau_projet.length);
+                r.style.setProperty('--nb_ligne_projet', tableau_projet.length-1);
+                console.log(tableau_projet);
+                for (var i = 0; i < tableau_projet.length-1; i++) {
+                    for (var j = 0; j < 4; j++) {
+                      document.getElementById("info_projets").innerHTML += " " + tableau_projet[i][j] + " ";
+                    }
+                    document.getElementById("info_projets").innerHTML += "<br><hr>";
+                }
+                console.log(tableau_projet);
             }
         }
     };
@@ -118,3 +146,5 @@ if (document.getElementById("general").style.display === "none") {
 }
 
 document.getElementById('loginForm').addEventListener('submit', chargement_profil());
+
+console.log("chargement profil");
