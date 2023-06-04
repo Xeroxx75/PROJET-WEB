@@ -62,13 +62,10 @@ function getCommentaires(id_evenement, eventDiv) {
   var idEvenement = id_evenement;
 
   xhr.onreadystatechange = function() {
-    console.log("id_ready: "+idEvenement);
 
     if (xhr.readyState === 4 && xhr.status === 200) {
 
       if (xhr.responseText === 'error') {
-        console.log(xhr.responseText);
-        console.log("id_if: "+idEvenement);
 
         // Une erreur est survenue lors de l'exécution de la requête
         return;
