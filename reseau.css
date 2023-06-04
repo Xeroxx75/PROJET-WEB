@@ -13,11 +13,11 @@
   
 .profil-abonnement {
     margin-bottom: 2em;
-    margin-left: 4em;
-    margin-right: 4em;
-    border: 0.1em solid #306E78;
+    margin-left: 8em;
+    margin-right: 8em;
+    border: 0.1em solid #a1d3db;
     border-radius: 5px;
-    background-color: white;
+    background-color: #d5ebef;
     text-align: center;
     padding-bottom: 1em;
 }
@@ -27,7 +27,8 @@
     height: 4em;
     border-radius: 50px;
     display: inline-block; 
-    vertical-align: middle; 
+    vertical-align: middle;
+    border: #a1d3db 2px solid;
     margin-right: 2em; 
 }
 
@@ -47,11 +48,11 @@
   
 .ami {
   margin-bottom: 2em;
-  margin-left: 4em;
-  margin-right: 4em;
-  border: 0.1em solid #306E78;
+  margin-left: 8em;
+  margin-right: 8em;
+  border: 0.1em solid #d7efdd;
   border-radius: 5px;
-  background-color: white;
+  background-color: #c0e0c8;
   text-align: center;
   padding-bottom: 1em;
 }
@@ -62,6 +63,7 @@
   border-radius: 50px;
   display: inline-block;
   vertical-align: middle;
+  border: #d7efdd 2px solid;
   margin-right: 2em;
 }
 
@@ -77,13 +79,14 @@
 
 .profil-moi {
   margin-bottom: 2em;
-  margin-left: 4em;
-  margin-right: 4em;
+  margin-left: 7em;
+  margin-right: 7em;
   border: 0.1em solid #306E78;
   border-radius: 5px;
-  background-color: white;
+  background-color: #306E78;
   text-align: center;
   padding-bottom: 1em;
+  color:white;
 }
 
 .profil-moi img {
@@ -93,6 +96,7 @@
   display: inline-block; 
   vertical-align: middle; 
   margin-right: 2em; 
+  border: #ffffff 2px solid;
 }
 
 .profil-moi h3 {
@@ -104,3 +108,9 @@
   display: inline-block; /* Ajoutez cette ligne pour aligner le paragraphe à côté de l'image */
 }
 
+h2 {
+  font-size: 1.5em;
+  margin-bottom: 0.5em;
+  color: #306E78;
+  text-align: center;
+}
