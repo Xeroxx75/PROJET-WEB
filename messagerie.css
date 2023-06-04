@@ -3,6 +3,13 @@
       MESSAGERIE
   ------------------------------------------*/
 
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 48
+}
 
 .divFormMessagerie{
   display: none;
@@ -32,30 +39,88 @@
 
 .messagerie_list{
   margin-top: 3%;
-  background-color: red;
   display: flex;
   margin-bottom: 3%;
   flex-direction: column;
   width: 100%;
   height: 50%;
   overflow-y: scroll;
+  border-radius: 2px;
 }
 
+.messagerie_list button{
+  height: 15%;
+  justify-content: center;
+  width: 100%;
+  margin-bottom: 5%;
+  border: none;
+  background-color: #306E78;
+  border-radius: 5px;
+  color: #ffffff;
+  box-shadow: 0px 0px 2px 0px rgba(0,0,0,0.75);
+  
+}
+
+.messagerie_list button:hover {
+  border-radius: 10px;
+  background: #15e6d1;
+  color: #fff;
+}
+
+
 .messagerie_info{
-  background-color: green;
+  text-align: center;
+  background-color: transparent;
   width: 100%;
   height: 22%;
   margin-bottom: 3%;
 }
 
 .create_messagerie{
-  background-color: brown;
+  background-color: transparent;
+  display: flex;
+  flex-direction: column;
+  gap: 8%;
   width: 100%;
   height: 22%;
 }
 
+.create_messagerie button {
+  transition: all 0.2s linear 0s;
+  
+  &:before {
+    content: "";
+    font-family: FontAwesome;
+    font-size: 15px;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    right: 0;
+    top: 0;
+    opacity: 0;
+    height: 100%;
+    width: 40px;
+    transition: all 0.2s linear 0s;
+  }
+  
+  &:hover {
+    text-indent: -20px;
+    
+    &:before {
+      opacity: 1;
+      text-indent: 0px;
+    }
+  }
+}
+
+
 .chat_box{
-  background-color: blue;
+  font-family: 'Roboto', sans-serif;
+  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+  background-size: 400% 400%;
+	animation: gradient 15s ease infinite;
+  border-radius: 10px;
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -63,22 +128,39 @@
   overflow-y: scroll;
 }
 
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
+
 .image_message{
   width: 20%;
 }
 
 .message_sender{
-  background-color: pink;
+  background-color: rgb(22, 50, 211);
   align-self: flex-end;
   justify-content: flex-start;
   text-align: end;
+  margin-right: 1%;
+  border-radius: 10px 10px 0px 10px;
   width: 40%;
   margin-top: 1%;
 }
 
 .message_receiver{
-  background-color: gray;
+  margin-left: 1%;
+  background-color: rgb(194, 193, 193);
   justify-content: flex-start;
+  border-radius: 6px 6px 6px 0px;
   text-align: start;
   width: 40%;
   margin-top: 1%;
@@ -86,18 +168,186 @@
 
 
 span{
-  background-color: yellow;
+  background-color: transparent;
   width: 100%;
 }
 
 .message{
   display: grid;
-  grid-template-columns: 25% 50% 25%;
+  grid-template-columns: 20% 60% 20%;
 }
+
 .message_div{
   display: flex;
-  background-color: green;
+  flex-direction: row;
+  background-color: rgba(0, 0, 0, 0.904);
   width: 100%;
-  height: 100%;
+  height: 30vh;
   justify-content: center;
+  border-radius: 25px;
+  margin-bottom: 2%;
+}
+
+.message_form{
+  display: grid;
+  grid-template-rows: 30% 10% 25% 5% 30%;
+}
+
+.div_file{
+  margin-top: 2%;
+}
+.message_div input[type=file]{
+  display: none;
+}
+
+.message_div label{
+  color: white;
+  text-align: center;
+}
+
+
+.message_div input[type=text]{
+  justify-self: left;
+  padding: 10px 0;
+  border: none;
+  border-bottom: white 1px solid;
+  font-size: 16px;
+  outline: none;
+  color: white;
+  background: transparent;
+  width: 100%;
+}
+
+.message_div input[type=text]:focus{
+  animation: border_anim 4s linear infinite;
+}
+
+@keyframes border_anim {
+  0% {
+    width: 100%
+  }
+  50% {
+    width: 26%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+.submit_message {
+  position: relative;
+  text-transform: uppercase;
+  background-color: transparent;
+  letter-spacing: 4px;
+  border: none;
+  overflow: hidden;
+  margin-bottom: 4%;
+  color: #03e9f4
+}
+
+.submit_message:hover{
+  background: #03e9f4;
+  color: #fff;
+  border-radius: 5px;
+  border-color: #03e9f4;
+  box-shadow: 0 0 5px #03e9f4,
+              0 0 25px #03e9f4,
+              0 0 50px #03e9f4,
+              0 0 100px #03e9f4;
+}
+
+
+.submit_message span{
+  position: absolute;
+  display: block;
+}
+
+.submit_message span:nth-child(1){
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #03e9f4);
+  animation: btn-anim1 1s linear infinite;
+}
+
+@keyframes btn-anim1 {
+  0% {
+      left: -100%;
+  }
+  50%,100% {
+      left: 100%;
+  }
+}
+
+.submit_message span:nth-child(2) {
+  top: -100%;
+  right: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(180deg, transparent, #03e9f4);
+  animation: btn-anim2 1s linear infinite;
+  animation-delay: .25s
+}
+
+
+@keyframes btn-anim2 {
+  0% {
+      top: -100%;
+  }
+  50%,100% {
+      top: 100%;
+  }
+}
+
+.submit_message span:nth-child(3) {
+  bottom: 0;
+  right: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(270deg, transparent, #03e9f4);
+  animation: btn-anim3 1s linear infinite;
+  animation-delay: .5s
+}
+
+
+
+@keyframes btn-anim3 {
+  0% {
+      right: -100%;
+  }
+  50%,100% {
+      right: 100%;
+  }
+}
+
+.submit_message span:nth-child(4) {
+  bottom: -100%;
+  left: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(360deg, transparent, #03e9f4);
+  animation: btn-anim4 1s linear infinite;
+  animation-delay: .75s
+}
+
+
+@keyframes btn-anim4 {
+  0% {
+      bottom: -100%;
+  }
+  50%,100% {
+      bottom: 100%;
+  }
+}
+
+
+.video{
+  display: block;
+  position: absolute;
+  margin-left: 30%;
+  margin-top: 5%;
+  width: 65%;
+  height: 60%;
+  background-color: transparent;
 }

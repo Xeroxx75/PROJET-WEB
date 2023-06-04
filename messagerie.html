@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <link rel="stylesheet" type="text/css" href="messagerie.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />  <div id="video" class="video"></div>
   <div id="divFormMessagerie" class="divFormMessagerie">
     <form id="create_messagerie_form" class="create_messagerie_form">
       <input type="text" id="TitreMessagerie" name="TitreMessagerie" placeholder="Nom du chat">
@@ -24,7 +25,7 @@
       <div id="create_messagerie" class="create_messagerie">
         <button id="create_messagerie_button" class="create_messagerie_button" onclick="create_messagerie()">Créer un chat</button>
         <button id="leave_messagerie_button" class="leave_messagerie_button" onclick="leave_messagerie()">Quitter le chat</button>
-        <button id="createCallButton">Créer un appel Teams</button>
+        <button id="createCallButton">Créer un appel</button>
       </div>
     </div>
     <span></span>
@@ -35,13 +36,29 @@
     <span></span>
     <div id="message_div" class="message_div">
       <form id="message_form" class="message_form" enctype="multipart/form-data">
-        <input type="file" id="message_file" name="message_file">
         <input type="text" id="message_text" name="message_text" placeholder="Message">
-        <input type="submit" value="Envoyer">
+        <span></span>
+        <div class="div_file">
+          <input type="file" id="message_file" name="message_file">
+          <label for="message_file">
+            <span class="material-symbols-outlined">
+              add_photo_alternate
+            </span>
+          </label>
+        </div>
+        <span></span>
+        <button type ="submit" class="submit_message">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          Envoyer
+        </button>
       </form>
     </div>
     <span></span>
   </div> 
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+  <script src="https://meet.jit.si/external_api.js"></script>
   <script src="messagerie.js"></script>
 </html>
