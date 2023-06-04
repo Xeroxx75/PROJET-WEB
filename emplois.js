@@ -409,7 +409,7 @@ function afficherMesEmplois(responseMesEmplois) {
               var updatedRemuneration = remunerationInput.value;
               var supprimerEmploi = 0;
             
-              if (updatedTitre && updatedLieu && updatedDateEmbauche && updatedDuree && updatedContrat && updatedDescription && updatedRemuneration) {
+              if (updatedTitre && updatedLieu && updatedDateEmbauche && updatedContrat && updatedDescription && updatedRemuneration) {
                 var updatedEmploi = {
                   titre: updatedTitre,
                   id: updatedId,
@@ -608,7 +608,7 @@ function afficherMesEmplois(responseMesEmplois) {
         var Description = descriptionInput.value;
         var Remuneration = remunerationInput.value;
         
-        if (Titre && Lieu && DateEmbauche && Duree && Contrat && Description && Remuneration) {
+        if (Titre && Lieu && DateEmbauche && Contrat && Description && Remuneration) {
           
           var AjoutEmploi = {
             titre: Titre,
