@@ -151,7 +151,7 @@ function afficherEmplois(responseEmplois) {
       if(estAuteur == 0){
         var postulerButton = document.createElement('button');
         postulerButton.textContent = 'Postuler';
-        
+        postulerButton.classList.add('bouton2');
         postulerButton.addEventListener('click', function(event) {
           
           if(!emploi.profils_postulants.includes(emailUtilisateur)){
