@@ -14,7 +14,8 @@ if ($conn->connect_error) {
 
 
 //Carrousel
-
+session_start();
+$email_utilisateur = $_SESSION['email'];
 
 $sql = "SELECT auteur_mail, nom_evenement, description, image FROM evenement WHERE auteur_mail != '$email_utilisateur' ORDER BY date_evenement ASC LIMIT 1";
 $result = $conn->query($sql);
