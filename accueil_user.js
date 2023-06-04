@@ -1,3 +1,6 @@
+  loadUserEvents();
+
+
 function loadUserEvents() {
   var xhr = new XMLHttpRequest();
   xhr.onreadystatechange = function() {
@@ -16,10 +19,11 @@ function loadUserEvents() {
           eventContainer.innerHTML = ""; // Vider le conteneur des événements précédents
           for (var i = 0; i < events.length; i++) {
             var event = events[i];
+
             var eventDiv = document.createElement('div');
             eventDiv.className = 'event';
             eventDiv.setAttribute('data-id', event.id_evenement);
-
+            
             var eventTitleElement = document.createElement('div');
             eventTitleElement.textContent = event.nom_evenement;
             eventTitleElement.className = 'event-title';
@@ -34,8 +38,7 @@ function loadUserEvents() {
             eventDiv.appendChild(eventDescriptionElement);
 
             // Appeler la fonction pour récupérer les commentaires correspondant à l'événement
-            var commentairesContainer = document.createElement('div'); // Conteneur des commentaires
-            getCommentaires(event.id_evenement, eventDiv, commentairesContainer);
+            getCommentaires(event.id_evenement, eventDiv);
 
             eventContainer.appendChild(eventDiv);
           }
@@ -51,7 +54,7 @@ function loadUserEvents() {
 }
 
 
-loadUserEvents();
+
 
 /// récupérer les commentaires correspondant à l'événement
 function getCommentaires(id_evenement, eventDiv) {
@@ -59,8 +62,14 @@ function getCommentaires(id_evenement, eventDiv) {
   var idEvenement = id_evenement;
 
   xhr.onreadystatechange = function() {
+    console.log("id_ready: "+idEvenement);
+
     if (xhr.readyState === 4 && xhr.status === 200) {
+
       if (xhr.responseText === 'error') {
+        console.log(xhr.responseText);
+        console.log("id_if: "+idEvenement);
+
         // Une erreur est survenue lors de l'exécution de la requête
         return;
       } else {
@@ -185,7 +194,7 @@ function addComment(idEvenement, commentaireText) {
     if (xhr.readyState === 4) {
       if (xhr.status === 200) {
         // Le commentaire a été ajouté avec succès
-        console.log('Le commentaire a été ajouté');
+        //console.log('Le commentaire a été ajouté');
         console.log(params);
         // Mettre à jour l'affichage des commentaires
         updateCommentsDisplay(idEvenement);
@@ -236,4 +245,38 @@ function updateCommentsDisplay(idEvenement) {
     getCommentaires(idEvenement, eventDiv, commentairesContainer);
   }
 }
+
+
+function addCommentEmpty(idEvenement) {
+
+    var id_evenement= idEvenement-'\r\n';
+    var commentaire= "";
+    var auteur= "auteur_fantome";
+
+
+  // Paramètres à envoyer au serveur (id de l'événement et texte du commentaire)
+  var params = 'id_evenement=' + encodeURIComponent(id_evenement) + '&commentaire=' + encodeURIComponent(commentaire)+ '&auteur=' + encodeURIComponent(auteur);
+
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState === 4) {
+      if (xhr.status === 200) {
+        // Le commentaire a été ajouté avec succès
+        //console.log('Le commentaire a été ajouté');
+        console.log(params);
+        // Mettre à jour l'affichage des commentaires
+        updateCommentsDisplay(idEvenement);
+        // Fermer le formulaire
+        hideCommentForm();
+      } else {
+        // Une erreur s'est produite lors de l'ajout du commentaire
+        console.error('Erreur lors de l\'ajout du commentaire : ' + xhr.status);
+      }
+    }
+  };
+
+  xhr.open('POST', 'ajouter_com_vide.php', true);
+  xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+  xhr.send(params);
+}
+
 
