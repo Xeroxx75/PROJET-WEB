@@ -8,6 +8,7 @@ $(document).ready(function() {
     var data = JSON.parse(profilData);
     var nom = data.nom;
     var prenom = data.prenom;
+    var email = data.mail;
     var photoProfil = data.photo_profil; // Chemin vers la photo de profil
     var imageFond = data.image_fond; // Chemin vers la photo de fond
     var description = data.description;
@@ -15,11 +16,11 @@ $(document).ready(function() {
     // Afficher les données dans la page membre.html
     document.getElementById('nomProfil').textContent = nom;
     document.getElementById('prenomProfil').textContent = prenom;
+    document.getElementById('emailProfil').textContent = email;
     document.getElementById('photoProfil').src = 'photo_profil/' + photoProfil;
     document.getElementById('photoFond').src = 'image_fond/' + imageFond;
     document.getElementById('description').textContent = description;
-    
-    
+
     // Afficher le bouton ajouter en ami
     AfficherBoutonAmi();
   } else {
@@ -30,8 +31,6 @@ $(document).ready(function() {
 
 // Retour au réseau
 function retourReseau() {
-  sessionStorage.removeItem('profilData');
-
   // Supprimez la classe 'active' de tous les éléments li
   $('.navHeader ul li').removeClass('active');
 
@@ -40,6 +39,7 @@ function retourReseau() {
   reseauLink.parent('li').addClass('active');
   var targetHref = reseauLink.attr('href');
   $('#general').load(targetHref + '.html');
+  sessionStorage.removeItem('profilData');
 }
 
 // Attacher un gestionnaire d'événement au bouton
@@ -102,13 +102,17 @@ function AfficherBoutonAmi() {
 
           // Modifier l'apparence du bouton en fonction de l'état de l'abonnement
           if (estAbonne === "true") {
-            document.getElementById('amiButton').textContent = 'Supprimer de mes amis';
+            /*document.getElementById('amiButton').textContent = 'Supprimer de mes amis';
             document.getElementById('amiButton').classList.remove('btn-primary');
-            document.getElementById('amiButton').classList.add('btn-danger');
+            document.getElementById('amiButton').classList.add('btn-danger');*/
+            bouton.textContent = 'Se désabonner';
+            //mettre à jour la page
+
           } else {
-            document.getElementById('amiButton').textContent = 'Ajouter en ami';
+            /*document.getElementById('amiButton').textContent = 'Ajouter en ami';
             document.getElementById('amiButton').classList.remove('btn-danger');
-            document.getElementById('amiButton').classList.add('btn-primary');
+            document.getElementById('amiButton').classList.add('btn-primary');*/
+            bouton.textContent = 'S\'abonner';
           }
         } else {
           console.error("Erreur lors de la requête AJAX :", xhr.status);
@@ -225,9 +229,15 @@ bouton.addEventListener("click", function() {
           if (estAbonne === "true") {
             
             desabonnement(); // Appeler la fonction "desabonnement"
+            //AfficherBoutonAmi();
+            bouton.textContent = 'S\'abonner';
+            //mettre à jour la page
+
           } else {
             
             abonnement(); // Appeler la fonction "abonnement"
+            //AfficherBoutonAmi();
+            bouton.textContent = 'Se désabonner';
           }
         } else {
           console.error("Erreur lors de la requête AJAX :", xhr.status);
