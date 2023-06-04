@@ -55,7 +55,7 @@ if ($result->num_rows > 0) {
     header('Content-Type: application/json');
     echo $jsonResponse;
 } else {
-    echo "Aucun membre trouvé.";
+    //echo "Aucun membre trouvé.";
 }
 
 $connexion->close();

@@ -20,6 +20,9 @@ $(document).ready(function() {
     document.getElementById('photoProfil').src = 'photo_profil/' + photoProfil;
     document.getElementById('photoFond').src = 'image_fond/' + imageFond;
     document.getElementById('description').textContent = description;
+
+    // Afficher le bouton ajouter en ami
+    AfficherBoutonAmi();
   } else {
     // Les données de session n'existent pas ou ont expiré
     console.log('Aucune donnée de session trouvée');
@@ -46,7 +49,6 @@ function retourReseau() {
   $(reseauLink).parent('li').addClass('active');
   var targetHref = $(reseauLink).attr('href');
   $('#general').load(targetHref + '.html');
-  
 }
 
 // Attacher un gestionnaire d'événement au bouton
@@ -70,15 +72,12 @@ function AjouterAmi() {
           var response = xhr.responseText;
           var estAbonne = response;
 
-
           // Faites ce que vous souhaitez avec le booléen estAbonne
           if (estAbonne === "true") {
             desabonnement(); // Appeler la fonction "desabonnement"
           } else {
             abonnement(); // Appeler la fonction "abonnement"
           }
-
-
         } else {
           console.error("Erreur lors de la requête AJAX :", xhr.status);
         }
@@ -96,7 +95,6 @@ function AjouterAmi() {
 
 // Affichage du bouton ajouter en ami
 function AfficherBoutonAmi() {
-  var bouton = document.getElementById("buttonFriend");
   var profilData = sessionStorage.getItem('profilData');
 
   // Vérifier si les données existent
@@ -112,17 +110,8 @@ function AfficherBoutonAmi() {
           var response = xhr.responseText;
           var estAbonne = response;
 
-
-          // Faites ce que vous souhaitez avec le booléen estAbonne
-          if (estAbonne === "true") {
-            // Ajouter la classe "est_ami" au bouton
-            bouton.classList.add("est_ami");
-            bouton.textContent = "Abonné";
-          } else {
-            // Supprimer la classe "est_ami" du bouton
-            bouton.classList.remove("est_ami");
-            bouton.textContent = "S'abonner";
-          }
+          // Mettre à jour l'apparence du bouton
+          mettreAJourApparenceBouton(estAbonne);
         } else {
           console.error("Erreur lors de la requête AJAX :", xhr.status);
         }
@@ -175,8 +164,8 @@ function desabonnement() {
     // Les données de session n'existent pas ou ont expiré
     console.log('Aucune donnée de session trouvée');
   }
+  mettreAJourApparenceBouton("false");
 }
-
 
 // Abonnement
 function abonnement(email) {
@@ -191,7 +180,7 @@ function abonnement(email) {
     // Créer un objet FormData pour envoyer les données
     var formData = new FormData();
     formData.append('email', email);
-  
+
     // Créer une requête AJAX
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function() {
@@ -205,18 +194,67 @@ function abonnement(email) {
         }
       }
     };
-  
+
     // Envoyer la requête AJAX POST vers le fichier PHP avec les données de l'e-mail
     xhr.open('POST', 'abonnement.php');
     xhr.send(formData);
-  }else {
+  } else {
     // Les données de session n'existent pas ou ont expiré
     console.log('Aucune donnée de session trouvée');
   }
+  mettreAJourApparenceBouton("false");
 }
 
+// Fonction pour mettre à jour l'apparence du bouton
+function mettreAJourApparenceBouton(estAbonne) {
+  var bouton = document.getElementById("buttonFriend");
 
+  if (estAbonne === "true") {
+    bouton.classList.add("est_ami");
+    bouton.textContent = "Abonné";
+  } else {
+    bouton.classList.remove("est_ami");
+    bouton.textContent = "S'abonner";
+  }
+}
 
 // Attacher un gestionnaire d'événement au bouton
 var bouton = document.getElementById("buttonFriend");
-bouton.addEventListener("click", AjouterAmi);
+bouton.addEventListener("click", function() {
+  var profilData = sessionStorage.getItem('profilData');
+
+  // Vérifier si les données existent
+  if (profilData) {
+    // Convertir les données de session en objet JavaScript
+    var data = JSON.parse(profilData);
+    var email = data.mail;
+
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function() {
+      if (xhr.readyState === 4) {
+        if (xhr.status === 200) {
+          var response = xhr.responseText;
+          var estAbonne = response;
+
+          // Mettre à jour l'apparence du bouton directement au clic
+          if (estAbonne === "true") {
+            bouton.classList.add("est_ami");
+            desabonnement(); // Appeler la fonction "desabonnement"
+          } else {
+            bouton.classList.remove("est_ami");
+            abonnement(); // Appeler la fonction "abonnement"
+          }
+        } else {
+          console.error("Erreur lors de la requête AJAX :", xhr.status);
+        }
+      }
+    };
+
+    // Effectuer une requête AJAX GET vers le script PHP en incluant l'e-mail cible dans l'URL
+    xhr.open('GET', 'est_abonne.php?email_cible=' + encodeURIComponent(email));
+    xhr.send();
+  } else {
+    // Les données de session n'existent pas ou ont expiré
+    console.log('Aucune donnée de session trouvée');
+  }
+});
