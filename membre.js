@@ -8,7 +8,6 @@ $(document).ready(function() {
     var data = JSON.parse(profilData);
     var nom = data.nom;
     var prenom = data.prenom;
-    var email = data.mail;
     var photoProfil = data.photo_profil; // Chemin vers la photo de profil
     var imageFond = data.image_fond; // Chemin vers la photo de fond
     var description = data.description;
@@ -16,7 +15,6 @@ $(document).ready(function() {
     // Afficher les données dans la page membre.html
     document.getElementById('nomProfil').textContent = nom;
     document.getElementById('prenomProfil').textContent = prenom;
-    document.getElementById('emailProfil').textContent = email;
     document.getElementById('photoProfil').src = 'photo_profil/' + photoProfil;
     document.getElementById('photoFond').src = 'image_fond/' + imageFond;
     document.getElementById('description').textContent = description;
@@ -253,3 +251,69 @@ bouton.addEventListener("click", function() {
     console.log('Aucune donnée de session trouvée');
   }
 });
+
+function getAbonnement(email) {
+  // Création de l'objet XMLHttpRequest
+  var xhr = new XMLHttpRequest();
+
+  // Préparation de la requête
+  var url = "nb_abonnement.php";
+  var params = "email=" + encodeURIComponent(email);
+  xhr.open("POST", url, true);
+  xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+  // Gestion de la réponse de la requête
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState == 4 && xhr.status == 200) {
+      var response = JSON.parse(xhr.responseText);
+      var count = response.count;
+      document.getElementById('nbAbonnement').textContent = 'Abonnement:'+count;
+    }
+  };
+
+  // Envoi de la requête
+  xhr.send(params);
+}
+
+function getAbonne(email) {
+  // Création de l'objet XMLHttpRequest
+  var xhr = new XMLHttpRequest();
+
+  // Préparation de la requête
+  var url = "nb_abonne.php";
+  var params = "email=" + encodeURIComponent(email);
+  xhr.open("POST", url, true);
+  xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+  // Gestion de la réponse de la requête
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState == 4 && xhr.status == 200) {
+      var response = JSON.parse(xhr.responseText);
+      console.log(response);
+      var count = response.count;
+      document.getElementById('nbAbonne').textContent = 'Abonne:'+count;
+    }
+  };
+
+  // Envoi de la requête
+  xhr.send(params);
+}
+
+// Récupérer les données de session
+var profilData = sessionStorage.getItem('profilData');
+
+// Vérifier si les données existent
+if (profilData) {
+  // Convertir les données de session en objet JavaScript
+  var data = JSON.parse(profilData);
+  var email = data.mail;
+
+  // Appeler la fonction getCountByEmail avec l'e-mail récupéré
+  getAbonnement(email);
+  getAbonne(email);
+
+  
+} else {
+  // Les données de session n'existent pas ou ont expiré
+  console.log('Aucune donnée de session trouvée');
+}
