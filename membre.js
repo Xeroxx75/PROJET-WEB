@@ -8,7 +8,6 @@ $(document).ready(function() {
     var data = JSON.parse(profilData);
     var nom = data.nom;
     var prenom = data.prenom;
-    var email = data.mail;
     var photoProfil = data.photo_profil; // Chemin vers la photo de profil
     var imageFond = data.image_fond; // Chemin vers la photo de fond
     var description = data.description;
@@ -16,11 +15,11 @@ $(document).ready(function() {
     // Afficher les données dans la page membre.html
     document.getElementById('nomProfil').textContent = nom;
     document.getElementById('prenomProfil').textContent = prenom;
-    document.getElementById('emailProfil').textContent = email;
     document.getElementById('photoProfil').src = 'photo_profil/' + photoProfil;
     document.getElementById('photoFond').src = 'image_fond/' + imageFond;
     document.getElementById('description').textContent = description;
-
+    
+    
     // Afficher le bouton ajouter en ami
     AfficherBoutonAmi();
   } else {
@@ -31,6 +30,8 @@ $(document).ready(function() {
 
 // Retour au réseau
 function retourReseau() {
+  sessionStorage.removeItem('profilData');
+
   // Supprimez la classe 'active' de tous les éléments li
   $('.navHeader ul li').removeClass('active');
 
@@ -39,7 +40,6 @@ function retourReseau() {
   reseauLink.parent('li').addClass('active');
   var targetHref = reseauLink.attr('href');
   $('#general').load(targetHref + '.html');
-  sessionStorage.removeItem('profilData');
 }
 
 // Attacher un gestionnaire d'événement au bouton
