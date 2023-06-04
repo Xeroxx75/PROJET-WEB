@@ -44,6 +44,19 @@ $.ajax({
         console.log(error);
       }
     });
+
+    $.ajax({
+      url: 'emplois.php',
+      type: 'GET',
+      success: function(responseMesEmplois) {
+        // Appeler la fonction pour traiter les données
+        afficherMesEmplois(responseMesEmplois);
+      },
+      error: function(error) {
+        console.log(error);
+      }
+    });
+    
   },
   error: function(error) {
     console.log(error);
@@ -239,17 +252,6 @@ function afficherEmplois(responseEmplois) {
 /////////////////////////////////////////
 
 
-$.ajax({
-  url: 'emplois.php',
-  type: 'GET',
-  success: function(responseMesEmplois) {
-    // Appeler la fonction pour traiter les données
-    afficherMesEmplois(responseMesEmplois);
-  },
-  error: function(error) {
-    console.log(error);
-  }
-});
 
 // AFFICHE LES EMPLOIS AUXQUELS L'UTILISATEUR CONNECTÉ A POSTULÉ OU QU'IL A POSTÉ
 var emploisContainer2 = document.getElementById('conteneur');
@@ -347,6 +349,7 @@ function afficherMesEmplois(responseMesEmplois) {
 
           var deleteButton = document.createElement('button');
           deleteButton.textContent = 'Supprimer';
+          deleteButton.classList.add('bouton2');
           
           
           deleteButton.addEventListener('click', function() {
@@ -392,6 +395,7 @@ function afficherMesEmplois(responseMesEmplois) {
           // Ajoutez un bouton de sauvegarde pour permettre à l'utilisateur de mettre à jour les données
           var saveButton = document.createElement('button');
           saveButton.textContent = 'Enregistrer';
+          saveButton.classList.add('bouton2');
           saveButton.addEventListener('click', function() {
             event.stopPropagation();
               var updatedId = emploi.id_emplois;
@@ -593,6 +597,7 @@ function afficherMesEmplois(responseMesEmplois) {
       // Ajoutez un bouton de sauvegarde pour permettre à l'utilisateur de mettre à jour les données
       var Ajouter = document.createElement('button');
       Ajouter.textContent = 'Ajouter';
+      Ajouter.classList.add('bouton2');
       Ajouter.addEventListener('click', function() {
         var Titre = titreInput.value;
         var DatePublication = datePublicationInput;
