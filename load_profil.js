@@ -56,12 +56,14 @@ function chargement_profil() {
             })
             const tableau_formation = [];
             if (formation[0] === "non renseigné"){
+                console.log("formation null");
                 formation = [];
                 document.getElementById("formations").style.border="none";
             }
             var texteElement = document.getElementById('titre_form');
             var lienElement = document.getElementById('lien_form');
             // Vérifier si la valeur de nbLigne est égale à 0
+            console.log(formation.length);
             var r = document.querySelector(':root');
             if (formation.length === 0) {
               // Supprimer le texte en définissant le contenu de l'élément sur une chaîne vide
@@ -86,20 +88,17 @@ function chargement_profil() {
                 for (var i = 0; i < tableau_formation.length-1; i++) {
                     var lien = "logo/" + tableau_formation[i][0];
                     var imgElement = document.createElement("img"); // Créer une nouvelle balise <img>
-                     if (tableau_formation[i][0] === 'default.png') {
-                        imgElement.id = 'fond_bland';
-                    }
                     imgElement.src = lien; // Définir le lien source de l'image
                     container.appendChild(imgElement); // Ajouter l'image au conteneur
                     for (var j = 1; j < 4; j++) {
                       document.getElementById("info_form").innerHTML += " " + tableau_formation[i][j] + " ";
                     }
-                    if (i !== tableau_formation.length-2) {
-                        document.getElementById("info_form").innerHTML += "<br><hr>";
-                    }
+                    document.getElementById("info_form").innerHTML += "<br><hr>";
                     container.innerHTML += "<br>"; // Ajouter une balise <br> pour un saut de ligne
+                    console.log('la');
                 }
             }
+            console.log(tableau_formation);
             var projet = global['projets'].split("|").map(function(item){
                 return item.trim();
             })
@@ -118,6 +117,7 @@ function chargement_profil() {
               document.getElementById("projets").style.border="none";
               r.style.setProperty('--nb_ligne_projet', 0);
             }
+            console.log(projet.length);
             if (projet.length !== 0) {
                 texteElement_projet.textContent = 'Projets';
                   lienElement_projet.textContent='Projets';
@@ -127,14 +127,14 @@ function chargement_profil() {
                     tableau_projet.push(projet.slice(i, i + nb_mots_ligne_projet));
                 }
                 r.style.setProperty('--nb_ligne_projet', tableau_projet.length-1);
+                console.log(tableau_projet);
                 for (var i = 0; i < tableau_projet.length-1; i++) {
                     for (var j = 0; j < 4; j++) {
                       document.getElementById("info_projets").innerHTML += " " + tableau_projet[i][j] + " ";
                     }
-                    if (i !== tableau_projet.length-2) {
-                        document.getElementById("info_projets").innerHTML += "<br><hr>";
-                    }
+                    document.getElementById("info_projets").innerHTML += "<br><hr>";
                 }
+                console.log(tableau_projet);
             }
         }
     };

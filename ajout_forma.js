@@ -5,22 +5,9 @@ function creerFormulaire() {
        // Vérifier si le formulaire existe déjà
        // Vérifier si le formulaire existe déjà
       var form = document.getElementById("ajout_form");
-      var form2 = document.getElementById("suppr_form");
-      var form3 = document.getElementById("ajout_projet");
-      var form4 = document.getElementById("suppr_projet");
       if (form) {
             parentElement.removeChild(form);
             return; // Sortir de la fonction pour fermer le formulaire
-      }
-      if (form2) {
-            parentElement.removeChild(form2);
-            //return;
-      }
-      if (form3) {
-            parentElement.removeChild(form3);
-      }
-      if (form4) {
-            parentElement.removeChild(form4);
       }
       var form = document.createElement("form");
       var input4 = document.createElement("input");
@@ -47,11 +34,12 @@ function creerFormulaire() {
       input3.type = "text";
       input3.name = "Description";
       input3.placeholder = "Description formation";
-      input3.maxLength=30;
+      input3.maxLength=35;
       input3.required = true;
 
       input4.type="file";
       input4.name = "logo"
+      input4.required =true;
 
       submitBtn.type = "submit";
       submitBtn.value = "Ajouter formation";
@@ -84,7 +72,6 @@ function creerFormulaire() {
           };
           xhr.send(formData);
         });
-      
 
       }
 
@@ -93,23 +80,10 @@ function supprimer_formation(){
       var parentElement = document.getElementById("partie_droite");
 
        // Vérifier si le formulaire existe déjà
-      var form = document.getElementById("ajout_form");
       var form2 = document.getElementById("suppr_form");
-      var form3 = document.getElementById("ajout_projet");
-      var form4 = document.getElementById("suppr_projet");
-      if (form) {
-            parentElement.removeChild(form);
-            
-      }
       if (form2) {
             parentElement.removeChild(form2);
-            return;
-      }
-      if (form3) {
-            parentElement.removeChild(form3);
-      }
-      if (form4) {
-            parentElement.removeChild(form4);
+            return; // Sortir de la fonction pour fermer le formulaire
       }
       var form2 = document.createElement("form");
       var input4 = document.createElement("input");
@@ -136,11 +110,12 @@ function supprimer_formation(){
       input3.type = "text";
       input3.name = "Description";
       input3.placeholder = "Description formation";
-      input3.maxLength = 30;
+      input3.maxLength = 35;
       input3.required = true;
 
       input4.type="file";
       input4.name = "logo"
+      input4.required =true;
 
       submitBtn.type = "submit";
       submitBtn.value = "Supprimer formation";

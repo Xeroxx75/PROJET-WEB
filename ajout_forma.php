@@ -56,9 +56,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     elseif ($formation == "/") {
         $formation = "";
     }
-    if ($nanelogo === "") {
-        $nanelogo = "default.png";
-    }
+
     $sql = "UPDATE `profil` SET `formations` = CONCAT('$formation', '$nanelogo', '|', '$dateDebut', '|', '$dateFin', '|', '$description','|')";
 
      echo $sql;

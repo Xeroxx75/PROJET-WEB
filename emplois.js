@@ -1,5 +1,7 @@
 // Récupérer l'élément conteneur des emplois à gauche dans le HTML
 var emploisContainer = document.getElementById('offre-emploi');
+// Récupérer l'élément conteneur des emplois à droite dans le HTML
+var emploisContainer2 = document.getElementById('offre-emploi2');
 
 
 
@@ -67,29 +69,28 @@ function traiterProfil(responseProfil) {
 
 
 function afficherEmplois(responseEmplois) {
-  var titreCDD = document.createElement('h2');
-  titreCDD.textContent = 'CDD';
-  document.getElementById("conteneur-cdd").appendChild(titreCDD);
-  var titreCDI = document.createElement('h2');
-  titreCDI.textContent = 'CDI';
-  document.getElementById("conteneur-cdi").appendChild(titreCDI);
-  var titreStage = document.createElement('h2');
-  titreStage.textContent = 'Stage';
-  document.getElementById("conteneur-stage").appendChild(titreStage);
-  var titreAlternance = document.createElement('h2');
-  titreAlternance.textContent = 'Alternance';
-  document.getElementById("conteneur-alternance").appendChild(titreAlternance);
-  var CDD=false,CDI=false,Stage=false,Alternance=false;
   
-
-
   var emploisObj = JSON.parse(responseEmplois)
   if (emploisObj.length > 0) {
-    
+    var fragment = document.createDocumentFragment();
+
     emploisObj.forEach(function(emploi) {
       // Créer les éléments HTML pour afficher les données de l'emploi
-      
-      var emploiDiv=  document.createElement('div');
+      var emploiDiv = document.createElement('div');
+
+      /*if(emploi.contrat == 'CDD'){
+        console.log(emploi.titre + ' ' + emploi.contrat + 'CDD');
+        emploiDiv.classList.add('CDD');
+      }else if(emploi.contrat == 'CDI'){
+        console.log(emploi.titre + ' ' + emploi.contrat + 'CDI');
+        emploiDiv.classList.add('CDI');
+      }else if(emploi.contrat == 'Stage'){
+        console.log(emploi.titre + ' ' + emploi.contrat + 'Stage');
+        emploiDiv.classList.add('Stage');
+      }else if(emploi.contrat == 'Alternance'){
+        console.log(emploi.titre + ' ' + emploi.contrat + 'Alternance');
+        emploiDiv.classList.add('Alternance');
+      }*/
       emploiDiv.classList.add('offre-emploi');
 
       var emploiTitre = document.createElement('h3');
@@ -112,32 +113,11 @@ function afficherEmplois(responseEmplois) {
       var offreDetailsDiv = document.createElement('div');
       offreDetailsDiv.classList.add('offre-details');
 
+      var postulerButton = document.createElement('button');
+      postulerButton.textContent = 'Postuler';
+
       
-
-      var dateEmbauche = document.createElement('p');
-      dateEmbauche.textContent = `Date d'embauche : ${emploi.date_embauche}`;
-
-      var duree = document.createElement('p');
-      duree.textContent = `Durée : ${emploi.duree}`;
-
-      var contrat = document.createElement('p');
-      contrat.textContent = `Contrat : ${emploi.contrat}`;
-
-      var description = document.createElement('p');
-      description.textContent = `Description : ${emploi.description}`;
-
-      var remuneration = document.createElement('p');
-      remuneration.textContent = `Rémunération : ${emploi.remuneration}`;
-
-      offreDetailsDiv.appendChild(description);
-      offreDetailsDiv.appendChild(dateEmbauche);
-      if(emploi.contrat!= 'CDI')
-        offreDetailsDiv.appendChild(duree);
-      offreDetailsDiv.appendChild(contrat);
-      offreDetailsDiv.appendChild(remuneration);
       if(estAuteur == 0){
-        var postulerButton = document.createElement('button');
-        postulerButton.textContent = 'Postuler';
         
         postulerButton.addEventListener('click', function(event) {
           
@@ -156,6 +136,8 @@ function afficherEmplois(responseEmplois) {
               data: data,
               success: function(response) {
                 console.log(response);
+                //Concatener le mail de l'utilisateur connecté dans la liste des postulants
+                //VIDER LE CONTENEUR emploisContainer2
                 updatePage();
               },
               error: function(error) {
@@ -172,6 +154,32 @@ function afficherEmplois(responseEmplois) {
         offreDetailsDiv.appendChild(postulerButton);
       }
 
+      var idEmploi = document.createElement('h3');
+      idEmploi.textContent = `ID : ${emploi.id_emplois}`;
+
+      var dateEmbauche = document.createElement('p');
+      dateEmbauche.textContent = `Date d'embauche : ${emploi.date_embauche}`;
+
+      var duree = document.createElement('p');
+      duree.textContent = `Durée : ${emploi.duree}`;
+
+      var contrat = document.createElement('p');
+      contrat.textContent = `Contrat : ${emploi.contrat}`;
+
+      var description = document.createElement('p');
+      description.textContent = `Description : ${emploi.description}`;
+
+      var remuneration = document.createElement('p');
+      remuneration.textContent = `Rémunération : ${emploi.remuneration}`;
+
+      offreDetailsDiv.appendChild(idEmploi);
+      offreDetailsDiv.appendChild(description);
+      offreDetailsDiv.appendChild(dateEmbauche);
+      if(emploi.contrat!= 'CDI')
+        offreDetailsDiv.appendChild(duree);
+      offreDetailsDiv.appendChild(contrat);
+      offreDetailsDiv.appendChild(remuneration);
+
       (function(emploiDiv, offreDetailsDiv) {
         var isDetailsVisible = false;
 
@@ -187,60 +195,22 @@ function afficherEmplois(responseEmplois) {
       })(emploiDiv, offreDetailsDiv);
 
       offreDetailsDiv.style.display = 'none';
-      
+
       emploiDiv.appendChild(offreDetailsDiv);
 
-     if(emploi.contrat == 'CDD'){
-        document.getElementById("conteneur-cdd").appendChild(emploiDiv);
-        emploisContainer.appendChild(document.getElementById("conteneur-cdd"));
-        CDD=true;
-      }else if(emploi.contrat == 'CDI'){
-        document.getElementById("conteneur-cdi").appendChild(emploiDiv);
-        emploisContainer.appendChild(document.getElementById("conteneur-cdi"));
-        CDI=true;
-      }else if(emploi.contrat == 'Stage'){
-        document.getElementById("conteneur-stage").appendChild(emploiDiv);
-        emploisContainer.appendChild(document.getElementById("conteneur-stage"));
-        Stage=true;
-      }else if(emploi.contrat == 'Alternance'){
-        document.getElementById("conteneur-alternance").appendChild(emploiDiv);
-        emploisContainer.appendChild(document.getElementById("conteneur-alternance"));
-        Alternance=true;
-      }
-
-      //emploisContainer.appendChild(emploiDiv);
+      fragment.appendChild(emploiDiv);
     });
 
+    emploisContainer.appendChild(fragment);
   } else {
     var aucunEmploiMessage = document.createElement('p');
     aucunEmploiMessage.textContent = 'Aucun emploi disponible pour le moment.';
 
     emploisContainer.appendChild(aucunEmploiMessage);
   }
-  if(!Alternance){
-    var message=document.createElement('p');
-    message.textContent = 'Aucune offre d\'emploi disponible';
-    document.getElementById("conteneur-alternance").appendChild(message);
-  }
-  if(!CDD){
-    var message=document.createElement('p');
-    message.textContent = 'Aucune offre d\'emploi disponible';
-    document.getElementById("conteneur-cdd").appendChild(message);
-  }
-  if(!CDI){
-    var message=document.createElement('p');
-    message.textContent = 'Aucune offre d\'emploi disponible';
-    document.getElementById("conteneur-cdi").appendChild(message);
-  }
-  if(!Stage){
-    var message=document.createElement('p');
-    message.textContent = 'Aucune offre d\'emploi disponible';
-    document.getElementById("conteneur-stage").appendChild(message);
-  }
-  
-
 };
 /////////////////////////////////////////
+
 
 
 $.ajax({
@@ -256,25 +226,23 @@ $.ajax({
 });
 
 // AFFICHE LES EMPLOIS AUXQUELS L'UTILISATEUR CONNECTÉ A POSTULÉ OU QU'IL A POSTÉ
-var emploisContainer2 = document.getElementById('conteneur');
+var emploisContainer2 = document.getElementById('offre-emploi2');
 var boolOffre = 0;
 
 function afficherMesEmplois(responseMesEmplois) {
   
   var mesOffresButton = document.createElement('button');
   mesOffresButton.textContent = "Mes offres d'emploi";
-  mesOffresButton.classList.add('bouton');
-  
   var emploisObj2 = JSON.parse(responseMesEmplois);
 
   emploisContainer2.appendChild(mesOffresButton);
-  
+  var emploiDiv2 = document.createElement('div');
+  emploiDiv2.classList.add('offre-emploi2');
 
   
   if (emploisObj2.length > 0) {
     emploisObj2.forEach(function(emploi) {
-      var emploiDiv2 = document.createElement('div');
-      emploiDiv2.classList.add('offre-emploi2');
+
       if (estAuteur==1) {
         if (emploi.auteur_offre_mail === emailUtilisateur) {
           boolOffre = 1;
@@ -409,7 +377,7 @@ function afficherMesEmplois(responseMesEmplois) {
               var updatedRemuneration = remunerationInput.value;
               var supprimerEmploi = 0;
             
-              if (updatedTitre && updatedLieu && updatedDateEmbauche && updatedDuree && updatedContrat && updatedDescription && updatedRemuneration) {
+
                 var updatedEmploi = {
                   titre: updatedTitre,
                   id: updatedId,
@@ -440,9 +408,6 @@ function afficherMesEmplois(responseMesEmplois) {
                   console.log(error);
                 }
               });
-            } else {
-              alert('Veuillez remplir tous les champs');
-            }
             });
 
           emploiDiv2.appendChild(emploiTitre);
@@ -521,7 +486,6 @@ function afficherMesEmplois(responseMesEmplois) {
       var ajouterOffreButton = document.createElement('button');
       ajouterOffreButton.textContent = "Ajouter une offre d'emploi";
       emploisContainer2.appendChild(ajouterOffreButton);
-      ajouterOffreButton.classList.add('bouton');
       
       var emploiDiv3 = document.createElement('div');
       emploiDiv3.classList.add('offre-emploi2');
@@ -607,8 +571,7 @@ function afficherMesEmplois(responseMesEmplois) {
         var Description = descriptionInput.value;
         var Remuneration = remunerationInput.value;
         
-        if (Titre && Lieu && DateEmbauche && Duree && Contrat && Description && Remuneration) {
-          
+
           var AjoutEmploi = {
             titre: Titre,
             date_publication: DatePublication,
@@ -638,12 +601,7 @@ function afficherMesEmplois(responseMesEmplois) {
               console.log(error);
             }
           });
-        }
-        else{
-          alert("Veuillez remplir tous les champs");
-        }
         });
-      
 
       emploiDiv3.appendChild(emploiTitre);
       emploiDiv3.appendChild(datePublication);
@@ -668,7 +626,6 @@ function afficherMesEmplois(responseMesEmplois) {
           emploiDiv3.style.display = 'block';
           emploisContainer2.appendChild(emploiDiv3);
           isDetailsVisible2 = true;
-          
         }
       });
       
@@ -679,18 +636,7 @@ function afficherMesEmplois(responseMesEmplois) {
 
 //fonction pour mettre a jour la page sans la raffraichir
 function updatePage() {
-  //emploisContainer.innerHTML = '';
-  //emploiDiv.innerHTML = '';
-  document.getElementById("conteneur-cdd").innerHTML = '';
-  document.getElementById("conteneur-cdi").innerHTML = '';
-  document.getElementById("conteneur-stage").innerHTML = '';
-  document.getElementById("conteneur-alternance").innerHTML = '';
-  //SUPPRIMER LES TITRE h2
-  var elementsH2 = emploisContainer.getElementsByTagName('h2');
-  while (elementsH2.length > 0) {
-    emploisContainer.removeChild(elementsH2[0]);
-  }
-
+  emploisContainer.innerHTML = '';
   $.ajax({
     url: 'profil.php',
     type: 'GET',
@@ -730,5 +676,3 @@ function updatePage() {
     }
   });
 }
-
-
