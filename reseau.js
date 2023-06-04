@@ -1,11 +1,23 @@
+
+
 $(document).ready(function() {
+
+sessionStorage.removeItem('profilData');
 
 //fonction pour obtenir les amis
 chargerDonnees();
+sessionStorage.removeItem('profilData');
+
 // fonction pour obtenir les amis des amis
 chargerAmis();
+
+sessionStorage.removeItem('profilData');
+
 // fonction pour obtenir les informations de l'utilisateur (moi)
 chargerMoi();
+sessionStorage.removeItem('profilData');
+
+
 
 });
 
@@ -46,6 +58,7 @@ xhr.onreadystatechange = function() {
                     a.href = '#';
                     
                     a.addEventListener('click', function() {
+                        
                         getProfilData(abonnement.email); // Appel de getProfileInformation
                         // Supprimer la classe active de tous les éléments <a> de la liste
                         var navLinks = document.querySelectorAll('.navHeader ul li a');
@@ -128,7 +141,8 @@ xhr.onreadystatechange = function() {
 
             var a = document.createElement('a');
             a.href = '#';
-            a.addEventListener('click', function() {
+            a.addEventListener('click', function(ami) {
+                return function() {
                 getProfilData(ami.mail); // Appel de getProfileInformation
                 // Supprimer la classe active de tous les éléments <a> de la liste
                 var navLinks = document.querySelectorAll('.navHeader ul li a');
@@ -141,8 +155,8 @@ xhr.onreadystatechange = function() {
                 ghostLink.classList.add('active');
                 var targetHref = $(ghostLink).attr('href');
                 $('#general').load(targetHref + '.html');
-                
-            });
+            };
+            }(ami));
 
             var img = document.createElement('img');
             img.src = 'photo_profil/' + photoProfil;
@@ -212,6 +226,10 @@ function chargerMoi() {
                     a.href = '#';
                     a.addEventListener('click', function() {
         
+                        
+                        // Supprimez la classe 'active' de tous les éléments li
+                        $('.navHeader ul li').removeClass('active');
+
                         // Ajouter la classe active à l'élément <a> avec l'ID "vous"
                         var elements = document.getElementsByTagName('a');
                         var vousLink;
@@ -223,7 +241,8 @@ function chargerMoi() {
                             }
                         }
 
-                        vousLink.classList.add('active');
+                        // Ajoutez la classe 'active' à l'élément li cliqué
+                        $(vousLink).parent('li').addClass('active');
                         var targetHref = $(vousLink).attr('href');
                         $('#general').load(targetHref + '.html');
                         
