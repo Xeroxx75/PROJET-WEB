@@ -38,6 +38,7 @@ function loadUserEvents() {
             eventDiv.appendChild(eventDescriptionElement);
 
             // Appeler la fonction pour récupérer les commentaires correspondant à l'événement
+            getLikes(event.id_evenement, eventDiv);
             getCommentaires(event.id_evenement, eventDiv);
 
             eventContainer.appendChild(eventDiv);
@@ -53,11 +54,70 @@ function loadUserEvents() {
   xhr.send();
 }
 
+function getLikes(id_evenement, eventDiv) {
+  var likeButton = document.createElement('button');
+  likeButton.type = 'button';
+  likeButton.className = 'heart';
+  likeButton.textContent = 'Aimer';
+  eventDiv.appendChild(likeButton);
+  var est_aime;
+  
+  $.ajax({
+    url: 'likeRecup.php',
+    type: 'POST',
+    data: {'id_post':id_evenement},
+    success: function(data1) {
+      if (data1.est_aime == false) {
+        likeButton.style.color = 'black';
+        est_aime = false;
+      } else {
+        likeButton.style.color = 'red';
+        est_aime = true;
+      }
+      // Afficher le nombre de likes
+      var nbLikes = document.createElement('div');
+      nbLikes.className = 'nbLikes';
+      nbLikes.textContent = data1.nombre_likes + ' personnes aiment cet événement';
+      eventDiv.appendChild(nbLikes);
 
+      likeButton.addEventListener('click', function() {
+        if (est_aime == true) {      
+          likeButton.style.color = 'black';
+          est_aime = false;
+          console.log("entrain de disliker: " + est_aime);
+        } else {
+          likeButton.style.color = 'red';
+          est_aime = true;
+          console.log("entrain de liker: " + est_aime);
+        }
+        $.ajax({
+          url: 'likeModif.php',
+          type: 'POST',
+          data: {'id_post':id_evenement, 'est_aime':est_aime },
+          success: function(data2) {
+            //console.log("id_post2: " + id_evenement);
+            //console.log("nb_likes2: " + data2.nombre_likes);
+            //console.log("est_aime2: " + data2.est_aime);
+            console.log(data2);
+            // Mettre à jour les éléments DOM avec les nouvelles données
+            nbLikes.textContent = data2.nombre_likes + ' personnes aiment cet événement';
+          },
+          error: function(error) {
+            console.log(error);
+          }
+        });
+      });      
+    },
+    error: function(error) {
+      console.log(error);
+    }
+  });
+}
 
 
 /// récupérer les commentaires correspondant à l'événement
 function getCommentaires(id_evenement, eventDiv) {
+  
   var xhr = new XMLHttpRequest();
   var idEvenement = id_evenement;
 

@@ -211,12 +211,8 @@ function afficherEmplois(responseEmplois) {
       //emploisContainer.appendChild(emploiDiv);
     });
 
-  } else {
-    var aucunEmploiMessage = document.createElement('p');
-    aucunEmploiMessage.textContent = 'Aucun emploi disponible pour le moment.';
-
-    emploisContainer.appendChild(aucunEmploiMessage);
-  }
+  } 
+  
   if(!Alternance){
     var message=document.createElement('p');
     message.textContent = 'Aucune offre d\'emploi disponible';
