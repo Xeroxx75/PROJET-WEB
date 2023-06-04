@@ -1,14 +1,16 @@
+var nextEventId; // Variable globale pour stocker nextEventId
+
 // Fonction pour afficher ou masquer le formulaire
 function toggleForm() {
-    var form = document.getElementById("eventForm");    
-    if (form.style.display === "none") {
-      form.style.display = "block";
-      //button.textContent = "Fermer";
-    } else {
-      form.style.display = "none";
-      //button.textContent = "Ajouter";
-    }
+  var form = document.getElementById("eventForm");
+  if (form.style.display === "none") {
+    form.style.display = "block";
+    //button.textContent = "Fermer";
+  } else {
+    form.style.display = "none";
+    //button.textContent = "Ajouter";
   }
+}
 
 // Fonction pour envoyer les données du formulaire via Ajax
 document.getElementById('eventForm').addEventListener('submit', function(event) {
@@ -28,6 +30,8 @@ document.getElementById('eventForm').addEventListener('submit', function(event) 
   }
   formData.append('nb_images', nb_images);
 
+  
+
   $.ajax({
     url: 'ajouter_evenement.php',
     type: 'POST',
@@ -35,21 +39,18 @@ document.getElementById('eventForm').addEventListener('submit', function(event) 
     processData: false,
     contentType: false,
     success: function(response) {
-    // Traitement réussi
-      if (response === "false"){
+      // Traitement réussi
+      if (response === "false") {
         console.log("Erreur");
-      }
-      else {
-        loadUserEvents();
+      } else {
+        getLatestEventId();
       }
     },
     error: function() {
-    // Traitement échoué
-        console.log("Erreur");
+      // Traitement échoué
+      console.log("Erreur");
     }
   });
-  
-  
 
   // Réinitialiser le formulaire si nécessaire
   document.getElementById('eventForm').reset();
@@ -57,5 +58,25 @@ document.getElementById('eventForm').addEventListener('submit', function(event) 
   toggleForm();
 });
 
+
+function getLatestEventId() {
+  // Création de l'objet XMLHttpRequest
+  var xhr = new XMLHttpRequest();
+
+  // Définition de la fonction de rappel pour la réponse de la requête AJAX
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState === 4 && xhr.status === 200) {
+      var response = xhr.responseText;
+      var latestEventId = response;
+      console.log(latestEventId-1);
+      addCommentEmpty(latestEventId-1);
+      loadUserEvents();
+    }
+  };
+
+  // Envoi de la requête AJAX pour récupérer l'ID de la dernière insertion
+  xhr.open("GET", "get_id_event.php", true);
+  xhr.send();
+}
 
 document.getElementById('btn_ajout').addEventListener("click", toggleForm);
