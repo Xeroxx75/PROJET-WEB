@@ -9,6 +9,8 @@ $(document).ready(function() {
   }
   else{
     $('#general').load('accueil.html');
+    sessionStorage.removeItem('profilData');
+
   }
   
 
@@ -24,6 +26,8 @@ $(document).ready(function() {
     // Récupérez l'attribut href du lien cliqué
     var targetHref = $(this).attr('href');
     $('#general').load(targetHref + '.html');
+    sessionStorage.removeItem('profilData');
+
 
     // Chargez le contenu de la page cible via une requête AJAX
   });
