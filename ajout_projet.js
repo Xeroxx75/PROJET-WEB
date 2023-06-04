@@ -3,10 +3,23 @@ function creerFormulaire_projet() {
       var parentElement = document.getElementById("partie_droite");
 
        // Vérifier si le formulaire existe déjà
+      var form = document.getElementById("ajout_form");
+      var form2 = document.getElementById("suppr_form");
       var form3 = document.getElementById("ajout_projet");
+      var form4 = document.getElementById("suppr_projet");
+      if (form) {
+            parentElement.removeChild(form);
+      }
+      if (form2) {
+            parentElement.removeChild(form2);
+            //return;
+      }
       if (form3) {
             parentElement.removeChild(form3);
-            return; // Sortir de la fonction pour fermer le formulaire
+            return;
+      }
+      if (form4) {
+            parentElement.removeChild(form4);
       }
       var form3 = document.createElement("form");
       var input4 = document.createElement("input");
@@ -80,10 +93,23 @@ function supprimer_projet(){
       var parentElement = document.getElementById("partie_droite");
 
        // Vérifier si le formulaire existe déjà
+      var form = document.getElementById("ajout_form");
+      var form2 = document.getElementById("suppr_form");
+      var form3 = document.getElementById("ajout_projet");
       var form4 = document.getElementById("suppr_projet");
+      if (form) {
+            parentElement.removeChild(form);
+            
+      }
+      if (form2) {
+            parentElement.removeChild(form2);
+      }
+      if (form3) {
+            parentElement.removeChild(form3);
+      }
       if (form4) {
             parentElement.removeChild(form4);
-            return; // Sortir de la fonction pour fermer le formulaire
+            return;
       }
       var form4 = document.createElement("form");
       var input4 = document.createElement("input");

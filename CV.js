@@ -5,7 +5,9 @@ function genererCV(){
 	formation = formation.textContent.split("  ");
 	var projet = document.getElementById("info_projets")
 	projet = projet.textContent.split("  ");
-	console.log(projet);
+	var imagePath = document.getElementById('pp'); // Chemin vers votre image
+	imagePath = imagePath.src;
+	console.log(imagePath);
 
 	// Séparez le contenu du paragraphe en utilisant l'espace comme délimiteur
 	var mots = paragraphe.textContent.split(" ");
@@ -36,6 +38,10 @@ function genererCV(){
 	var projetElement = xmlDoc.createElement("projet");
 	projetElement.textContent = projet;
 	utilisateurElement.appendChild(projetElement);
+
+	var imageElement = xmlDoc.createElement("photo_profil");
+	imageElement.textContent = imagePath;
+	utilisateurElement.appendChild(imageElement);
 
 	// Création d'un document PDF
 	var doc = new jsPDF();
@@ -97,8 +103,8 @@ function genererCV(){
 	}
 
 	// Utilisation de la fonction pour convertir l'image en base64
-	var imagePath = document.getElementById('pp'); // Chemin vers votre image
-	imagePath = imagePath.src;
+	
+	imagePath = xmlDoc.querySelector("photo_profil").textContent;
 	console.log(tableau_formation);
 	getImageAsBase64(imagePath, function (base64Image) {
 		// Ajout de l'image au document PDF
@@ -118,7 +124,7 @@ function genererCV(){
 		else{
 			for (var i = 0; i < tableau_formation.length; i++) {
 				for (var j = 0; j <3; j++) {
-					doc.text(tableau_formation[i][j],70+j*30,50+i*10);
+					doc.text(tableau_formation[i][j],70+j*35,50+i*10);
 				console.log(formation);
 				}
 			}
@@ -131,7 +137,7 @@ function genererCV(){
 		else{
 			for (var i = 0; i < tableau_projet.length; i++) {
 				for (var j = 0; j <4; j++) {
-					doc.text(tableau_projet[i][j],70+j*30,60+(i+tableau_formation.length+1)*10);
+					doc.text(tableau_projet[i][j],70+j*35,60+(i+tableau_formation.length+1)*10);
 				}
 			}
 		}
