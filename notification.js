@@ -65,6 +65,7 @@ $(document).ready(function() {
       type: 'GET',
       success: function(response) {
         var event = response;
+        console.log(event );
           
         
         // Vérifier si un événement a été récupéré
@@ -88,6 +89,9 @@ $(document).ready(function() {
   
           var eventDescriptionElement = document.getElementById('DernierEvenement');
           eventDescriptionElement.innerHTML = '<h3>' + "Description de l'evenement :" + '</h3>' + event.description;
+
+          var eventAuteurElement = document.getElementById('DernierEvenement');
+          eventAuteurElement.innerHTML = '<h2>' + "Auteur de l'evenement :" + '</h3>' + event.auteur_mail;
   
           var slidesContainer = document.querySelector('.slides');
           slidesContainer.innerHTML = '';
@@ -107,9 +111,16 @@ $(document).ready(function() {
           }
         }
       },
-      error: function(xhr, status, error) {
+      error: function(error) {
         // Gestion des erreurs
         console.log(error);
+        var eventTitleElement = document.getElementById('event-title');
+          eventTitleElement.textContent = "Aucun evenement";
+          
+  
+          // Masquer le carrousel d'images et la description de l'événement
+          document.getElementById('carousel').style.display = 'none';
+          document.getElementById('DernierEvenement').style.display = 'none';
       }
     }); 
   });
@@ -155,8 +166,8 @@ $(document).ready(function() {
         // Vérifier si des événements ont été récupérés
         if (!event) {
             // Aucun événement trouvé, afficher le message approprié
-            var eventContainer = document.getElementById('DernierEvenementAmis');
-            eventContainer.innerHTML = "<div>Aucun événement trouvé.</div>";
+            var eventTitleElement = document.getElementById('event-title2');
+            eventTitleElement.textContent = "Aucun evenement";
         } else {
             // Afficher les événements récupérés
             var eventContainer = document.getElementById('DernierEvenementAmis');
@@ -178,6 +189,10 @@ $(document).ready(function() {
                 var eventDescriptionElement = document.createElement('div');
                 eventDescriptionElement.innerHTML = '<h3>' + "Description de l\'événement :" + '</h3>' + event.description;
                 eventDiv.appendChild(eventDescriptionElement);
+
+                var eventAuteurElement = document.createElement('div');
+                eventAuteurElement.innerHTML = '<h2>' + "Auteur de l\'événement :" + '</h3>' + event.auteur_mail;
+                eventDiv.appendChild(eventAuteurElement);
 
                 eventContainer.appendChild(eventDiv);
             
@@ -201,8 +216,8 @@ $(document).ready(function() {
         // Vérifier si des événements ont été récupérés
         if (!event) {
             // Aucun événement trouvé, afficher le message approprié
-            var eventContainer = document.getElementById('DernierEvenementAmisAmis');
-            eventContainer.innerHTML = "<div>Aucun événement trouvé.</div>";
+            var eventTitleElement = document.getElementById('event-title3');
+            eventTitleElement.textContent = "Aucun evenement";
         } else {
             // Afficher les événements récupérés
             var eventContainer = document.getElementById('DernierEvenementAmisAmis');
@@ -224,6 +239,10 @@ $(document).ready(function() {
                 var eventDescriptionElement = document.createElement('div');
                 eventDescriptionElement.innerHTML = '<h3>' + "Description de l\'événement :" + '</h3>' + event.description;
                 eventDiv.appendChild(eventDescriptionElement);
+
+                var eventAuteurElement = document.createElement('div');
+                eventAuteurElement.innerHTML = '<h2>' + "Auteur de l\'événement :" + '</h3>' + event.auteur_mail;
+                eventDiv.appendChild(eventAuteurElement);
 
                 eventContainer.appendChild(eventDiv);
             
