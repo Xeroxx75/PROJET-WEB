@@ -68,7 +68,6 @@ function getLatestEventId() {
     if (xhr.readyState === 4 && xhr.status === 200) {
       var response = xhr.responseText;
       var latestEventId = response;
-      console.log(latestEventId-1);
       addCommentEmpty(latestEventId-1);
       loadUserEvents();
     }

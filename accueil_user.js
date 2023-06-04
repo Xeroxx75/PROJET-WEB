@@ -192,7 +192,7 @@ function addComment(idEvenement, commentaireText) {
       if (xhr.status === 200) {
         // Le commentaire a été ajouté avec succès
         //console.log('Le commentaire a été ajouté');
-        console.log(params);
+        //console.log(params);
         // Mettre à jour l'affichage des commentaires
         updateCommentsDisplay(idEvenement);
         // Fermer le formulaire
@@ -259,7 +259,7 @@ function addCommentEmpty(idEvenement) {
       if (xhr.status === 200) {
         // Le commentaire a été ajouté avec succès
         //console.log('Le commentaire a été ajouté');
-        console.log(params);
+        //console.log(params);
         // Mettre à jour l'affichage des commentaires
         updateCommentsDisplay(idEvenement);
         // Fermer le formulaire
