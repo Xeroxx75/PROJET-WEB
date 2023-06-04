@@ -29,26 +29,17 @@ $(document).ready(function() {
   }
 });
 
-
 // Retour au réseau
 function retourReseau() {
   // Supprimez la classe 'active' de tous les éléments li
   $('.navHeader ul li').removeClass('active');
 
   // Ajouter la classe active à l'élément <a> avec l'ID "vous"
-  var elements = document.getElementsByTagName('a');
-  var reseauLink = null;
-  for (var i = 0; i < elements.length; i++) {
-    if (elements[i].getAttribute('href') === 'reseau') {
-      reseauLink = elements[i];
-      break;
-    }
-  }
-
-  // Ajoutez la classe 'active' à l'élément li cliqué
-  $(reseauLink).parent('li').addClass('active');
-  var targetHref = $(reseauLink).attr('href');
+  var reseauLink = $('a[href="reseau"]');
+  reseauLink.parent('li').addClass('active');
+  var targetHref = reseauLink.attr('href');
   $('#general').load(targetHref + '.html');
+  sessionStorage.removeItem('profilData');
 }
 
 // Attacher un gestionnaire d'événement au bouton
@@ -74,9 +65,9 @@ function AjouterAmi() {
 
           // Faites ce que vous souhaitez avec le booléen estAbonne
           if (estAbonne === "true") {
-            desabonnement(); // Appeler la fonction "desabonnement"
+            desabonnement(email); // Appeler la fonction "desabonnement" en passant l'e-mail en argument
           } else {
-            abonnement(); // Appeler la fonction "abonnement"
+            abonnement(email); // Appeler la fonction "abonnement" en passant l'e-mail en argument
           }
         } else {
           console.error("Erreur lors de la requête AJAX :", xhr.status);
@@ -88,12 +79,11 @@ function AjouterAmi() {
     xhr.open('GET', 'est_abonne.php?email_cible=' + encodeURIComponent(email));
     xhr.send();
   } else {
-    // Les données de session n'existent pas ou ont expiré
     console.log('Aucune donnée de session trouvée');
   }
 }
 
-// Affichage du bouton ajouter en ami
+// Afficher le bouton Ajouter/Supprimer en ami en fonction de l'état actuel de l'abonnement
 function AfficherBoutonAmi() {
   var profilData = sessionStorage.getItem('profilData');
 
@@ -101,7 +91,7 @@ function AfficherBoutonAmi() {
   if (profilData) {
     // Convertir les données de session en objet JavaScript
     var data = JSON.parse(profilData);
-    email = data.mail;
+    var email = data.mail;
 
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function() {
@@ -110,8 +100,16 @@ function AfficherBoutonAmi() {
           var response = xhr.responseText;
           var estAbonne = response;
 
-          // Mettre à jour l'apparence du bouton
-          mettreAJourApparenceBouton(estAbonne);
+          // Modifier l'apparence du bouton en fonction de l'état de l'abonnement
+          if (estAbonne === "true") {
+            document.getElementById('amiButton').textContent = 'Supprimer de mes amis';
+            document.getElementById('amiButton').classList.remove('btn-primary');
+            document.getElementById('amiButton').classList.add('btn-danger');
+          } else {
+            document.getElementById('amiButton').textContent = 'Ajouter en ami';
+            document.getElementById('amiButton').classList.remove('btn-danger');
+            document.getElementById('amiButton').classList.add('btn-primary');
+          }
         } else {
           console.error("Erreur lors de la requête AJAX :", xhr.status);
         }
@@ -122,7 +120,6 @@ function AfficherBoutonAmi() {
     xhr.open('GET', 'est_abonne.php?email_cible=' + encodeURIComponent(email));
     xhr.send();
   } else {
-    // Les données de session n'existent pas ou ont expiré
     console.log('Aucune donnée de session trouvée');
   }
 }
@@ -164,7 +161,6 @@ function desabonnement() {
     // Les données de session n'existent pas ou ont expiré
     console.log('Aucune donnée de session trouvée');
   }
-  mettreAJourApparenceBouton("false");
 }
 
 // Abonnement
@@ -202,21 +198,10 @@ function abonnement(email) {
     // Les données de session n'existent pas ou ont expiré
     console.log('Aucune donnée de session trouvée');
   }
-  mettreAJourApparenceBouton("false");
 }
 
-// Fonction pour mettre à jour l'apparence du bouton
-function mettreAJourApparenceBouton(estAbonne) {
-  var bouton = document.getElementById("buttonFriend");
 
-  if (estAbonne === "true") {
-    bouton.classList.add("est_ami");
-    bouton.textContent = "Abonné";
-  } else {
-    bouton.classList.remove("est_ami");
-    bouton.textContent = "S'abonner";
-  }
-}
+
 
 // Attacher un gestionnaire d'événement au bouton
 var bouton = document.getElementById("buttonFriend");
@@ -238,10 +223,10 @@ bouton.addEventListener("click", function() {
 
           // Mettre à jour l'apparence du bouton directement au clic
           if (estAbonne === "true") {
-            bouton.classList.add("est_ami");
+            
             desabonnement(); // Appeler la fonction "desabonnement"
           } else {
-            bouton.classList.remove("est_ami");
+            
             abonnement(); // Appeler la fonction "abonnement"
           }
         } else {

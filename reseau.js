@@ -2,20 +2,15 @@
 
 $(document).ready(function() {
 
-sessionStorage.removeItem('profilData');
 
 //fonction pour obtenir les amis
 chargerDonnees();
-sessionStorage.removeItem('profilData');
 
 // fonction pour obtenir les amis des amis
 chargerAmis();
 
-sessionStorage.removeItem('profilData');
-
 // fonction pour obtenir les informations de l'utilisateur (moi)
 chargerMoi();
-sessionStorage.removeItem('profilData');
 
 
 

@@ -118,12 +118,3 @@
     text-align: center;
 }
 
-#buttonFriend {
-    background-color: white;
-    color: black;
-}
-
-#buttonFriend.est_ami {
-    background-color: blue;
-    color: white;
-}
