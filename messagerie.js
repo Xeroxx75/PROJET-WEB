@@ -55,36 +55,38 @@ function load_messagerie() {
 
 function change_chat(tab_id_messagerie){
     id_messagerie_actuel = tab_id_messagerie['id_messagerie'];
+    console.log(tab_id_messagerie);
+    var titre = tab_id_messagerie['titre'];
     if (tab_id_messagerie['participant1_mail'] !== null){
         if (tab_id_messagerie['participant2_mail'] !== null){
             if (tab_id_messagerie['participant3_mail'] !== null){
-                document.getElementById("messagerie_info").innerHTML = tab_id_messagerie['participant1_mail']+"<br>"+tab_id_messagerie['participant2_mail']+"<br>"+tab_id_messagerie['participant3_mail']+"<br>"+tab_id_messagerie['participant4_mail'];
+                document.getElementById("messagerie_info").innerHTML = titre +"<br>"+ tab_id_messagerie['participant1_mail']+"<br>"+tab_id_messagerie['participant2_mail']+"<br>"+tab_id_messagerie['participant3_mail']+"<br>"+tab_id_messagerie['participant4_mail'];
             }
             else{
-                document.getElementById("messagerie_info").innerHTML = tab_id_messagerie['participant1_mail']+"<br>"+tab_id_messagerie['participant2_mail']+"<br>"+tab_id_messagerie['participant4_mail'];
+                document.getElementById("messagerie_info").innerHTML = titre +"<br>"+tab_id_messagerie['participant1_mail']+"<br>"+tab_id_messagerie['participant2_mail']+"<br>"+tab_id_messagerie['participant4_mail'];
             }
         }
         else{
             if (tab_id_messagerie['participant3_mail'] !== null){
-                document.getElementById("messagerie_info").innerHTML = tab_id_messagerie['participant1_mail']+"<br>"+tab_id_messagerie['participant3_mail']+"<br>"+tab_id_messagerie['participant4_mail'];
+                document.getElementById("messagerie_info").innerHTML = titre +"<br>"+tab_id_messagerie['participant1_mail']+"<br>"+tab_id_messagerie['participant3_mail']+"<br>"+tab_id_messagerie['participant4_mail'];
             }
             else{
-                document.getElementById("messagerie_info").innerHTML = tab_id_messagerie['participant1_mail']+"<br>"+tab_id_messagerie['participant4_mail'];
+                document.getElementById("messagerie_info").innerHTML = titre +"<br>"+tab_id_messagerie['participant1_mail']+"<br>"+tab_id_messagerie['participant4_mail'];
             }        
         }
     } 
     else{
         if (tab_id_messagerie['participant2_mail'] !== null){
             if (tab_id_messagerie['participant3_mail'] !== null){
-                document.getElementById("messagerie_info").innerHTML = tab_id_messagerie['participant2_mail']+"<br>"+tab_id_messagerie['participant3_mail']+"<br>"+tab_id_messagerie['participant4_mail'];
+                document.getElementById("messagerie_info").innerHTML = titre +"<br>"+tab_id_messagerie['participant2_mail']+"<br>"+tab_id_messagerie['participant3_mail']+"<br>"+tab_id_messagerie['participant4_mail'];
             }
             else{
-                document.getElementById("messagerie_info").innerHTML = tab_id_messagerie['participant2_mail']+"<br>"+tab_id_messagerie['participant4_mail'];
+                document.getElementById("messagerie_info").innerHTML = titre +"<br>"+tab_id_messagerie['participant2_mail']+"<br>"+tab_id_messagerie['participant4_mail'];
             }
         }
         else{
             if (tab_id_messagerie['participant3_mail'] !== null){
-                document.getElementById("messagerie_info").innerHTML = tab_id_messagerie['participant3_mail']+"<br>"+tab_id_messagerie['participant4_mail'];
+                document.getElementById("messagerie_info").innerHTML = titre +"<br>"+tab_id_messagerie['participant3_mail']+"<br>"+tab_id_messagerie['participant4_mail'];
             }
         }
     }
@@ -102,11 +104,17 @@ function chat(){
         xhr.onreadystatechange = function() {
             if (xhr.readyState === 4 && xhr.status === 200) {
                 if (xhr.responseText !== "error"){
-                    var response = JSON.parse(xhr.responseText);     
-                    var email_sender = response[0];
+                    var response = JSON.parse(xhr.responseText); 
+                    if (response[0] !== null){
+                        call(1,response[0]);
+                    }
+                    else{
+                        call(0, response[0])
+                    }
+                    var email_sender = response[1];
                     var chatContainer = document.querySelector('.chat_box');
                     chatContainer.innerHTML = "";
-                    for (var i = 1; i < response.length; i++) {
+                    for (var i = 2; i < response.length; i++) {
                         var message = document.createElement("div");
                         message.innerHTML = response[i]['envoyeur_mail'] + "<br>" + response[i]['texte'];
                         if (response[i]['image'] !== "/")
@@ -297,13 +305,94 @@ $('#create_messagerie_form').submit(function(event) {
 });
 
 
-$(document).ready(function() {
-    var clientId = "KG6MJWEIRMCqrMCeIa1bqQ";
-    var redirectUri = "http://localhost/PROJET-WEB-MAIN/create_call.php";
-    // Gestionnaire d'événement pour le clic sur le bouton
-    $('#createCallButton').click(function() {
-      // Appeler la fonction PHP pour créer l'appel
-      var authUrl = "https://zoom.us/oauth/authorize?response_type=code&client_id=" + clientId + "&redirect_uri=" + redirectUri;
-      window.location.href = authUrl;
-    });
-  });
+function call(decision, id_call){
+    $('#createCallButton').off('click');
+    if (decision === 1){
+        document.getElementById("createCallButton").innerHTML = "Rejoindre l'appel";
+        var string = id_call['video_string']
+        $('#createCallButton').click(function(event) {
+            event.preventDefault();
+            var container = document.getElementById("video");
+            var api = null;
+        
+            var domain = "meet.jit.si";
+            var options = {
+                "roomName": string, 
+                "width": "100%",
+                "height": "100%",
+                "parentNode": container,
+            };
+            api = new JitsiMeetExternalAPI(domain, options);
+        
+        });
+    }
+    else{
+        document.getElementById("createCallButton").innerHTML = "Créer un appel";
+        $('#createCallButton').click(function(event) {
+            console.log("ici");
+            event.preventDefault();
+            var container = document.getElementById("video");
+            var api = null;
+        
+            var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+            var stringLength = 30;
+            function pickRandom() {
+                return possible[Math.floor(Math.random()*possible.length)];
+            }
+            var randomString = Array.apply(null, Array(stringLength)).map(pickRandom).join('');
+        
+            var domain = "meet.jit.si";
+            var options = {
+                "roomName": randomString, 
+                "width": "100%",
+                "height": "100%",
+                "parentNode": container,
+            };
+            api = new JitsiMeetExternalAPI(domain, options);
+
+        
+            api.addEventListener('videoConferenceJoined', () => {
+                var data = {
+                    id_call: randomString, 
+                    id_messagerie: id_messagerie_actuel,
+                }
+                $.ajax({
+                    url: 'charger_chat.php',
+                    type: 'GET',
+                    data: data,
+                    success: function(response) {
+                        console.log(response);
+                    // Traitement réussi
+                    },
+                    error: function() {
+                    // Traitement échoué
+                        console.log("Erreur");
+                    }
+                });
+            });
+
+            api.addEventListener('videoConferenceLeft', () => {
+                var data = {
+                    id_messagerie: id_messagerie_actuel,
+                }
+                $.ajax({
+                    url: 'charger_chat.php',
+                    type: 'GET',
+                    data: data,
+                    success: function(response) {
+                        console.log(response);
+                    // Traitement réussi
+                    },
+                    error: function() {
+                    // Traitement échoué
+                        console.log("Erreur");
+                    }
+                });
+                document.getElementById("video").innerHTML = "";
+
+            });
+
+
+        });
+    }
+}
