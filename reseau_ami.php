@@ -21,15 +21,16 @@ if (isset($_SESSION['email'])) {
 
 // Requête SQL pour récupérer les données du membre
 $sql = "SELECT p.nom, p.prenom, p.photo_profil, p.mail, p.description
-    FROM profil p
-    INNER JOIN amis a1 ON p.mail = a1.abonnement
-    LEFT JOIN amis a2 ON p.mail = a2.abonnement AND a2.abonne = '$utilisateur_session'
-    WHERE a2.abonne IS NULL
-    AND a1.abonne IN (
-        SELECT abonnement
-        FROM amis
+FROM profil p
+INNER JOIN amis a1 ON p.mail = a1.abonnement
+LEFT JOIN amis a2 ON p.mail = a2.abonnement AND a2.abonne = '$utilisateur_session'
+WHERE a2.abonne IS NULL
+AND a1.abonne IN (
+    SELECT abonnement
+    FROM amis
     WHERE abonne = '$utilisateur_session'
-    )";
+)
+AND p.mail != '$utilisateur_session';";
 
 $result = $connexion->query($sql);
 

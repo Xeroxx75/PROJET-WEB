@@ -1,5 +1,4 @@
-
-  /*------------------------------------------
+/*------------------------------------------
       PROFIL
   ------------------------------------------*/
   :root{
@@ -38,7 +37,6 @@
 
 #info_profil{
     width: 100%;
-    background-color: blueviolet;
     align-items: flex-start; /* Aligner les éléments en haut */
     position: relative; /* Permet de positionner les éléments enfants absolument */
 }
@@ -55,39 +53,46 @@
     bottom: 0; /* Aligner en bas */
     left: 0; /* Aligner à droite */
     margin-left: 3vw;
-    margin-bottom: 3.5vw;
+    margin-bottom: -5.5vw;
     width: 11vw;
     height: 11vw;
     border: 0.2em solid #daeaec;
     border-radius: 50%;
 }
 
-#nomProfil{
+#prenomProfil{
     margin-top: 1vw;
     font-size: 2vw;
     position: absolute;
     margin-left: 15vw;
 }
 
-#prenomProfil{
+#nomProfil{
     margin-top: 1vw;
     font-size: 2vw;
     margin-left: 30vw;
+    position: absolute;
+}
+
+#nbAbonne{
+    margin-top: 1vw;
+    font-size: 2vw;
+    margin-left: 45vw;
+    position: absolute;
+}
+
+#nbAbonnement{
+    margin-top: 1vw;
+    font-size: 2vw;
+    margin-left: 60vw;
     position: absolute;
 }
 
 #description{
-    margin-top: 1vw;
+    margin-top: 6vw;
     margin-left: 30vw;
     font-size: 2vw;
     position: absolute;
-}
-
-
-#info_profil #description{
-    margin-top: -6vw;
-    margin-left: 16vw;  
-    font-size: 1.6vw;; 
 }
 
 #info_taff{
@@ -164,4 +169,3 @@
     margin-top: 1vw;
     margin-left: 1vw;
 }
-

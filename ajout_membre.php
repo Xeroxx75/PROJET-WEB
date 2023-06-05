@@ -23,8 +23,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $chemin_xml = $_POST['chemin_xml'];
     $nom = $_POST['nom'];
     $prenom = $_POST['prenom'];
-    $abonnes = '/';
-    $abonnements = '/';
     $description = $_POST['description'];
     $lieu_travail = $_POST['lieu_travail'];
     $parcours_scolaire = $_POST['parcours_scolaire'];
@@ -63,14 +61,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } else {
             echo 'Une erreur s\'est produite lors de la sauvegarde de l\'image.';
         }
-        $sql = "INSERT INTO profil (mail, formations, projets, chemin_xml, photo_profil, image_fond, nom, prenom, abonnes, abonnements, description, lieu_travail, parcours_scolaire, est_administrateur, est_auteur, password)
-        VALUES ('$mail', '$formations', '$projets', '$chemin_xml', '$fileName_photo_profil', '$fileName_image_fond', '$nom', '$prenom', '$abonnes', '$abonnements', '$description', '$lieu_travail', '$parcours_scolaire', '$est_administrateur', '$est_auteur', '$password')";
+        $sql = "INSERT INTO profil (mail, formations, projets, chemin_xml, photo_profil, image_fond, nom, prenom,description, lieu_travail, parcours_scolaire, est_administrateur, est_auteur, password)
+        VALUES ('$mail', '$formations', '$projets', '$chemin_xml', '$fileName_photo_profil', '$fileName_image_fond', '$nom', '$prenom', '$description', '$lieu_travail', '$parcours_scolaire', '$est_administrateur', '$est_auteur', '$password')";
     }
     else
     {
         echo 'Pas d\' image de fond ou de photo de profil donc par défaut';
-        $sql = "INSERT INTO profil (mail, formations, projets, chemin_xml, photo_profil, image_fond, nom, prenom, abonnes, abonnements, description, lieu_travail, parcours_scolaire, est_administrateur, est_auteur, password)
-        VALUES ('$mail', '$formations', '$projets', '$chemin_xml', 'default_photo_profil.png', 'default_image_fond.png', '$nom', '$prenom', '$abonnes', '$abonnements', '$description', '$lieu_travail', '$parcours_scolaire', '$est_administrateur', '$est_auteur', '$password')";
+        $sql = "INSERT INTO profil (mail, formations, projets, chemin_xml, photo_profil, image_fond, nom, prenom,  description, lieu_travail, parcours_scolaire, est_administrateur, est_auteur, password)
+        VALUES ('$mail', '$formations', '$projets', '$chemin_xml', 'default_photo_profil.png', 'default_image_fond.png', '$nom', '$prenom',  '$description', '$lieu_travail', '$parcours_scolaire', '$est_administrateur', '$est_auteur', '$password')";
     }
     // Requête SQL pour insérer un membre dans la table profil
 

@@ -1,5 +1,5 @@
-  loadUserEvents();
 
+document.ready(loadUserEvents());
 
 function loadUserEvents() {
   var xhr = new XMLHttpRequest();
